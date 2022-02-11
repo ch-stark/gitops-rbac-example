@@ -27,22 +27,11 @@ A: Policies:
 
 
 
-
-
-
-
-
-
 B: openshift-setup
 
 1. Create users
 2. Create groups and map-users (#UsersGroups:  SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp
-#Users: 
-#clusteradminuser
-#devuser2
-#devuser1
-#adminuser
-#adminuser2)
+#Users: clusteradminuser, devuser3, devuser2, devuser1, adminuser, adminuser2)
 
 C: Setup Roles
 
