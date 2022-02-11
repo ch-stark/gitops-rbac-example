@@ -10,6 +10,29 @@ A: Policies:
 2. Configure-ArgoCD
 3. Setup-Groups (SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp)
 
+# This Policy considers the following example scenario
+#   Two different applications  X and Y are running on the Cluster.
+#   Application X is deployed in namespace dev1
+#   Application Y is deployed in namespace dev2
+#
+# This Policy Configures the following rbac model for the above scenario
+#   UsersGroups:  SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp
+#   Rolebindings:
+#       SreAdminGrp has cluster-admin access to the Cluster
+#       AppX-AdminGrp has admin access to the namespace dev1 where AppX is deployed
+#       AppX-ViewGrp has view access to the namespace dev1 where AppX is deployed
+#       AppY-AdminGrp has admin access to the namespace dev2 where AppY is deployed
+#       AppY-ViewGrp has view access to the namespace dev2 where AppY is deployed
+
+
+
+
+
+
+
+
+
+
 B: openshift-setup
 
 1. Create users
