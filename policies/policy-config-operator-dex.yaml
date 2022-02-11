@@ -88,7 +88,7 @@ spec:
                     route:
                       enabled: false
                   rbac:
-                    policy: g, system:cluster-admins, role:admin
+                    policy: g, system:cluster-admins, role:admin, role:SreAdminGrp
                     scopes: '[groups]'
                   redis:
                     resources:
