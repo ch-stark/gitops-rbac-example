@@ -51,7 +51,7 @@ spec:
     policies:
     - p, proj:my-project:read-only, applications, get, my-project/*, allow
     groups:
-    - my-oidc-group
+    - AppY-ViewGrp
 
   # A role which provides sync privileges to only the guestbook-dev application, e.g. to provide
   # sync privileges to a CI system
