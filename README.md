@@ -40,6 +40,11 @@ application-sets
 2. dev1
 3. dev2
 
+acm-gitops
+
+gitopscluster (default, dev1, dev2)
+bindings (default, dev1, dev2)
+
 
 rhacm-rbac
 
