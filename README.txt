@@ -7,8 +7,9 @@ Goal of this repo is to show Configuration-Options for RBAC
 A: Policies:
 
 1. Install-Operator
-2. Configure-ArgoCD
+2. Configure-ArgoCD (rbac: policy: g, system:cluster-admins, role:admin, role:SreAdminGrp)
 3. Setup-Groups (SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp)
+
 
 # This Policy considers the following example scenario
 #   Two different applications  X and Y are running on the Cluster.
