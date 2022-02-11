@@ -1,13 +1,13 @@
 kind: Project
 apiVersion: project.openshift.io/v1
 metadata:
-  name: bouvier
+  name: dev1
   labels:
-    house: bouvier
+    team: dev1
 ---
 kind: Project
 apiVersion: project.openshift.io/v1
 metadata:
-  name: simpson
+  name: dev2
   labels:
-    house: simpson
+    team: dev2
