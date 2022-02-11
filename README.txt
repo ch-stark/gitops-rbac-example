@@ -21,7 +21,7 @@ A: Policies:
 #   Application Y is deployed in namespace dev2
 #
 # This Policy Configures the following rbac model for the above scenario
-#   UsersGroups:  SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp
+#   UsersGroups:  SreAdminGrp, Developers, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp
 #   Rolebindings:
 #       SreAdminGrp has cluster-admin access to the Cluster
 #       AppX-AdminGrp has admin access to the namespace dev1 where AppX is deployed
@@ -49,6 +49,39 @@ SreAdminGrp group has cluster-admin on OpenShift
 
 The AppX-AdminGrp group has edit on the dev1,dev2 namespace on OpenShift
 The AppY-AdminGrp group has edit on the dev2 namespace on OpenShift
+
+
+
+
+ArgoCD Configurations
+
+ArgoCD is integrated with the OpenShift oAuth
+RBAC Policy
+The admins OpenShift group is set up as ArgoCD admins
+The developer OpenShift group is set up as ArgoCD users
+ArgoCD admins can see and sync all ArgoCD Applications
+The cluster-config ArgoCD project has all "cluster wide" configurations
+Can only be seen/synced by ArgoCD admins
+The pricelist ArgoCD project has all appliaction components to run the Pricelist application
+Can be seen/synced by ArgoCD admins or ArgoCD users
+Autosync is turned on
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 B: openshift-setup
