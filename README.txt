@@ -1,9 +1,11 @@
-Goal of this repo is to show Configuration-Options for RBAC
+Goal of this repo is to show Configuration-Options for RBAC when integration Gitops-Operator using Applicationsets with RHACM.
 
 a certain user should have all permissions
 a certain user should have readpermissions on one project
 a certain user should have admin-permissions on one project
 a certain user should have admin-permissions on one project
+
+currently we use all Clusters and don't configure different-clustersets
 
 
 # gitops-rbac-example
