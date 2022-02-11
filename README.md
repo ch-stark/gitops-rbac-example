@@ -20,10 +20,22 @@ openshift-setup
 #adminuser
 #adminuser2
 
-
 namespaces:
 openshift-gitops
 dev1 (AppX-AdminGrp, AppX-ViewGrp)
 dev2 (AppY-AdminGrp, AppY-ViewGrp)
+
+
+
+argo-projects
+
+1. default-project
+2. dev1 project
+. dev2 project
+
+
+
+
+
 
 
