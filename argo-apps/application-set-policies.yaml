@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+  metadata:
+    name: policies
+    namespace: openshift-gitops
+spec:
+  generators:
+  - clusterDecisionResource:
+    configMapRef: acm-placement
+    labelSelector:
+      matchLabels:
+    cluster.open-cluster-management.io/placement: placement1
+    requeueAfterSeconds: 180
+    template:
+    metadata:
+      name: policies     
+    spec:
+    destination:
+    namespace: policies
+    server: '{{`{{server}}`}}' 
+    project: default
+    source:
+         path: deploy
+     repoURL: https://github.com/ch-stark/application-set-deploy-policies.git
+     targetRevision: main
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
