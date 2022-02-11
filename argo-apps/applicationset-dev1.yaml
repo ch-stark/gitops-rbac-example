@@ -6,7 +6,7 @@ metadata:
 spec:
   generators:
     - clusterDecisionResource:
-        configMapRef: acm-placement
+        configMapRef: dev1
         #name: local-cluster
         requeueAfterSeconds: 30
         labelSelector:
@@ -24,7 +24,7 @@ spec:
         path: nginx
       destination:
         server: '{{server}}'
-        namespace: nginx-sample
+        namespace: nginx-dev1
       syncPolicy:
         automated:
           prune: true

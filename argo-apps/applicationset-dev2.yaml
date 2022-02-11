@@ -2,11 +2,11 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: nginx-sample
-  namespace: dev-2
+  namespace: dev2
 spec:
   generators:
     - clusterDecisionResource:
-        configMapRef: acm-placement
+        configMapRef: dev2
         #name: local-cluster
         requeueAfterSeconds: 30
         labelSelector:
@@ -17,14 +17,14 @@ spec:
     metadata:
       name: 'nginx-{{name}}'
     spec:
-      project: "default"
+      project: "dev2"
       source:
         repoURL: https://github.com/jnpacker/application-samples/
         targetRevision: main
         path: nginx
       destination:
         server: '{{server}}'
-        namespace: nginx-sample
+        namespace: nginx-dev2
       syncPolicy:
         automated:
           prune: true
