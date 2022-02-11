@@ -9,19 +9,19 @@ Goal of this repo is to show Configuration-Options for RBAC when integration Git
 a certain user should have all permissions
 a certain user should have readpermissions on one project
 a certain user should have admin-permissions on one project
-a certain user should have admin-permissions on one project
+a certain user should have admin-permissions on all projects but not cluster-admin-rights
 
-currently we use all Clusters and don't configure different-clustersets
+currently we use all Clusters and don't configure Different-Clustersets
 
 
 # gitops-rbac-example
 
 A: Policies (later we will convert more objects into Policies)
 
-1. Install-Operator
+1. Install-Gitops-Operator
 2. Configure-ArgoCD (rbac: policy: g, system:cluster-admins, role:admin, role:SreAdminGrp)
    https://github.com/ch-stark/gitops-rbac-example/blob/main/policies/policy-config-operator-dex.yaml#L91
-3. Setup-Groups (SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp)
+3. Setup-Groups (SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp, Developers)
 
 # This Policy considers the following example scenario
 #   Two different applications  X and Y are running on the Cluster.
