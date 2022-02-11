@@ -31,12 +31,31 @@ A: Policies:
 
 
 
+HTPassword Authentication
+users: #Users: clusteradminuser, devuser1, devuser2, devuser3, adminuser, adminuser2)
+groups: (#UsersGroups: SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp)
+
+SreAdminGrp: ClusterAdmin
+admins
+AppX-AdminGrp is part of admins
+AppY-AdminGrp is only admin for namespace dev2
+developer
+ocp-developer is part of developer
+viewer
+apps-viewer is part of viewer
+
+ClusterRole/Role Bindings setup
+SreAdminGrp group has cluster-admin on OpenShift
+
+The AppX-AdminGrp group has edit on the dev1,dev2 namespace on OpenShift
+The AppY-AdminGrp group has edit on the dev2 namespace on OpenShift
+
 
 B: openshift-setup
 
 1. Create users
 2. Create groups and map-users (#UsersGroups:  SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp
-#Users: clusteradminuser, devuser3, devuser2, devuser1, adminuser, adminuser2)
+
 
 C: Setup Roles
 
