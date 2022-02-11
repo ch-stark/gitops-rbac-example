@@ -52,7 +52,12 @@ spec:
     - p, proj:dev1-project:read-only, applications, get, dev1-project/*, allow
     groups:
     - AppX-ViewGrp
-
+  - description: Developers get view and sync
+    name: developer
+    policies:
+    - p, role:developer, applications, get, dev1-project/*, allow
+    - p, role:developer, applications, sync, dev1-project/*, allow
+    - p, role:developer, projects, get, dev1-project, allow
   # A role which provides sync privileges to only the guestbook-dev application, e.g. to provide
   # sync privileges to a CI system
   - name: ci-role
