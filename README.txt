@@ -10,12 +10,12 @@ currently we use all Clusters and don't configure different-clustersets
 
 # gitops-rbac-example
 
-A: Policies:
+A: Policies (later we will convert more objects into Policies)
 
 1. Install-Operator
 2. Configure-ArgoCD (rbac: policy: g, system:cluster-admins, role:admin, role:SreAdminGrp)
+   https://github.com/ch-stark/gitops-rbac-example/blob/main/policies/policy-config-operator-dex.yaml#L91
 3. Setup-Groups (SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp)
-
 
 # This Policy considers the following example scenario
 #   Two different applications  X and Y are running on the Cluster.
@@ -26,16 +26,16 @@ A: Policies:
 #   UsersGroups:  SreAdminGrp, Developers, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp
 #   Rolebindings:
 #       SreAdminGrp has cluster-admin access to the Cluster
+#       Developers is admin but not-cluster-admin    
 #       AppX-AdminGrp has admin access to the namespace dev1 where AppX is deployed
 #       AppX-ViewGrp has view access to the namespace dev1 where AppX is deployed
 #       AppY-AdminGrp has admin access to the namespace dev2 where AppY is deployed
 #       AppY-ViewGrp has view access to the namespace dev2 where AppY is deployed
 
 
-
 HTPassword Authentication
 users: #Users: clusteradminuser, devuser1, devuser2, devuser3, adminuser, adminuser2)
-groups: (#UsersGroups: SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp)
+groups: (#UsersGroups: SreAdminGrp, Developers, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp)
 
 SreAdminGrp: ClusterAdmin
 admins
@@ -53,8 +53,6 @@ The AppX-AdminGrp group has edit on the dev1,dev2 namespace on OpenShift
 The AppY-AdminGrp group has edit on the dev2 namespace on OpenShift
 
 
-
-
 ArgoCD Configurations
 
 ArgoCD is integrated with the OpenShift oAuth
@@ -65,6 +63,7 @@ ArgoCD admins can see and sync all ArgoCD Applications
 The cluster-config ArgoCD project has all "cluster wide" configurations
 Can only be seen/synced by ArgoCD admins
 The pricelist ArgoCD project has all appliaction components to run the Pricelist application
+
 Can be seen/synced by ArgoCD admins or ArgoCD users
 Autosync is turned on
 
