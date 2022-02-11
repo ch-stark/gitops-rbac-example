@@ -1,0 +1,19 @@
+OpenShift RBAC
+
+ cat htpasswd 
+clusteradminuser:$2y$05$ribfkZn9OAYHNnDfRKWbZelBSQKiQTViLwZ7SXku2AD1.YIyVVWFG
+devuser2:$2y$05$Q3E92veTplcIIPomUGYAR.pMyBtTejxb3io9pHgqq70.PROK0t8By
+devuser1:$2y$05$eOsC0SFm2oeN765SngGU1.42cCdN5.UFbwb2aadXM/hcsLmpuXWWW
+adminuser:$2y$05$jW5FbU30suIF9vY6mTJ9CepJcmkTohTBaCf9ucueXNHxwDrRbEDyW
+adminuser2:$2y$05$286U6mMXqXeGWy1KLsclceEHdupxRih9OWB0bBW83Z7myppK5XRWC
+devuser3:$2y$05$jcTNxhTxMgVdfKK11OxmCONbPuFY8A3Nb9aHi6RLQ3abf8vXKFr7C
+[cstark@cstark ~]$ oc create secret generic htpass-secret --from-file=htpasswd  -n openshift-config  --dry-run=client -oyaml
+apiVersion: v1
+data:
+  htpasswd: Y2x1c3RlcmFkbWludXNlcjokMnkkMDUkcmliZmtabjlPQVlITm5EZlJLV2JaZWxCU1FLaVFUVmlMd1o3U1hrdTJBRDEuWUl5VlZXRkcKZGV2dXNlcjI6JDJ5JDA1JFEzRTkydmVUcGxjSUlQb21VR1lBUi5wTXlCdFRlanhiM2lvOXBIZ3FxNzAuUFJPSzB0OEJ5CmRldnVzZXIxOiQyeSQwNSRlT3NDMFNGbTJvZU43NjVTbmdHVTEuNDJjQ2RONS5VRmJ3YjJhYWRYTS9oY3NMbXB1WFdXVwphZG1pbnVzZXI6JDJ5JDA1JGpXNUZiVTMwc3VJRjl2WTZtVEo5Q2VwSmNta1RvaFRCYUNmOXVjdWVYTkh4d0RyUmJFRHlXCmFkbWludXNlcjI6JDJ5JDA1JDI4NlU2bU1YcVhlR1d5MUtMc2NsY2VFSGR1cHhSaWg5T1dCMGJCVzgzWjdteXBwSzVYUldDCmRldnVzZXIzOiQyeSQwNSRqY1ROeGhUeE1nVmRmS0sxMU94bUNPTmJQdUZZOEEzTmI5YUhpNlJMUTNhYmY4dlhLRnI3Qwo=
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: htpass-secret
+  namespace: openshift-config
+[cstark@cstark ~]$ 
