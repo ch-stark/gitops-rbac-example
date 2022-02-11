@@ -49,7 +49,7 @@ spec:
   - name: read-only
     description: Read-only privileges to my-project
     policies:
-    - p, proj:my-project:read-only, applications, get, my-project/*, allow
+    - p, proj:dev1-project:read-only, applications, get, dev1-project/*, allow
     groups:
     - AppX-ViewGrp
 
@@ -58,5 +58,5 @@ spec:
   - name: ci-role
     description: Sync privileges for guestbook-dev
     policies:
-    - p, proj:my-project:ci-role, applications, sync, my-project/guestbook-dev, allow
+    - p, proj:dev1-project:ci-role, applications, sync, dev1-project/guestbook-dev, allow
 
