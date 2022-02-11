@@ -139,7 +139,7 @@ spec:
                 apiVersion: rbac.authorization.k8s.io/v1
                 metadata:
                   name: AppY-Admin-Binding
-                  namespace: project-y
+                  namespace: dev1
                 subjects:
                   - kind: Group
                     apiGroup: rbac.authorization.k8s.io
@@ -154,7 +154,7 @@ spec:
                 apiVersion: rbac.authorization.k8s.io/v1
                 metadata:
                   name: AppY-View-Binding
-                  namespace: project-y
+                  namespace: dev2
                 subjects:
                   - kind: Group
                     apiGroup: rbac.authorization.k8s.io
