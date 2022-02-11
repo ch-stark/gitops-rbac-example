@@ -16,6 +16,13 @@ users:
 apiVersion: user.openshift.io/v1
 kind: Group
 metadata:
+  name: Developers
+users:
+- devuser1
+---
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
   name: AppX-AdminGrp
 users:
 - adminuser
