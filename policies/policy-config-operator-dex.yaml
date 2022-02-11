@@ -1,0 +1,192 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-config-argocd-dex
+  namespace: policies
+  annotations:
+     policy.open-cluster-management.io/controls: Gitops-Operator
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-config-argocd
+        spec:
+          remediationAction: inform
+          severity: low
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: argoproj.io/v1alpha1
+                kind: ArgoCD
+                metadata:
+                  name: openshift-gitops
+                  namespace: openshift-gitops
+                spec:
+                  applicationSet:
+                    resources:
+                      limits:
+                        cpu: '2'
+                        memory: 1Gi
+                      requests:
+                        cpu: 250m
+                        memory: 512Mi
+                  controller:
+                    processors: {}
+                    resources:
+                      limits:
+                        cpu: '2'
+                        memory: 2Gi
+                      requests:
+                        cpu: 250m
+                        memory: 1Gi
+                    sharding: {}
+                  dex:
+                    openShiftOAuth: true
+                    resources:
+                      limits:
+                        cpu: 500m
+                        memory: 256Mi
+                      requests:
+                        cpu: 250m
+                        memory: 128Mi
+                  grafana:
+                    enabled: false
+                    ingress:
+                      enabled: false
+                    resources:
+                      limits:
+                        cpu: 500m
+                        memory: 256Mi
+                      requests:
+                        cpu: 250m
+                        memory: 128Mi
+                    route:
+                      enabled: false
+                  ha:
+                    enabled: false
+                    resources:
+                      limits:
+                        cpu: 500m
+                        memory: 256Mi
+                      requests:
+                        cpu: 250m
+                        memory: 128Mi
+                  initialSSHKnownHosts: {}
+                  prometheus:
+                    enabled: false
+                    ingress:
+                      enabled: false
+                    route:
+                      enabled: false
+                  rbac:
+                    policy: g, system:cluster-admins, role:admin
+                    scopes: '[groups]'
+                  redis:
+                    resources:
+                      limits:
+                        cpu: 500m
+                        memory: 256Mi
+                      requests:
+                        cpu: 250m
+                        memory: 128Mi
+                  repo:
+                    resources:
+                      limits:
+                        cpu: '1'
+                        memory: 1Gi
+                      requests:
+                        cpu: 250m
+                        memory: 256Mi
+                  resourceExclusions: |
+                    - apiGroups:
+                      - tekton.dev
+                      clusters:
+                      - '*'
+                      kinds:
+                      - TaskRun
+                      - PipelineRun
+                  server:
+                    autoscale:
+                      enabled: false
+                    grpc:
+                      ingress:
+                        enabled: false
+                    ingress:
+                      enabled: false
+                    resources:
+                      limits:
+                        cpu: 500m
+                        memory: 256Mi
+                      requests:
+                        cpu: 125m
+                        memory: 128Mi
+                    route:
+                      enabled: true
+                    service:
+                      type: ''
+                  tls:
+                    ca: {}
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-config-argocd-cm
+        spec:
+          remediationAction: inform
+          severity: low
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                data:
+                  policy.csv: g, system:cluster-admins, role:admin
+                  policy.default: role:admin
+                  scopes: '[groups]'
+                kind: ConfigMap
+                metadata:
+                  name: argocd-rbac-cm
+                  namespace: openshift-gitops
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-config-argocd-dex
+  namespace: policies
+placementRef:
+  name: placement-policy-config-argocd-dex
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+  - name: policy-config-argocd-dex
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placement-policy-config-argocd-dex
+  namespace: policies
+spec:
+  clusterConditions:
+    - status: 'True'
+      type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - key: environment
+        operator: In
+        values:
+          - "dev"
