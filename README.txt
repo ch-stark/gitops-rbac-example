@@ -1,3 +1,9 @@
+Some links this will be based on:
+
+1. https://github.com/christianh814/openshift-cluster-config
+2. https://rcarrata.com/
+
+
 Goal of this repo is to show Configuration-Options for RBAC when integration Gitops-Operator using Applicationsets with RHACM.
 
 a certain user should have all permissions
