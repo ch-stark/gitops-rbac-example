@@ -10,7 +10,9 @@ kind: Group
 metadata:
   name: Developers
 users:
-- devuser1
+- dev1
+- dev2
+- dev3
 ---
 apiVersion: user.openshift.io/v1
 kind: Group
@@ -31,26 +33,28 @@ kind: Group
 metadata:
   name: AppX-ViewGrp
 users:
-- devuser2
+- viewer1
 ---
 apiVersion: user.openshift.io/v1
 kind: Group
 metadata:
   name: AppY-ViewGrp
 users:
-- devuser3
+- viewer2
 ---
 apiVersion: user.openshift.io/v1
 kind: Group
 metadata:
   name: Manager
 users:
-- devuser3
+- manager1
+- manager2
+- manager3
 ---
 apiVersion: user.openshift.io/v1
 kind: Group
 metadata:
   name: QA
 users:
-- devuser3
+- qua
 

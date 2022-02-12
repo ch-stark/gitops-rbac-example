@@ -18,7 +18,7 @@ spec:
     destination:
     namespace: policies
     server: '{{`{{server}}`}}' 
-    project: default
+    project: policies-project
     source:
          path: deploy
      repoURL: https://github.com/ch-stark/application-set-deploy-policies.git
