@@ -58,10 +58,4 @@ spec:
     - p, role:developer, applications, get, dev1-project/*, allow
     - p, role:developer, applications, sync, dev1-project/*, allow
     - p, role:developer, projects, get, dev1-project, allow
-  # A role which provides sync privileges to only the guestbook-dev application, e.g. to provide
-  # sync privileges to a CI system
-  - name: ci-role
-    description: Sync privileges for guestbook-dev
-    policies:
-    - p, proj:dev1-project:ci-role, applications, sync, dev1-project/guestbook-dev, allow
 

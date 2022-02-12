@@ -1,0 +1,168 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: read-secrets-global
+subjects:
+- kind: Group
+  name: manager # Name is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: example-rolebinding
+  namespace: mynamespace
+subjects:
+- kind: User
+  name: example-user
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: example-role
+  apiGroup: rbac.authorization.k8s.io
+---   
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: example-rolebinding
+  namespace: mynamespace
+subjects:
+- kind: User
+  name: example-user
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: example-role
+  apiGroup: rbac.authorization.k8s.io
+---    
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: example-rolebinding
+  namespace: mynamespace
+subjects:
+- kind: User
+  name: example-user
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: example-role
+  apiGroup: rbac.authorization.k8s.io
+---    
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: example-rolebinding
+  namespace: mynamespace
+subjects:
+- kind: User
+  name: example-user
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: example-role
+  apiGroup: rbac.authorization.k8s.io
+---    
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: example-rolebinding
+  namespace: mynamespace
+subjects:
+- kind: User
+  name: example-user
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: example-role
+  apiGroup: rbac.authorization.k8s.io
+---    
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: example-rolebinding
+  namespace: mynamespace
+subjects:
+- kind: Group
+  name: example-group
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: example-role
+  apiGroup: rbac.authorization.k8s.io
+---     
+---
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows "jane" to read pods in the "default" namespace.
+# You need to already have a Role named "pod-reader" in that namespace.
+kind: RoleBinding
+metadata:
+  name: argo-ns-full
+  namespace: dev1
+subjects:
+# You can specify more than one "subject"
+- kind: Group
+  name: AppX-AdminGrp # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: Role #this must be Role or ClusterRole
+  name: argo-ns-full # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows "jane" to read pods in the "default" namespace.
+# You need to already have a Role named "pod-reader" in that namespace.
+kind: RoleBinding
+metadata:
+  name: argo-ns-full
+  namespace: dev2
+subjects:
+# You can specify more than one "subject"
+- kind: Group
+  name: AppY-AdminGrp # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: Role #this must be Role or ClusterRole
+  name: argo-ns-full # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  creationTimestamp: null
+  name: dev1developer
+  namespace: dev1
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: developer
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  creationTimestamp: null
+  name: dev2developer
+  namespace: dev2
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: developer

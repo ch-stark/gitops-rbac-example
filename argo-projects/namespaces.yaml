@@ -11,3 +11,24 @@ metadata:
   name: dev2
   labels:
     team: dev2
+---
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: prod
+  labels:
+    team: prod    
+---
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: qa
+  labels:
+    team: prod   
+---
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: policies
+  labels:
+    team: policies       
