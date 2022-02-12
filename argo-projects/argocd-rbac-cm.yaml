@@ -18,6 +18,19 @@ data:
     p, SreAdminGrp, applications, sync, */*, allow
     # Grant all members of 'my-org:team-beta' admins
     g, SreAdminGrp, role:admin
+    p, role:argocd-admin, clusters, *, *, allow
+    p, role:argocd-admin, projects, *, *, allow
+    p, role:argocd-admin, applications, *, */*, allow
+    p, role:argocd-admin, repositories, *, *, allow
+    p, role:argocd-admin, certificates, *, *, allow
+    p, role:argocd-admin, accounts, *, *, allow
+    p, role:argocd-admin, gpgkeys, *, *, allow
+    g, SreAdminGrp, role:argocd-admin
+    p, role:argocd-readonly, applications, get, *, allow
+    p, role:argocd-readonly, projects, get, *, allow
+    p, role:argocd-readonly, clusters, get, *, allow
+    p, role:argocd-readonly, repositories, get, *, allow
+    g, Manager, role:argocd-readonly
   # policy.default is the name of the default role which Argo CD will falls back to, when
   # authorizing API requests (optional). If omitted or empty, users may be still be able to login,
   # but will see no apps, projects, etc...
