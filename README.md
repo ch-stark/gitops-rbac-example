@@ -21,11 +21,14 @@ todo: Integration of several other features.
 `external-secrets`,
 `integrity-shield`,
 `groupsync-operator`,
-`policy-operator`,
-`monitoring`
+`policy-generator`,
+`monitoring`,
+`argocd-notifications`
+`
  `
 
 ....
+
 currently we use all Clusters and don't configure Specific-Clustersets
 Later some Applicationsets will be extended to target several clusters.
 Some Applications like Policies can only be generated on the Hub-Cluster
