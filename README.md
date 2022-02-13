@@ -21,7 +21,9 @@ todo: Integration of several other features.
 `external-secrets`,
 `integrity-shield`,
 `groupsync-operator`,
-`policy-operator`
+`policy-operator`,
+`monitoring`
+ `
 
 ....
 currently we use all Clusters and don't configure Specific-Clustersets
