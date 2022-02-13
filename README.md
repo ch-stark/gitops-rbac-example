@@ -10,6 +10,7 @@ usecases:
 * it should show the diffent options regarding RBAC-Configuration
 * a certain user should only see namespaces in a certain ClusterSet
 * we will deploy 4 Applications. One for Cluster-Admin-Tasks and bootstrapping, one for Policies and 2 for Apps
+* deployment of Helm-Charts
 .....
 
 
@@ -34,8 +35,11 @@ Some Applications like Policies can only be generated on the Hub-Cluster
 2. Security-Features we get with ArgoCD (https://rcarrata.com/openshift/secure-argo-supply-chain/)
 3. https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/applications/index
 4. https://github.com/stolostron/policy-collection/issues/217
+5. https://github.com/tosin2013/acm-multi-cluster-argocd-dashboard
+
 
 ### Installation (a tutorial will be provided)
+
 
 A: Policies (later we will convert more objects into Policies using PolicyGenerator)
 
@@ -64,7 +68,7 @@ E: acm-gitops
 
 gitopscluster:
 
-1: default namespace: openshift-gitops
+1. default namespace: openshift-gitops
 2. dev1  namespace: dev1
 3. dev2  namespace: dev2
 4. policies namespace: policies
@@ -85,3 +89,5 @@ F: application-sets
 
 
 Placements
+
+So far we just place all on Hub-Cluster, will be extended
