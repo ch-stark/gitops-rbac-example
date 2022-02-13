@@ -9,7 +9,7 @@ usecases:
 * a certain user should have admin-permissions on all projects but not cluster-admin-rights
 * it should show the diffent options regarding RBAC-Configuration
 * a certain user should only see namespaces in a certain ClusterSet
-* we will deploy 4 Applications. One for Cluster-Admin-Tasks, one for Policies and 2 for Apps
+* we will deploy 4 Applications. One for Cluster-Admin-Tasks and bootstrapping, one for Policies and 2 for Apps
 .....
 
 
@@ -19,7 +19,8 @@ todo:
 `namespace-operator`,
 `external-secrets`,
 `integrity-shield`,
-`groupsync-operator`
+`groupsync-operator`,
+`policy-operator`
 
 ....
 currently we use all Clusters and don't configure Specific-Clustersets
