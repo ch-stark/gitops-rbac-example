@@ -1,10 +1,3 @@
-Some links this will be based on:
-
-1. https://github.com/christianh814/openshift-cluster-config
-2. https://rcarrata.com/
-3. Security-Features we get with ArgoCD (https://rcarrata.com/openshift/secure-argo-supply-chain/)
-4. IntegrityShield Integration (https://github.com/stolostron/integrity-shield)
-
 
 Goal of this repo is to show Configuration-Options for RBAC when integration Gitops-Operator using Applicationsets with RHACM.
 
@@ -14,6 +7,17 @@ a certain user should have admin-permissions on one project
 a certain user should have admin-permissions on all projects but not cluster-admin-rights
 
 currently we use all Clusters and don't configure Different-Clustersets
+
+
+
+
+Some links this will be based on:
+
+1. https://github.com/christianh814/openshift-cluster-config
+2. https://rcarrata.com/
+3. Security-Features we get with ArgoCD (https://rcarrata.com/openshift/secure-argo-supply-chain/)
+4. IntegrityShield Integration (https://github.com/stolostron/integrity-shield)
+
 
 
 # gitops-rbac-example
