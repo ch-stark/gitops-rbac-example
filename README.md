@@ -18,7 +18,7 @@ todo: Integration of several other features.
 
 `gatekeeper`,
 `namespace-operator`,
-`external-secrets`,
+`external-secrets/vault`,
 `integrity-shield`,
 `groupsync-operator`,
 `policy-generator`,
@@ -41,7 +41,7 @@ Some Applications like Policies can only be generated on the Hub-Cluster
 3. https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/applications/index
 4. https://github.com/stolostron/policy-collection/issues/217
 5. https://github.com/tosin2013/acm-multi-cluster-argocd-dashboard
-
+6. https://github.com/joatmon08/vault-argocd
 
 ### Installation (a tutorial will be provided)
 
