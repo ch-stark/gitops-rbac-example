@@ -4,7 +4,7 @@
 SECRET=htpass-secret-xxx
 PASSWORD=$RANDOM%
 
-echo "password" $RANDOM%
+echo $PASSWORD
 
 
 htpasswd -c -b -B htpasswd rootadmin ${PASSWORD}
