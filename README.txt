@@ -3,28 +3,31 @@
 
 usecases:
 
-* a certain user should have all permissions
-* a certain user should have readpermissions on one project
+* a certain user should have all permissions for all Applications
+* a certain user should have readpermissions on one project/Application
 * a certain user should have admin-permissions on one project
 * a certain user should have admin-permissions on all projects but not cluster-admin-rights
+.....
+
 
 ....
-currently we use all Clusters and don't configure Different-Clustersets
+currently we use all Clusters and don't configure Specific-Clustersets
 Later some Applicationsets will be extended to target several clusters.
+Some Applications like Policies can only be generated on the Hub-Cluster
 
 
-#### Some links this tutual will be based on:
+#### Some links this tuturial will be based on:
 
 1. https://github.com/christianh814/openshift-cluster-config
-2. https://rcarrata.com/
-3. Security-Features we get with ArgoCD (https://rcarrata.com/openshift/secure-argo-supply-chain/)
-4. IntegrityShield Integration (https://github.com/stolostron/integrity-shield)
-
+2. Security-Features we get with ArgoCD (https://rcarrata.com/openshift/secure-argo-supply-chain/)
+3. IntegrityShield Integration (https://github.com/stolostron/integrity-shield)
+4. Integration with GroupSync-Operator
 
 
 ### Installation (a tutorial will be provided)
 
 A: Policies (later we will convert more objects into Policies using PolicyGenerator)
+
 1. Install-Gitops-Operator
 2. Configure-ArgoCD (rbac: policy: g, system:cluster-admins, role:admin, role:SreAdminGrp)
    https://github.com/ch-stark/gitops-rbac-example/blob/main/policies/policy-config-operator-dex.yaml#L91
