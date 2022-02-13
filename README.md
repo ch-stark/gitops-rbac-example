@@ -9,16 +9,17 @@ usecases:
 * a certain user should have admin-permissions on all projects but not cluster-admin-rights
 * it should show the diffent options regarding RBAC-Configuration
 * a certain user should only see namespaces in a certain ClusterSet
+* we will deploy 4 Applications. One for Cluster-Admin-Tasks, one for Policies and 2 for Apps
 .....
 
 
 todo:
 
-gatekeeper-integration,
-namespace-operator
-external-secrets
-integrity-shield
-groupsync-operator
+`gatekeeper-integration`,
+`namespace-operator`,
+`external-secrets`,
+`integrity-shield`,
+`groupsync-operator`
 
 ....
 currently we use all Clusters and don't configure Specific-Clustersets
@@ -30,7 +31,8 @@ Some Applications like Policies can only be generated on the Hub-Cluster
 
 1. https://github.com/christianh814/openshift-cluster-config
 2. Security-Features we get with ArgoCD (https://rcarrata.com/openshift/secure-argo-supply-chain/)
-
+3. https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/applications/index
+4. https://github.com/stolostron/policy-collection/issues/217
 
 ### Installation (a tutorial will be provided)
 
@@ -54,17 +56,20 @@ C: argo-projects
 2. dev1 project   namespace: dev1
 3. dev2 project   namespace: dev2
 4. policies project namespace: policies
+5. ArgoCD-Configuration ConfigMap and ConfigMapRBAC
 
 
 E: acm-gitops
 
-gitopscluster 
+gitopscluster:
+
 1: default namespace: openshift-gitops
 2. dev1  namespace: dev1
 3. dev2  namespace: dev2
 4. policies namespace: policies
 
-bindings 
+bindings:
+
 1. default  namespace: openshift-gitops
 2. dev1  namespace: dev1
 3. dev2  namespace: dev2
@@ -78,3 +83,4 @@ F: application-sets
 4. policies references policies-appproject namespace: policies
 
 
+Placements
