@@ -13,9 +13,9 @@ usecases:
 .....
 
 
-todo:
+todo: Integration of several other features.
 
-`gatekeeper-integration`,
+`gatekeeper`,
 `namespace-operator`,
 `external-secrets`,
 `integrity-shield`,
