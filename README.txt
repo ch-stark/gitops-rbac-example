@@ -3,12 +3,13 @@
 
 usecases:
 
-* a certain user should have all permissions for all Applications
+* a certain user should have all permissions for all Applications and Cluster-Admin-Tasks
 * a certain user should have readpermissions on one project/Application
 * a certain user should have admin-permissions on one project
 * a certain user should have admin-permissions on all projects but not cluster-admin-rights
+* it should show the diffent options regarding RBAC-Configuration
+* a certain user should only see namespaces in a certain ClusterSet
 .....
-
 
 ....
 currently we use all Clusters and don't configure Specific-Clustersets
