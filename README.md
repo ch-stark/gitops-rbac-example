@@ -11,6 +11,15 @@ usecases:
 * a certain user should only see namespaces in a certain ClusterSet
 .....
 
+
+todo:
+
+gatekeeper-integration,
+namespace-operator
+external-secrets
+integrity-shield
+groupsync-operator
+
 ....
 currently we use all Clusters and don't configure Specific-Clustersets
 Later some Applicationsets will be extended to target several clusters.
@@ -21,8 +30,6 @@ Some Applications like Policies can only be generated on the Hub-Cluster
 
 1. https://github.com/christianh814/openshift-cluster-config
 2. Security-Features we get with ArgoCD (https://rcarrata.com/openshift/secure-argo-supply-chain/)
-3. IntegrityShield Integration (https://github.com/stolostron/integrity-shield)
-4. Integration with GroupSync-Operator
 
 
 ### Installation (a tutorial will be provided)
