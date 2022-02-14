@@ -1,8 +1,8 @@
 apiVersion: cluster.open-cluster-management.io/v1alpha1
 kind: Placement
 metadata:
-  name: dev1
-  namespace: dev1
+  name: all-openshift-clusters
+  namespace: policies
 spec:
   predicates:
   - requiredClusterSelector:
