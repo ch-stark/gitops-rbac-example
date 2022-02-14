@@ -7,7 +7,6 @@ spec:
   generators:
     - clusterDecisionResource:
         configMapRef: dev2
-        #name: local-cluster
         requeueAfterSeconds: 30
         labelSelector:
           matchLabels:              # OPTIONAL
@@ -15,7 +14,7 @@ spec:
   template: 
     # This is a template Argo CD Application, but with support for parameter substitution.
     metadata:
-      name: 'nginx-{{name}}'
+      name: 'nginx-dev2'
     spec:
       project: "dev2"
       source:

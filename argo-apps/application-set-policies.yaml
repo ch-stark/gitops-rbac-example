@@ -1,28 +1,35 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
-  metadata:
-    name: policies
-    namespace: openshift-gitops
+metadata:
+  name: policies
+  namespace: policies
 spec:
   generators:
-  - clusterDecisionResource:
-    configMapRef: acm-placement
-    labelSelector:
-      matchLabels:
-    cluster.open-cluster-management.io/placement: placement1
-    requeueAfterSeconds: 180
-    template:
+    - clusterDecisionResource:
+        configMapRef: acm-placement
+        requeueAfterSeconds: 30
+        labelSelector:
+          matchLabels:              # OPTIONAL
+            cluster.open-cluster-management.io/placement: local-cluster
+  template: 
+    # This is a template Argo CD Application, but with support for parameter substitution.
     metadata:
-      name: policies     
+      name: 'policies'
     spec:
-    destination:
-    namespace: policies
-    server: '{{`{{server}}`}}' 
-    project: policies-project
-    source:
-         path: deploy
-     repoURL: https://github.com/ch-stark/application-set-deploy-policies.git
-     targetRevision: main
-    syncPolicy:
-      syncOptions:
-        - CreateNamespace=true
+      project: "policies"
+      source:
+        repoURL: https://github.com/ch-stark/application-set-deploy-policies
+        targetRevision: main
+        path: deploy
+      destination:
+        server: '{{server}}'
+        namespace: policies
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: false
+        syncOptions:
+          - CreateNamespace=true
+          - PrunePropagationPolicy=orphan
+
+

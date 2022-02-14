@@ -1,8 +1,8 @@
 #create a list of users and print password
 
 
-SECRET=htpass-secret-xxx
-PASSWORD=$RANDOM%
+
+PASSWORD=today
 
 echo $PASSWORD
 
@@ -47,6 +47,9 @@ htpasswd -b -B htpasswd prd ${PASSWORD}
 
 
 cat htpasswd | base64 -w 0
+
+SECRET=htpass-secret-xxx
+
 
 cat << EOF >${SECRET}.yaml
 

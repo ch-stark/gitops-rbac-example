@@ -15,7 +15,7 @@ spec:
   template: 
     # This is a template Argo CD Application, but with support for parameter substitution.
     metadata:
-      name: 'nginx-{{name}}'
+      name: 'nginx-dev1'
     spec:
       project: "dev1"
       source:

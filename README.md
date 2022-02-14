@@ -42,6 +42,9 @@ Some Applications like Policies can only be generated on the Hub-Cluster
 4. https://github.com/stolostron/policy-collection/issues/217
 5. https://github.com/tosin2013/acm-multi-cluster-argocd-dashboard
 6. https://github.com/joatmon08/vault-argocd
+7. https://cloud.redhat.com/blog/openshift-authentication-integration-with-argocd
+8. https://cloud.redhat.com/blog/openshift-pipelines-and-openshift-gitops-are-now-generally-available
+
 
 ### Installation (a tutorial will be provided)
 

@@ -16,7 +16,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: example-rolebinding
-  namespace: mynamespace
+  namespace: dev1
 subjects:
 - kind: Group
   name: example-group
@@ -82,63 +82,3 @@ subjects:
   name: developer
 
 ---
-
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  creationTimestamp: null
-  name: dev1developer
-  namespace: dev1
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: edit
-subjects:
-- apiGroup: rbac.authorization.k8s.io
-  kind: Group
-  name: AppX-AdminGrp
-
----
-
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  creationTimestamp: null
-  name: dev2developer
-  namespace: dev2
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: edit
-subjects:
-- apiGroup: rbac.authorization.k8s.io
-  kind: Group
-  name: AppX-AdminGrp
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  creationTimestamp: null
-  name: dev2developer
-  namespace: dev2
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: edit
-subjects:
-- apiGroup: rbac.authorization.k8s.io
-  kind: Group
-  name: developer
