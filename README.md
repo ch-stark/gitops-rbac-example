@@ -58,9 +58,9 @@ A: Policies (later we will convert more objects into Policies using PolicyGenera
 
 B: OpenShift-setup 
 
-3. Setup-Groups (SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp, Developers)
+1. Setup-Groups (SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp, Developers)
 
-   Setup HTPassword Authentication
+2. Setup HTPassword Authentication
 
 
 C: argo-projects
@@ -87,6 +87,7 @@ bindings:
 2. dev1  namespace: dev1
 3. dev2  namespace: dev2
 3. policies  namespace: policies
+
 
 F: application-sets
 
