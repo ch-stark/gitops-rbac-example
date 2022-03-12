@@ -45,6 +45,21 @@ htpasswd -b -B htpasswd dev ${PASSWORD}
 htpasswd -b -B htpasswd qua ${PASSWORD}
 htpasswd -b -B htpasswd prd ${PASSWORD}
 
+# demo users
+htpasswd -b -B htpasswd acm-admin-user ${PASSWORD}
+
+# demo users for DEV1
+htpasswd -b -B htpasswd dev1-admin-user ${PASSWORD}
+htpasswd -b -B htpasswd dev1-view-user ${PASSWORD}
+
+# demo users for DEV2
+htpasswd -b -B htpasswd dev2-admin-user ${PASSWORD}
+htpasswd -b -B htpasswd dev2-view-user ${PASSWORD}
+
+# demo users for policies
+htpasswd -b -B htpasswd policy-admin-user ${PASSWORD}
+htpasswd -b -B htpasswd policy-view-user ${PASSWORD}
+
 
 cat htpasswd | base64 -w 0
 

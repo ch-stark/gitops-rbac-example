@@ -1,60 +1,35 @@
 apiVersion: user.openshift.io/v1
 kind: Group
 metadata:
-  name: SreAdminGrp
+  name: ACM-Admins
 users:
-- clusteradminuser
+- acm-admin-user
 ---
-apiVersion: user.openshift.io/v1
-kind: Group
-metadata:
-  name: Developers
-users:
-- dev1
-- dev2
-- dev3
----
-apiVersion: user.openshift.io/v1
-kind: Group
-metadata:
-  name: AppX-AdminGrp
-users:
-- adminuser
----
-apiVersion: user.openshift.io/v1
-kind: Group
-metadata:
-  name: AppY-AdminGrp
-users:
-- adminuser2
----
-apiVersion: user.openshift.io/v1
-kind: Group
-metadata:
-  name: AppX-ViewGrp
-users:
-- viewer1
----
-apiVersion: user.openshift.io/v1
-kind: Group
-metadata:
-  name: AppY-ViewGrp
-users:
-- viewer2
----
-apiVersion: user.openshift.io/v1
-kind: Group
-metadata:
-  name: Manager
-users:
-- manager1
-- manager2
-- manager3
----
-apiVersion: user.openshift.io/v1
-kind: Group
-metadata:
-  name: QA
-users:
-- qua
 
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: Dev1-Admins
+users:
+- dev1-admin-user
+---
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: Dev1-Viewers
+users:
+- dev1-view-user
+---
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: Dev2-Admins
+users:
+- dev2-admin-user
+---
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: Dev2-Viewers
+users:
+- dev2-view-user
