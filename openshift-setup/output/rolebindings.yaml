@@ -48,6 +48,23 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  creationTimestamp: null
+  name: dev1-developer-binding
+  namespace: dev1
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: developer
+
+---
 apiVersion: rbac.authorization.k8s.io/v1
 # This role binding allows "jane" to adminiter resources in namespace "dev2".
 # You need to already have a Role named "pod-reader" in that namespace.
@@ -87,3 +104,18 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  creationTimestamp: null
+  name: dev2-developer-binding
+  namespace: dev2
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: developer

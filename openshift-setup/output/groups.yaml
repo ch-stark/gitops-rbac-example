@@ -5,7 +5,15 @@ metadata:
 users:
 - acm-admin-user
 ---
-
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: Developers
+users:
+- developer1
+- developer2
+- developer3
+---
 apiVersion: user.openshift.io/v1
 kind: Group
 metadata:
