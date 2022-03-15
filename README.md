@@ -45,6 +45,7 @@ Some Applications like Policies can only be generated on the Hub-Cluster
 7. https://cloud.redhat.com/blog/openshift-authentication-integration-with-argocd
 8. https://cloud.redhat.com/blog/openshift-pipelines-and-openshift-gitops-are-now-generally-available
 9. https://www.opensourcerers.org/2022/03/07/oops-something-is-wrong-with-your-gitops-application/
+10. https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#resource-exclusioninclusion
 
 ### Installation (a tutorial will be provided)
 
