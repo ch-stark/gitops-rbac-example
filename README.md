@@ -11,6 +11,7 @@
  - Each team maintain and manages its  own projects (applications). [ team1 ->  project: DEV1, team2 -> project: DEV2]
  - Team members granularly access and administer their projects
  - Governance Policies are setup for security complaince.
+ - Dev-Teams are not allowed to process Policies via git
 
 
 ## An example implementation 
