@@ -26,8 +26,7 @@ It demos
 
 TODO: Integration of several other features.
 
-`gatekeeper`,
-`namespace-operator`,
+`kyverno-generate',
 `external-secrets/vault`,
 `integrity-shield`,
 `groupsync-operator`,
