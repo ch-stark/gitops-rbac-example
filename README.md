@@ -1,53 +1,48 @@
+# Overview 
 
-### Goal of this repo is to show Configuration-Options for RBAC when integration Gitops-Operator using Applicationsets with RHACM.
-
-usecases:
-
-* a certain user should have all permissions for all Applications and Cluster-Admin-Tasks
-* a certain user should have readpermissions on one project/Application
-* a certain user should have admin-permissions on one project
-* a certain user should have admin-permissions on all projects but not cluster-admin-rights
-* it should show the diffent options regarding RBAC-Configuration
-* a certain user should only see namespaces in a certain ClusterSet
-* we will deploy 4 Applications. One for Cluster-Admin-Tasks and bootstrapping, one for Policies and 2 for Apps
-* deployment of Helm-Charts
-.....
+   Goal of this repo is to showcase **ACM - GitOps operator** integration and the **RBAC** configuration to achieve multitenancy.
+ 
+ 
+ ## An example customer scenario 
+ 
+ The tutorial considers the following sample customer scenario
+ 
+ - An organization with two or more teams [ e.g. team1 and team2 ]
+ - Each team maintain and manages its  own projects (applications). [ team1 ->  project: DEV1, team2 -> project: DEV2]
+ - Team members granularly access and administer their projects
+ - Governance Policies are setup for security complaince.
 
 
-todo: Integration of several other features.
+## An example implementation 
+
+The tutorial demonstrates a sample implementation for the above  customer scenario.
+
+It demos
+
+- integration with GitOps operator
+- management of ApplicationSets
+- RBAC configuration for multitenancy
+- Use of policy-generator for developing policies
+
+TODO: Integration of several other features.
 
 `gatekeeper`,
 `namespace-operator`,
 `external-secrets/vault`,
 `integrity-shield`,
 `groupsync-operator`,
-`policy-generator`,
 `monitoring`,
 `argocd-notifications`
-`
- `
-
-....
-
-currently we use all Clusters and don't configure Specific-Clustersets
-Later some Applicationsets will be extended to target several clusters.
-Some Applications like Policies can only be generated on the Hub-Cluster
 
 
-#### Some links this tuturial will be based on:
+### resource layout
 
-1. https://github.com/christianh814/openshift-cluster-config
-2. Security-Features we get with ArgoCD (https://rcarrata.com/openshift/secure-argo-supply-chain/)
-3. https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/applications/index
-4. https://github.com/stolostron/policy-collection/issues/217
-5. https://github.com/tosin2013/acm-multi-cluster-argocd-dashboard
-6. https://github.com/joatmon08/vault-argocd
-7. https://cloud.redhat.com/blog/openshift-authentication-integration-with-argocd
-8. https://cloud.redhat.com/blog/openshift-pipelines-and-openshift-gitops-are-now-generally-available
-9. https://www.opensourcerers.org/2022/03/07/oops-something-is-wrong-with-your-gitops-application/
-10. https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#resource-exclusioninclusion
+This picture gives an overview of the environment installed by tutorial and the layout of various resources setup as part of the installation tutorial.
 
-### Installation (a tutorial will be provided)
+![Layout](./layout.png "Resource Layout")
+
+
+# Installation (a tutorial will be provided)
 
 
 A: Policies (later we will convert more objects into Policies using PolicyGenerator)
@@ -59,7 +54,7 @@ A: Policies (later we will convert more objects into Policies using PolicyGenera
 
 B: OpenShift-setup 
 
-1. Setup-Groups (SreAdminGrp, AppX-AdminGrp, AppX-ViewGrp, AppY-AdminGrp, AppY-ViewGrp, Developers)
+1. Setup-Groups (ACM-Admins, Dev1-Admins, Dev1-viewers, Dev2-admins, Dev2-viewers, Developers)
 
 2. Setup HTPassword Authentication
 
@@ -101,3 +96,44 @@ F: application-sets
 Placements
 
 So far we just place all on Hub-Cluster, will be extended
+
+
+
+RBAC Use cases:
+
+* a certain user should have all permissions for all Applications and Cluster-Admin-Tasks
+
+   TODO: point to the exact role bindings here 
+
+* a certain user should have readpermissions on one project/Application
+   TODO: point to the exact role bindings here 
+
+* a certain user should have admin-permissions on one project
+   TODO: point to the exact role bindings here 
+
+* a certain user should have admin-permissions on all projects but not cluster-admin-rights
+   TODO: point to the exact role bindings here
+
+* it should show the diffent options regarding RBAC-Configuration
+   TODO: point to the exact role bindings here
+
+* a certain user should only see namespaces in a certain ClusterSet
+   TODO: point to the exact role bindings here
+
+
+
+`
+ `
+
+### References
+
+1. https://github.com/christianh814/openshift-cluster-config
+2. Security-Features we get with ArgoCD (https://rcarrata.com/openshift/secure-argo-supply-chain/)
+3. https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/applications/index
+4. https://github.com/stolostron/policy-collection/issues/217
+5. https://github.com/tosin2013/acm-multi-cluster-argocd-dashboard
+6. https://github.com/joatmon08/vault-argocd
+7. https://cloud.redhat.com/blog/openshift-authentication-integration-with-argocd
+8. https://cloud.redhat.com/blog/openshift-pipelines-and-openshift-gitops-are-now-generally-available
+9. https://www.opensourcerers.org/2022/03/07/oops-something-is-wrong-with-your-gitops-application/
+10. https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#resource-exclusioninclusion
