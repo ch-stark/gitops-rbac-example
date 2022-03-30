@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: test
+  namespace: test
+spec:
+  generators:
+    - clusterDecisionResource:
+        configMapRef: acm-placement
+        labelSelector:
+          matchLabels:
+            cluster.open-cluster-management.io/placement: test
+        requeueAfterSeconds: 180
+  template:
+    metadata:
+      name: test-{{name}}
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/rokej/BlueApplications.git
+        targetRevision: main
+        path: mobileApplication
+      destination:
+        namespace: test-dest
+        server: "{{server}}"
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          selfHeal: true

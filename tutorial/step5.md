@@ -8,8 +8,8 @@ gitopscluster.apps.open-cluster-management.io/argo-acm-clusters created
 gitopscluster.apps.open-cluster-management.io/argo-acm-clusters created
 gitopscluster.apps.open-cluster-management.io/argo-acm-clusters created
 gitopscluster.apps.open-cluster-management.io/policies created
-W0215 09:39:10.738871 1063931 warnings.go:67] cluster.open-cluster-management.io/v1alpha1 ManagedClusterSet is deprecated; use cluster.open-cluster-management.io/v1beta1 ManagedClusterSet
-W0215 09:39:10.846889 1063931 warnings.go:67] cluster.open-cluster-management.io/v1alpha1 ManagedClusterSet is deprecated; use cluster.open-cluster-management.io/v1beta1 ManagedClusterSet
+W0215 09:39:10.738871 1063931 warnings.go:67] cluster.open-cluster-management.io/v1beta1 ManagedClusterSet is deprecated; use cluster.open-cluster-management.io/v1beta1 ManagedClusterSet
+W0215 09:39:10.846889 1063931 warnings.go:67] cluster.open-cluster-management.io/v1beta1 ManagedClusterSet is deprecated; use cluster.open-cluster-management.io/v1beta1 ManagedClusterSet
 managedclusterset.cluster.open-cluster-management.io/all-openshift-clusters created
 managedclustersetbinding.cluster.open-cluster-management.io/all-openshift-clusters created
 managedclustersetbinding.cluster.open-cluster-management.io/all-openshift-clusters created

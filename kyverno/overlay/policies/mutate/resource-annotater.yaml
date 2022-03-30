@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: resource-annotater
+spec:
+  background: false
+  rules:
+  - name: add-resource-annotations
+    context:
+    - name: LabelsCM
+      configMap:
+        name: resource-annotater-reference
+        namespace: default
+    preconditions:
+    - key: "{{request.object.metadata.labels.app}}"
+      operator: NotEquals
+      value: ""
+    - key: "{{request.operation}}"
+      operator: Equals
+      value: "CREATE"
+    match:
+      resources:
+        kinds:
+        - Pod
+    mutate:
+      overlay:
+        metadata:
+          annotations:
+            foo: "{{LabelsCM.data.{{ request.object.metadata.labels.app }}}}"

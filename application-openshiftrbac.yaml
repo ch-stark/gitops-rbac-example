@@ -1,0 +1,21 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openshiftrbac
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: fulldemo
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: config/input/gitopsdemo/all/openshiftrbac
+    repoURL: https://github.com/ch-stark/maptoseveralstandards.git
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true        

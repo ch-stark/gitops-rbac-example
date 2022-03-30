@@ -7,8 +7,8 @@ gitopscluster.apps.open-cluster-management.io/argo-acm-clusters created
 gitopscluster.apps.open-cluster-management.io/argo-acm-clusters created
 gitopscluster.apps.open-cluster-management.io/argo-acm-clusters created
 gitopscluster.apps.open-cluster-management.io/policies created
-W0215 09:39:10.738871 1063931 warnings.go:67] cluster.open-cluster-management.io/v1alpha1 ManagedClusterSet is deprecated; use cluster.open-cluster-management.io/v1beta1 ManagedClusterSet
-W0215 09:39:10.846889 1063931 warnings.go:67] cluster.open-cluster-management.io/v1alpha1 ManagedClusterSet is deprecated; use cluster.open-cluster-management.io/v1beta1 ManagedClusterSet
+W0215 09:39:10.738871 1063931 warnings.go:67] cluster.open-cluster-management.io/v1beta1 ManagedClusterSet is deprecated; use cluster.open-cluster-management.io/v1beta1 ManagedClusterSet
+W0215 09:39:10.846889 1063931 warnings.go:67] cluster.open-cluster-management.io/v1beta1 ManagedClusterSet is deprecated; use cluster.open-cluster-management.io/v1beta1 ManagedClusterSet
 managedclusterset.cluster.open-cluster-management.io/all-openshift-clusters created
 managedclustersetbinding.cluster.open-cluster-management.io/all-openshift-clusters created
 managedclustersetbinding.cluster.open-cluster-management.io/all-openshift-clusters created
@@ -34,7 +34,7 @@ all needs to be configured properly before you can work with ApplicationSets
 
 
 ```
-apiVersion: cluster.open-cluster-management.io/v1alpha1
+apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: ManagedClusterSet
 metadata:
   name: all-openshift-clusters
@@ -50,18 +50,18 @@ Create managed cluster set binding to the namespace where Argo CD or OpenShift G
 cat managedclustersetbinding.yaml
 
 ```
-apiVersion: cluster.open-cluster-management.io/v1alpha1
+apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: ManagedClusterSetBinding
 metadata:
   name: all-openshift-clusters
   namespace: openshift-gitops
 spec:
-  clusterSet: all-openshift-clusters
+  clusterSet: default
 ```
 
 oc apply -f managedclustersetbinding.yaml
 In the namespace that is used in managed cluster set binding, create a placement custom resource to select a set of managed clusters to register to an ArgoCD or OpenShift GitOps operator instance:
-apiVersion: cluster.open-cluster-management.io/v1alpha1
+apiVersion: cluster.open-cluster-management.io/v1beta1
 
 ```
 kind: Placement
@@ -96,7 +96,7 @@ spec:
     argoNamespace: openshift-gitops
   placementRef:
     kind: Placement
-    apiVersion: cluster.open-cluster-management.io/v1alpha1
+    apiVersion: cluster.open-cluster-management.io/v1beta1
     name: all-openshift-clusters
     namespace: openshift-gitops
 ```    

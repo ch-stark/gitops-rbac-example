@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: policies-application-set
+  namespace: policies-appset
+spec:
+  generators:
+    - clusterDecisionResource:
+        configMapRef: acm-placement
+        labelSelector:
+          matchLabels:
+            cluster.open-cluster-management.io/placement: policies-appset-placement
+        requeueAfterSeconds: 180
+  template:
+    metadata:
+      name: policies-appset-{{name}}
+    spec:
+      project: policies-project
+      source:
+        repoURL: https://github.com/ch-stark/etcd-backup-policy
+        targetRevision: main
+        path: policy
+      destination:
+        namespace: policy
+        server: "{{server}}"
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          selfHeal: true
+
+  

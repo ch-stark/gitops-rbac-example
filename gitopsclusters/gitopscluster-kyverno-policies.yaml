@@ -1,0 +1,15 @@
+---  
+apiVersion: apps.open-cluster-management.io/v1beta1
+kind: GitOpsCluster
+metadata:
+  name: kyverno-appset
+  namespace: kyverno-policies
+spec:
+  argoServer:
+    cluster: local-cluster
+    argoNamespace: kyverno-policies
+  placementRef:
+    kind: Placement
+    apiVersion: cluster.open-cluster-management.io/v1beta1
+    name: application-set-policies-placement
+    namespace: kyverno-policies

@@ -1,0 +1,26 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+  name: argofullclusterrole
+rules:
+- apiGroups:
+  - ""
+  - extensions
+  - apps
+  - applicationsets
+  - argoproj.io
+  - workflows.argoproj.io
+  - events.argoproj.io
+  - coordination.k8s.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  - cronjobs
+  verbs:
+  - '*'

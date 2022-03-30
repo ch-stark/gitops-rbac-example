@@ -1,0 +1,222 @@
+# Advanced Namespace provisioning workflow.
+# All Kyverno functionality is implemented in this policy
+# but as separate rules.
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: namespace-provisioning
+spec:
+  background: false
+  validationFailureAction: enforce
+  rules:
+    # Validate new Namespaces allow `businessunit` set by authorized roles
+    - name: restrict-labels-businessunit
+      match:
+        resources:
+          kinds:
+          - Namespace
+      exclude:
+        clusterRoles:
+          - cluster-admin
+        subjects:
+        - kind: ServiceAccount
+          name: nsprovisioner
+          namespace: kube-provisioner
+      validate:
+        message: "Only role=cluster-admin and kube-provisioner:nsprovisioner can set label `businessunit`."
+        pattern:
+          metadata:
+            =(labels):
+              X(businessunit): "null"
+      # Validate new Namespaces allow `dataclassification` set by authorized roles
+    - name: restrict-labels-dataclassification
+      match:
+        resources:
+          kinds:
+          - Namespace
+      exclude:
+        clusterRoles:
+          - cluster-admin
+        subjects:
+        - kind: ServiceAccount
+          name: nsprovisioner
+          namespace: kube-provisioner
+      validate:
+        message: "Only role=cluster-admin and kube-provisioner:nsprovisioner can set label `dataclassification`."
+        pattern:
+          metadata:
+            =(labels):
+              X(dataclassification): "null"
+    # Validate new Namespaces allow `networkzone` set by authorized roles
+    - name: restrict-labels-networkzone
+      match:
+        resources:
+          kinds:
+          - Namespace
+      exclude:
+        clusterRoles:
+          - cluster-admin
+        subjects:
+        - kind: ServiceAccount
+          name: nsprovisioner
+          namespace: kube-provisioner
+      validate:
+        message: "Only role=cluster-admin and kube-provisioner:nsprovisioner can set label `networkzone`."
+        pattern:
+          metadata:
+            =(labels):
+              X(networkzone): "null"
+    # generate default resourcequota when `businessunit` exists
+    - name: generate-resourcequota
+      match:
+        resources:
+          kinds:
+          - Namespace
+      preconditions:
+        - key: "{{request.object.metadata.labels.businessunit}}"
+          operator: NotEquals
+          value: ""
+      generate:
+        kind: ResourceQuota
+        name: default
+        namespace: "{{request.object.metadata.name}}"
+        synchronize: true
+        data:
+          spec:
+            hard: 
+              cpu: "6"
+              memory: 12Gi
+    # generate default RoleBinding when `businessunit` equals predefined values
+    - name: generate-rolebinding
+      match:
+        resources:
+          kinds:
+          - Namespace
+      preconditions:
+        - key: "{{request.object.metadata.labels.businessunit}}"
+          operator: In
+          value: ["ecom","supplychain","stores"]
+      generate:
+        kind: RoleBinding
+        name: developer-viewer-binding
+        namespace: "{{request.object.metadata.name}}"
+        synchronize: true
+        data:
+          roleRef:
+            apiGroup: rbac.authorization.k8s.io
+            kind: ClusterRole
+            name: view
+          subjects:
+          - apiGroup: rbac.authorization.k8s.io
+            kind: Group
+            name: syd-devs
+    ### dataclassification=pci workflow branch
+    # Add `-pci` suffix to namespace when `dataclassification=pci` is set
+    - name: dataclassification-pci-mutate-ns
+      match:
+        resources:
+          kinds:
+          - Namespace
+          selector:
+            matchLabels:
+              dataclassification: pci
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            name: "{{request.object.metadata.name}}-pci"
+    # Generate a new Deployment when `dataclassification=pci`.
+    - name: dataclassification-pci-generate-deploy
+      match:
+        resources:
+          kinds:
+          - Namespace
+      preconditions:
+        - key: "{{request.object.metadata.labels.dataclassification}}"
+          operator: Equals
+          value: pci
+      generate:
+        kind: Deployment
+        name: test-deploy
+        namespace: "{{request.object.metadata.name}}"
+        synchronize: false
+        data:
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: busybox
+            template:
+              metadata:
+                labels:
+                  app: busybox
+              spec:
+                containers: 
+                - name: busybox
+                  image: busybox:1.28
+                  command: ["sleep", "9999"]
+                  resources:
+                    requests:
+                      memory: 100Mi
+                      cpu: 100m
+                    limits:
+                      memory: 200Mi
+    # generate a default NetworkPolicy when `dataclassification=pci`
+    - name: dataclassification-pci-generate-netpol
+      match:
+        resources:
+          kinds:
+          - Namespace
+      preconditions:
+        - key: "{{request.object.metadata.labels.dataclassification}}"
+          operator: Equals
+          value: pci
+      generate:
+        kind: NetworkPolicy
+        name: basic-netpol
+        namespace: "{{request.object.metadata.name}}"
+        synchronize: true
+        data:
+          spec:
+            podSelector: {}
+            policyTypes: 
+            - Ingress
+            - Egress
+    ### networkzone=dmz workflow branch
+    # annotate and label Namespace when `networkzone=dmz`
+    - name: networkzone-dmz-annotate-ns
+      match:
+        resources:
+          kinds:
+          - Namespace
+          selector:
+            matchLabels:
+              networkzone: dmz
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              label.corp.com/backups: "true"
+            labels:
+              monitor: "true"
+    # generate a new NetworkPolicy when `networkzone=dmz`
+    - name: networkzone-dmz-generate-netpol
+      match:
+        resources:
+          kinds:
+          - Namespace
+      preconditions:
+        - key: "{{request.object.metadata.labels.networkzone}}"
+          operator: Equals
+          value: dmz
+      generate:
+        kind: NetworkPolicy
+        name: dmz-netpol
+        namespace: "{{request.object.metadata.name}}"
+        synchronize: true
+        data:
+          spec:
+            podSelector:
+              matchLabels:
+                allowed-zone: dmz
+            policyTypes: 
+            - Ingress

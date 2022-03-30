@@ -1,0 +1,73 @@
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: ManagedClusterSet
+metadata:
+  name: all-openshift-clusters
+spec:
+  clusterSelector:
+    selectorType: LegacyClusterSetLabel
+
+---
+
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: ManagedClusterSet
+metadata:
+  name: redteam
+spec:
+  clusterSelector:
+    selectorType: LegacyClusterSetLabel
+
+---
+
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: ManagedClusterSet
+metadata:
+  name: blueteam
+spec:
+  clusterSelector:
+    selectorType: LegacyClusterSetLabel
+
+
+---
+
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  labels:
+    cluster.open-cluster-management.io/clusterset: all-openshift-clusters
+  name: local-cluster
+
+
+---
+
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  labels:
+    cluster.open-cluster-management.io/clusterset: redteam
+  name: dev-cluster1redteam
+
+
+---
+
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  labels:
+    cluster.open-cluster-management.io/clusterset: blueteam
+  name: dev-cluster2redteam
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
