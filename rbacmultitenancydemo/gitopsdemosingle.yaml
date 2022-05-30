@@ -90,7 +90,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: config/input/gitopsdemo/all
+    path: rbacmultitenancydemo
     repoURL: https://github.com/ch-stark/gitops-rbac-example.git
     targetRevision: HEAD
   syncPolicy:

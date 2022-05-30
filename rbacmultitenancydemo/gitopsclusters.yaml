@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: gitopsclusters
+    path: rbacmultitenancydemo/gitopsclusters
     repoURL: https://github.com/ch-stark/gitops-rbac-example.git
     targetRevision: HEAD
   syncPolicy:

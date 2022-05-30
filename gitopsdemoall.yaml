@@ -91,7 +91,7 @@ spec:
   project: default
   source:
     path: rbacmultitenancydemo
-    repoURL: github.com:ch-stark/gitops-rbac-example
+    repoURL: https://github.com/ch-stark/gitops-rbac-example
     targetRevision: HEAD
   syncPolicy:
     syncOptions:

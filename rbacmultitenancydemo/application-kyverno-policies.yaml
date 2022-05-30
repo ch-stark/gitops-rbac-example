@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: kyverno/overlay/policies
+    path: rbacmultitenancydemo/kyverno/overlay/policies
     repoURL: https://github.com/ch-stark/gitops-rbac-example.git
     targetRevision: HEAD
   syncPolicy:
