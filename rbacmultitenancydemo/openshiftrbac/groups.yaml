@@ -1,0 +1,47 @@
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: blue-sre-group
+users:
+  - bluesre1
+  - bluesre2
+---
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: red-sre-group
+users:
+  - redsre1
+  - redsre2
+---
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: blue-viewer-group
+users:
+  - blueviewer1
+  - blueviewer2
+---
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: red-viewer-group
+users:
+  - redviewer1
+  - redviewer2
+---
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: acm-sre-group
+users:
+  - acmsre1
+  - acmsre2
+---
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: acm-viewer-group
+users:
+  - acmviewer1
+  - acmviewer2

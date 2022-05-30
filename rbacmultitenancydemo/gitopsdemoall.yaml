@@ -90,8 +90,8 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: config/input/gitopsdemo/all
-    repoURL: https://github.com/ch-stark/gitops-rbac-example.git
+    path: .
+    repoURL: github.com:ch-stark/gitops-rbac-example
     targetRevision: HEAD
   syncPolicy:
     syncOptions:
