@@ -1,0 +1,15 @@
+---  
+apiVersion: apps.open-cluster-management.io/v1beta1
+kind: GitOpsCluster
+metadata:
+  name: test
+  namespace: test
+spec:
+  argoServer:
+    cluster: local-cluster
+    argoNamespace: test
+  placementRef:
+    kind: Placement
+    apiVersion: cluster.open-cluster-management.io/v1beta1
+    name: test
+    namespace: test
