@@ -84,8 +84,8 @@ rules:
 - apiGroups:  
   - argoproj.io 
   resources: 
-  - Applications
-  - ApplicationSets   
+  - applications
+  - applicationsets   
   verbs: 
   - create
   - get
