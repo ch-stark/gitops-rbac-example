@@ -109,7 +109,6 @@ metadata:
 subjects:
   - kind: Group
     name: red-sre-group
-    namespace: redteam
 roleRef:
   kind: ClusterRole
   name: red-sre-group
