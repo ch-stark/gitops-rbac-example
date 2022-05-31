@@ -54,14 +54,39 @@ rules:
   - list
   - watch
 - apiGroups: [""]
-  resources: ["pods", "services", "namespaces", "nodes"]
-  verbs: ["create", "get", "update", "list", "watch", "patch"]
-- apiGroups: ["apps"]
-  resources: ["deployment"]
-  verbs: ["create", "get", "update", "list", "delete", "watch", "patch"]
-- apiGroups: ["rbac.authorization.k8s.io"]
-  resources: ["clusterroles", "clusterrolebindings"]
-  verbs: ["get", "list", "watch"]
+  resources:
+  - pods
+  - services
+  - namespaces
+  - nodes
+  verbs: 
+  - create
+  - get
+  - update
+  - list
+  - watch
+  - patch
+- apiGroups: 
+  - apps
+  resources: 
+  - deployment
+  verbs: 
+  - create
+  - get
+  - update
+  - list 
+  - delete
+  - watch 
+  - patch
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources: 
+  - clusterroles
+  - clusterrolebindings
+  verbs:
+  - get 
+  - list 
+  - watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
