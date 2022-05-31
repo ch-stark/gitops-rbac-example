@@ -83,7 +83,9 @@ rules:
   verbs: ["create"]  
 - apiGroups:  
   - argoproj.io 
-  resources: [""]
+  resources: 
+  - Applications
+  - ApplicationSets   
   verbs: 
   - create
   - get
