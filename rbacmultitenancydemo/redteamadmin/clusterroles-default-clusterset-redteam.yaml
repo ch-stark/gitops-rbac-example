@@ -78,6 +78,20 @@ rules:
   - delete
   - watch 
   - patch
+- apiGroups: [""] #specifies core api groups
+  resources: ["resourcequotas", "limitranges"]
+  verbs: ["create"]  
+- apiGroups:  
+  - argoproj.io 
+  resources: [""]
+  verbs: 
+  - create
+  - get
+  - update
+  - list 
+  - delete
+  - watch 
+  - patch  
 - apiGroups:
   - rbac.authorization.k8s.io
   resources: 
