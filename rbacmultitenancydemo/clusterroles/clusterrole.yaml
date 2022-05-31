@@ -95,7 +95,7 @@ metadata:
 subjects:
   - kind: Group
     name: red-sre-group
-    namespace: kube-system
+    namespace: redteam
 roleRef:
   kind: ClusterRole
   name: red-sre-group
