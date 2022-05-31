@@ -11,7 +11,8 @@ spec:
           matchExpressions:
             - key: local-cluster
               operator: NotIn
-              value: true
+              value: 
+              - 'true'
         requeueAfterSeconds: 180
   template:
     metadata:
