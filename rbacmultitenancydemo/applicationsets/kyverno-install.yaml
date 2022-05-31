@@ -25,8 +25,8 @@ spec:
       destination:
         namespace: kyverno
         server: "{{server}}"
-    syncPolicy:
-      syncOptions:
-        - CreateNamespace=true
-      automated:
-        selfHeal: true
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          selfHeal: true

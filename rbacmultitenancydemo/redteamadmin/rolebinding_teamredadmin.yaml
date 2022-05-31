@@ -1,13 +1,17 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: redteam
+  creationTimestamp: null
+  name: teamredadmin
   namespace: redteam
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: redteam-applicationset-controller
+  kind: ClusterRole
+  name: admin
 subjects:
 - apiGroup: rbac.authorization.k8s.io
   kind: Group
-  name: redsre
+  name: red-sre-group
+
+
+

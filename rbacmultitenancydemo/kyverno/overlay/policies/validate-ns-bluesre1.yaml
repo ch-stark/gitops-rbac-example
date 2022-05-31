@@ -1,7 +1,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: team-validate-ns-schema-redteam
+  name: team-validate-blue-schema
   annotations:
     policies.kyverno.io/title: Validate Team Namespace Schema
     policies.kyverno.io/category: Other
@@ -17,7 +17,7 @@ spec:
   validationFailureAction: enforce
   background: false
   rules:
-  - name: namespace-redteam
+  - name: namespace-name
     match:
       any:
       - resources:
@@ -27,15 +27,15 @@ spec:
             - Project
         subjects:
         - kind: Group
-          name: "redteam"
-        - kind: ServiceAccount
-          name: openshift-gitops-argocd-server
-          namespace: openshift-gitops
+          name: "bluesre1"
     validate:
-      message: The only names approved for your namespaces are the ones starting by {{ '{{request.userInfo.groups[?contains(@,':') == `false`]}}' }}-*
-      deny:
-        conditions:
-          any:
-          - key: "{{ '{{request.object.metadata.name}}' }}"
-            operator: AnyNotIn
-            value: "{{ '{{request.userInfo.groups[?contains(@,':') == `false`][].join('-', [@, '*'])}}' }}"
+      message: The only names approved for your namespaces are the ones starting by {{ `{{request.userInfo.groups[?contains(@,':') == `false`]}}` }}-*
+      foreach:
+      - list: "request.userInfo.groups[?contains(@,':') == `false`][].{name:@}"
+        elementScope: true
+        deny:
+          conditions:
+            any:
+            - key: "{{ `{{request.object.metadata.name}}` }}"
+              operator: AnyNotIn
+              value: "{{ `{{request.userInfo.groups[?contains(@,':') == `false`][].join('-', [@, '*'])}}` }}"
