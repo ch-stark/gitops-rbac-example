@@ -119,6 +119,7 @@ rules:
   - get
   - list
   - watch
+  - edit
 - apiGroups:
   - apps.open-cluster-management.io
   resources:
