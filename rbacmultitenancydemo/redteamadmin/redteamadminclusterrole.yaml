@@ -117,7 +117,9 @@ rules:
 - apiGroups:
   - policy.open-cluster-management.io
   resources:
-  - placement
+  - placements
+  - placementrules
+  - placementbindings
   verbs:
   - get
   - list
