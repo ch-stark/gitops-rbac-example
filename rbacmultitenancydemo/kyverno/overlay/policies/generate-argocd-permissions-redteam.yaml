@@ -36,15 +36,16 @@ spec:
         - kind: Group
           name: "red-sre-group"
     generate:
-      kind: ClusterRoleBinding
-      name: "{{ `{{request.object.metadata.name}}` }}-red-sre-group-argocdaccess"
+      kind: RoleBinding
+      name: {{request.object.metadata.name}}-argocdaccess
       synchronize: true
       data:
-        subjects:
-        - kind: Group
-          name: red-sre-group
-          apiGroup: rbac.authorization.k8s.io
         roleRef:
-          kind: ClusterRole
-          name: red-sre-group
           apiGroup: rbac.authorization.k8s.io
+          kind: ClusterRole
+          name: admin
+        subjects:
+        - apiGroup: rbac.authorization.k8s.io
+          kind: Group
+          name: blue-sre-group
+          
