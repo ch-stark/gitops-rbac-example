@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: kyverno-policies
-  namespace: kyverno-policies
+  name: kyverno
+  namespace: kyverno
 spec:
   generators:
     - clusterDecisionResource:
@@ -13,11 +13,11 @@ spec:
         requeueAfterSeconds: 180
   template:
     metadata:
-      name: kyverno-policies-{{name}}
+      name: kyverno-{{name}}
     spec:
-      project: kyverno-policies
+      project: kyverno
       source:
-        path: kyverno
+        path: rbacmultitenancydemo/kyverno
         repoURL: https://github.com/ch-stark/gitops-rbac-example.git
         targetRevision: HEAD
       destination:
