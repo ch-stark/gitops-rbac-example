@@ -79,8 +79,11 @@ rules:
   - watch 
   - patch
 - apiGroups: [""] #specifies core api groups
-  resources: ["resourcequotas", "limitranges"]
-  verbs: ["create"]  
+  resources: 
+  - resourcequotas
+  - limitranges
+  verbs: 
+  - create  
 - apiGroups:  
   - argoproj.io 
   resources: 
