@@ -120,7 +120,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - apps.open-cluster-management.io/v1
+  - apps.open-cluster-management.io
   resources:
   - applications
   - channels
@@ -129,7 +129,17 @@ rules:
   - get
   - list
   - watch
-
+- apiGroups:
+  - app.k8s.io
+  resources:
+  - applications
+  - channels
+  - subscriptions
+  verbs:
+  - get
+  - list
+  - watch  
+apiVersion: app.k8s.io/v1beta1
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
