@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
 - require-requests-limits-policy.yaml
 - generate-argocd-permissions-redteam.yaml
+- generateManagedClusterSetBindingredteam.yaml
 
 
