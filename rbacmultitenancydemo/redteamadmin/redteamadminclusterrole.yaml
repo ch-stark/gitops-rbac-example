@@ -3,11 +3,6 @@ kind: ClusterRole
 metadata:
   name: red-sre-group
 rules:
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: red-sre-group
-rules:
 - apiGroups:
   - cluster.open-cluster-management.io
   resourceNames:
