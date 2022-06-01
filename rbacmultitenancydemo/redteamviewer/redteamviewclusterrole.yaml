@@ -1,0 +1,112 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: red-view-group
+rules:
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resourceNames:
+  - redteam
+  resources:
+  - managedclustersets
+  verbs:
+  - get
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resources:
+  - managedclusters
+  verbs:
+  - view
+- apiGroups:
+  - register.open-cluster-management.io
+  resources:
+  - managedclusters/accept
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - clusterview.open-cluster-management.io
+  resources:
+  - managedclustersets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups: [""]
+  resources:
+  - pods
+  - services
+  - namespaces
+  - nodes
+  verbs: 
+  - get
+  - list
+  - watch
+- apiGroups: 
+  - apps
+  resources: 
+  - deployment
+  verbs: 
+  - get
+  - list
+  - watch
+- apiGroups: [""] #specifies core api groups
+  resources: 
+  - resourcequotas
+  - limitranges
+  verbs: 
+  - get
+  - list
+  - watch  
+- apiGroups:  
+  - argoproj.io 
+  resources: 
+  - applications
+  - applicationsets   
+  verbs: 
+  - get
+  - list
+  - watch  
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources: 
+  - clusterroles
+  - clusterrolebindings
+  verbs:
+  - get 
+  - list 
+  - watch
+- apiGroups:
+  - policy.open-cluster-management.io
+  resources:
+  - policies
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - policy.open-cluster-management.io
+  resources:
+  - placements
+  - placementrules
+  - placementbindings
+  verbs:
+  - get
+  - list
+  - watch
+
+
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: red-view-rolebinding
+subjects:
+  - kind: Group
+    name: red-view-group
+roleRef:
+  kind: ClusterRole
+  name: red-view-group
+  apiGroup: rbac.authorization.k8s.io
