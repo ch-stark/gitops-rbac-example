@@ -102,11 +102,11 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: blue-sre-rolebinding
+  name: blue-view-rolebinding
 subjects:
   - kind: Group
-    name: blue-sre-group
+    name: blue-view-group
 roleRef:
   kind: ClusterRole
-  name: blue-sre-group
+  name: blue-view-group
   apiGroup: rbac.authorization.k8s.io
