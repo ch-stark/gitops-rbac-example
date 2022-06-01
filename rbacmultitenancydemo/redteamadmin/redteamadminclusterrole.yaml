@@ -109,6 +109,7 @@ rules:
   - get
   - list
   - watch
+  - edit
 - apiGroups:
   - policy.open-cluster-management.io
   resources:
