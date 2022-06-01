@@ -1,0 +1,3 @@
+to run demo execute 2 times with a 30 sec interval
+
+oc apply -f gitopsdemoall.yaml
