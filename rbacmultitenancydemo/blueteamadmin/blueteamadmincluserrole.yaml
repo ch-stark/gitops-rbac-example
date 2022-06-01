@@ -125,6 +125,7 @@ rules:
   - applications
   - channels
   - subscriptions
+  - gitopsclusters
   verbs:
   - get
   - list
