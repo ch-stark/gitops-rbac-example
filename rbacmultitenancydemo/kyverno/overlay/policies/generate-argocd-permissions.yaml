@@ -34,17 +34,17 @@ spec:
             - Namespace
         subjects:
         - kind: Group
-          name: "team1"
+          name: "red-sre-group"
     generate:
       kind: ClusterRoleBinding
-      name: "{{ `{{request.object.metadata.name}}` }}-team1-argocdaccess"
+      name: "{{ `{{request.object.metadata.name}}` }}-red-sre-group-argocdaccess"
       synchronize: true
       data:
         subjects:
         - kind: Group
-          name: team1
+          name: red-sre-group
           apiGroup: rbac.authorization.k8s.io
         roleRef:
           kind: ClusterRole
-          name: argo-admin
+          name: red-sre-group
           apiGroup: rbac.authorization.k8s.io
