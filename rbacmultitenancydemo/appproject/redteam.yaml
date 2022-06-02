@@ -7,6 +7,13 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
+  roles:
+   data:
+    policy.csv: |
+      g, acm-sre-group, role:admin
+      g, acm-viewer-group, role:readonly
+      g, red-sre-group, role:admin
+      g, red-viewer-group, role:readonly
   sourceRepos:
   - '*'
   destinations:
