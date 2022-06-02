@@ -3,9 +3,13 @@ kind: Kustomization
 resources:
 - require-requests-limits-policy.yaml
 - generate-argocd-permissions-redteam.yaml
+- generate-argocd-permissions-blueteam.yaml
 - generateManagedClusterSetBindingredteam.yaml
+- generateManagedClusterSetBindingblueteam.yaml
 - validate-ns-redsre.yaml
 - validate-ns-bluesre.yaml  
 - restrict-blueteam-to-its-appproject.yaml
-- restrict-redteam-to-its-appproject.yaml  
+- restrict-redteam-to-its-appproject.yaml 
+- add-labels-to-bluetenant.yaml
+- add-labels-to-redtenant.yaml
 

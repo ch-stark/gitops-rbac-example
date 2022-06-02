@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: kyverno:generate-argocd-red-sre-group
+  name: kyverno:generate-argocd-blue-sre-group
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -15,7 +15,7 @@ subjects:
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: add-argocd-clusterrolebinding
+  name: add-argocd-clusterrolebinding-blue
   annotations:
     policies.kyverno.io/title: Add ArgoCD Rolebinding
     policies.kyverno.io/category: Multi-Tenancy
@@ -26,7 +26,7 @@ metadata:
 spec:
   background: false
   rules:
-  - name: generate-clusterrolebinding
+  - name: generate-clusterrolebinding-red
     match:
       any:
       - resources:
@@ -47,5 +47,5 @@ spec:
         subjects:
         - apiGroup: rbac.authorization.k8s.io
           kind: Group
-          name: blue-sre-group
+          name: red-sre-group
           
