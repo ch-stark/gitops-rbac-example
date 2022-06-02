@@ -2,7 +2,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: add-managedclustersetbinding-red-sre-group
+  name: add-managedclustersetbinding-blue-sre-group
   annotations:
     policies.kyverno.io/title: Add ArgoCD Rolebinding
     policies.kyverno.io/category: Multi-Tenancy
@@ -13,7 +13,7 @@ metadata:
 spec:
   background: false
   rules:
-  - name: generate-clusterrolebinding
+  - name: generate-clusterrolebinding-bluegroup
     match:
       any:
       - resources:
