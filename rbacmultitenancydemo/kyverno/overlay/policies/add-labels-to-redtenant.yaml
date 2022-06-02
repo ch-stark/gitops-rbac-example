@@ -1,0 +1,33 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-labelsnamespace-redteam
+  annotations:
+    policies.kyverno.io/title: Add labels to redteam
+    policies.kyverno.io/category: Other
+    policies.kyverno.io/severity: medium
+    kyverno.io/kyverno-version: 1.6.2
+    policies.kyverno.io/minversion: 1.6.0
+    kyverno.io/kubernetes-version: "1.23"
+    policies.kyverno.io/subject: Group
+    policies.kyverno.io/description: >-
+      Add labels to redteam
+spec:
+  background: true
+  rules:
+  - name: add-labelsnamespace-tedteam
+    match:
+      any:
+      - resources:
+          kinds:
+            - Namespace
+          subjects:
+           - kind: Group
+             name: red-sre-group
+              
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          labels:
+            argocd.argoproj.io/managed-by: redteam 
+
