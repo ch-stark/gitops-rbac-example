@@ -10,13 +10,14 @@ spec:
     match:
       resources:
         kinds:
-        - Application
         - ApplicationSet  
       subjects:
       - kind: Group
         name: red-sre-group
     validate:
-      message: "For any `red-sre-group` member, creation of ArgoCD Application must be against the `redproject` AppProject."
+      message: "For any `red-sre-group` member, creation of ArgoCD Application must be against the `redteam` AppProject."
       pattern:
         spec:
-          project: redteam
+          template:
+            spec:
+              project: redteam
