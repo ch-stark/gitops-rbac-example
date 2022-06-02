@@ -1,7 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- require-requests-limits-policy.yaml
 - generate-argocd-permissions-redteam.yaml
 - generate-argocd-permissions-blueteam.yaml
 - generateManagedClusterSetBindingredteam.yaml
