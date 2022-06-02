@@ -20,10 +20,10 @@ spec:
         - red-viewer-group
       name: red-viewer-group
       policies:
-        - 'p, proj:redteam:red-viewer-group, applications, get, team1/*, allow'
-        - 'p, proj:redteam:red-viewer-group, applications, sync, team1/*, allow'
-        - 'p, proj:redteam:red-viewer-group, applications, action, team1/*, allow'
-        - 'p, proj:redteam:red-viewer-group, applications, delete, team1/*, allow'
+        - 'p, proj:redteam:red-viewer-group, applications, get, redteam/*, allow'
+        - 'p, proj:redteam:red-viewer-group, applications, sync, redteam/*, allow'
+        - 'p, proj:redteam:red-viewer-group, applications, action, redteam/*, allow'
+        - 'p, proj:redteam:red-viewer-group, applications, delete, redteam/*, allow'
   sourceRepos:
   - '*'
   destinations:
