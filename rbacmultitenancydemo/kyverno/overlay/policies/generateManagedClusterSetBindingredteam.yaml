@@ -13,7 +13,7 @@ metadata:
 spec:
   background: false
   rules:
-  - name: generate-clusterrolebinding
+  - name: generate-clusterrolebinding-red
     match:
       any:
       - resources:
