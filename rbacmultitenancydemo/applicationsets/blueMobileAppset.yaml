@@ -15,7 +15,7 @@ spec:
     metadata:
       name: mobileapp-{{name}}
     spec:
-      project: blueteam-project
+      project: blueteam
       source:
         repoURL: https://github.com/rokej/BlueApplications.git
         targetRevision: main

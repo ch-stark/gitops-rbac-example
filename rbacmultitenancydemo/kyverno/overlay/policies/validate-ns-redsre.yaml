@@ -29,7 +29,7 @@ spec:
         - kind: Group
           name: "red-sre-group"
     validate:
-      message: The only names approved for your namespaces are the ones starting by {{request.userInfo.groups[?contains(@,':') == `false`] }}-*
+      message: The only names approved for your namespaces are the ones starting by redteam*
       foreach:
       - list: "request.userInfo.groups[?contains(@,':') == `false`][].{name:@}"
         elementScope: true
@@ -38,4 +38,4 @@ spec:
             any:
             - key: "{{request.object.metadata.name}}"
               operator: AnyNotIn
-              value: "{{request.userInfo.groups[?contains(@,':') == `false`][].join('-', [@, '*'])}}"
+              value: "redteam*"

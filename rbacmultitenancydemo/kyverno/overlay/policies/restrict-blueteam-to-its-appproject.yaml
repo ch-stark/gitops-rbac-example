@@ -11,6 +11,7 @@ spec:
       resources:
         kinds:
         - Application
+        - ApplicationSet 
       subjects:
       - kind: Group
         name: blue-sre-group
@@ -18,4 +19,4 @@ spec:
       message: "For any `blue-sre-group` member, creation of ArgoCD Application must be against the `blueproject` AppProject."
       pattern:
         spec:
-          project: blueproject
+          project: blueteam

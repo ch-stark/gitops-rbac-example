@@ -11,6 +11,7 @@ spec:
       resources:
         kinds:
         - Application
+        - ApplicationSet  
       subjects:
       - kind: Group
         name: red-sre-group
@@ -18,4 +19,4 @@ spec:
       message: "For any `red-sre-group` member, creation of ArgoCD Application must be against the `redproject` AppProject."
       pattern:
         spec:
-          project: redproject
+          project: redteam

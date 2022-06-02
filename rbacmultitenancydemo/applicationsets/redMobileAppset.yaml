@@ -15,7 +15,7 @@ spec:
     metadata:
       name: mobileapp-{{name}}
     spec:
-      project: redteam-project
+      project: redteam
       source:
         repoURL: https://github.com/rokej/BlueApplications.git
         targetRevision: main
