@@ -5,6 +5,13 @@ metadata:
 rules:
 - apiGroups:
   - cluster.open-cluster-management.io
+  resources:
+  - managedclustersetbindings  
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - cluster.open-cluster-management.io
   resourceNames:
   - redteam
   resources:
