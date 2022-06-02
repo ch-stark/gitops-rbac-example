@@ -1,7 +1,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: team-validate-blue-schema
+  name: team-validate-red-ns-schema
   annotations:
     policies.kyverno.io/title: Validate Team Namespace Schema
     policies.kyverno.io/category: Other
@@ -27,15 +27,15 @@ spec:
             - Project
         subjects:
         - kind: Group
-          name: "bluesre1"
+          name: "red-sre-group"
     validate:
-      message: The only names approved for your namespaces are the ones starting by {{ `{{request.userInfo.groups[?contains(@,':') == `false`]}}` }}-*
+      message: The only names approved for your namespaces are the ones starting by {{request.userInfo.groups[?contains(@,':') == `false`] }}-*
       foreach:
       - list: "request.userInfo.groups[?contains(@,':') == `false`][].{name:@}"
         elementScope: true
         deny:
           conditions:
             any:
-            - key: "{{ `{{request.object.metadata.name}}` }}"
+            - key: "{{request.object.metadata.name}}"
               operator: AnyNotIn
-              value: "{{ `{{request.userInfo.groups[?contains(@,':') == `false`][].join('-', [@, '*'])}}` }}"
+              value: "{{request.userInfo.groups[?contains(@,':') == `false`][].join('-', [@, '*'])}}"
