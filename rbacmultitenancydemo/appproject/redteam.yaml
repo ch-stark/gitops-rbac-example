@@ -1,19 +1,29 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: redteam-project
+  name: redteam
   namespace: redteam
   # Finalizer that ensures that project is not deleted until it is not referenced by any application
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
+  destinations:
+    - namespace: redteam-*
+      server: '*'
   roles:
-   data:
-    policy.csv: |
-      g, acm-sre-group, role:admin
-      g, acm-viewer-group, role:readonly
-      g, red-sre-group, role:admin
-      g, red-viewer-group, role:readonly
+    - groups:
+        - red-sre-group
+      name: red-sre-group
+      policies:
+        - 'p, proj:redteam:red-sre-group-admin, applications, *, redteam/*, allow'
+    - groups:
+        - red-viewer-group
+      name: red-viewer-group
+      policies:
+        - 'p, proj:redteam:red-viewer-group, applications, get, team1/*, allow'
+        - 'p, proj:redteam:red-viewer-group, applications, sync, team1/*, allow'
+        - 'p, proj:redteam:red-viewer-group, applications, action, team1/*, allow'
+        - 'p, proj:redteam:red-viewer-group, applications, delete, team1/*, allow'
   sourceRepos:
   - '*'
   destinations:
