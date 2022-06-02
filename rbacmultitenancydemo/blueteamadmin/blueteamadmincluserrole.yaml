@@ -119,8 +119,28 @@ rules:
   - get
   - list
   - watch
-
-
+  - edit
+- apiGroups:
+  - apps.open-cluster-management.io
+  resources:
+  - applications
+  - channels
+  - subscriptions
+  - gitopsclusters
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - app.k8s.io
+  resources:
+  - applications
+  - channels
+  - subscriptions
+  verbs:
+  - get
+  - list
+  - watch  
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1

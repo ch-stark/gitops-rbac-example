@@ -1,12 +1,29 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: blueteam-project
+  name: blueteam
   namespace: blueteam
   # Finalizer that ensures that project is not deleted until it is not referenced by any application
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
+  destinations:
+    - namespace: blueteam-*
+      server: '*'
+  roles:
+    - groups:
+        - blue-sre-group
+      name: blue-sre-group
+      policies:
+        - 'p, proj:blueteam:blue-sre-group-admin, applications, *, blueteam/*, allow'
+    - groups:
+        - blue-viewer-group
+      name: blue-viewer-group
+      policies:
+        - 'p, proj:blueteam:blue-viewer-group, applications, get, blueteam/*, allow'
+        - 'p, proj:blueteam:blue-viewer-group, applications, sync, blueteam/*, allow'
+        - 'p, proj:blueteam:blue-viewer-group, applications, action, blueteam/*, allow'
+        - 'p, proj:blueteam:blue-viewer-group, applications, delete, blueteam/*, allow'
   sourceRepos:
   - '*'
   destinations:
@@ -15,4 +32,3 @@ spec:
   clusterResourceWhitelist:
   - group: '*'
     kind: '*'
-

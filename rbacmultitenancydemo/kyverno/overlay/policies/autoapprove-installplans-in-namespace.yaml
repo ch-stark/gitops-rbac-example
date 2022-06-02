@@ -1,7 +1,7 @@
 apiVersion: kyverno.io/v1
 kind: Policy
 metadata:
-  name: approve-installplan
+  name: add-labelsnamespace-tedteam
   namespace: policies
   annotations:
     policies.kyverno.io/title: Approves install plans created in the namespace where this policy gets created
@@ -16,16 +16,14 @@ metadata:
 spec:
   background: true
   rules:
-  - name: approve-installplan
+  - name: add-labelsnamespace-tedteam
     match:
       any:
       - resources:
           kinds:
-            - InstallPlan
+            - Namespace
     mutate:
       patchStrategicMerge:
-        spec:
-          approved: true
         metadata:
           labels:
-            "approved-by": "kyverno-approve-installplan" 
+            "managed": "redteam" 

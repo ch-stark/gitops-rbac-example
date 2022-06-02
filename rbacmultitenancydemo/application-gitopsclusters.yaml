@@ -2,7 +2,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+<<<<<<< HEAD
   name: redteamviewer
+=======
+  name: gitopsclusters
+>>>>>>> adc19cdd7ff801045f9c80991e007e97b80f2065
   namespace: openshift-gitops
 spec:
   destination:
@@ -10,7 +14,11 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
+<<<<<<< HEAD
     path: rbacmultitenancydemo/redteamviewer
+=======
+    path: rbacmultitenancydemo/gitopsclusters
+>>>>>>> adc19cdd7ff801045f9c80991e007e97b80f2065
     repoURL: https://github.com/ch-stark/gitops-rbac-example.git
     targetRevision: HEAD
   syncPolicy:
@@ -18,4 +26,8 @@ spec:
     - CreateNamespace=true
     automated:
       selfHeal: true
+<<<<<<< HEAD
       prune: true        
+=======
+      prune: true
+>>>>>>> adc19cdd7ff801045f9c80991e007e97b80f2065

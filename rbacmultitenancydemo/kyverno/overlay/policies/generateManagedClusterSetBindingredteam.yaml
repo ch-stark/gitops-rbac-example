@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: kyverno:generate-argocd-red-sre-group
+  name: kyverno:generate-managedclustersetbinding-red-sre-group
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -36,16 +36,17 @@ spec:
         - kind: Group
           name: "red-sre-group"
     generate:
-      kind: RoleBinding
-      name: {{request.object.metadata.name}}-argocdaccess
+      apiVersion: cluster.open-cluster-management.io/v1beta1
+      kind: ManagedClusterSetBinding
+      name: redteam
+      namespace: {{request.object.metadata.namespace}}
       synchronize: true
       data:
-        roleRef:
-          apiGroup: rbac.authorization.k8s.io
-          kind: ClusterRole
-          name: admin
-        subjects:
-        - apiGroup: rbac.authorization.k8s.io
-          kind: Group
-          name: blue-sre-group
+        kind: ManagedClusterSetBinding
+        metadata:
+          namespace: redteam
+          name: {{request.object.metadata.namespace}}
+        spec:
+          clusterSet: redteam
           
+
