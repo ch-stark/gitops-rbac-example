@@ -23,6 +23,7 @@ patches:
   target:
     kind: ConfigMap
     name: kyverno
+- path: clusterrolebinding.yaml
 
 
 
