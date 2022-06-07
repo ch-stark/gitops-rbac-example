@@ -10,7 +10,6 @@ spec:
     match:
       resources:
         kinds:
-        - Application
         - ApplicationSet 
       subjects:
       - kind: Group
