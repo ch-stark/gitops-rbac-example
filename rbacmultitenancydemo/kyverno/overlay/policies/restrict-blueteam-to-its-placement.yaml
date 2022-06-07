@@ -15,9 +15,11 @@ spec:
       - kind: Group
         name: blue-sre-group
     validate:
-      message: "For any `blue-sre-group` member, creation of ArgoCD Application must be against the `blueproject` AppProject."
+      message: "For any `blue-sre-group` member, creation of ArgoCD Application must be against blue-placement"
       pattern:
         spec:
-          template:
-            spec:
-              project: blueteam
+          predicates:
+            requiredClusterSelector:
+              labelSelector:
+                matchLabels:
+                  cluster.open-cluster-management.io/placement: blue-placement
