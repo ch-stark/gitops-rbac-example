@@ -20,9 +20,9 @@ spec:
           - kind: Group
             name: "red-sre-group"
     generate:
-      synchronize: true
       kind: RoleBinding
       name: redteamargocdaccess
+      namespace: {{request.object.metadata.name}}
       synchronize: true
       data:
         roleRef:
