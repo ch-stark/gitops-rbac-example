@@ -25,7 +25,7 @@ spec:
     generate:
       kind: RoleBinding
       name: argocdaccess-blueteam
-      namespace: {{request.object.metadata.name}}
+      namespace: "{{request.object.metadata.name}}"
       synchronize: true
       data:
         roleRef:
