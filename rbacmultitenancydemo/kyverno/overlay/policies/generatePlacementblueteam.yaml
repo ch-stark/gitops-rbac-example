@@ -13,7 +13,7 @@ metadata:
 spec:
   background: false
   rules:
-  - name: generate-clusterrolebinding-red
+  - name: generate-placement-red
     match:
       any:
       - resources:
@@ -25,15 +25,14 @@ spec:
     generate:
       apiVersion: cluster.open-cluster-management.io/v1beta1
       kind: Placement
-      name: blueteam
-      namespace: {{request.object.metadata.name}}
-      synchronize: true
-      data:
-        spec:
-          predicates:
-          - requiredClusterSelector:
-              labelSelector:
-                matchLabels:
-                  cluster.open-cluster-management.io/placement: blueplacement
+      metadata:
+        name: blueteam
+        namespace: {{request.object.metadata.name}}
+      spec:
+        predicates:
+        - requiredClusterSelector:
+            labelSelector:
+              matchLabels:
+                cluster.open-cluster-management.io/placement: blueplacement
           
 
