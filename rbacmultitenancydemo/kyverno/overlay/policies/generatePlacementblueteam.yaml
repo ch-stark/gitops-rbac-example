@@ -2,7 +2,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: add-managedclustersetbinding-red-sre-group
+  name: add-managedclustersetbinding-blue-sre-group
   annotations:
     policies.kyverno.io/title: Add ArgoCD Rolebinding
     policies.kyverno.io/category: Multi-Tenancy
@@ -13,7 +13,7 @@ metadata:
 spec:
   background: false
   rules:
-  - name: generate-placement-red
+  - name: generate-placement-blue
     match:
       any:
       - resources:
@@ -21,18 +21,19 @@ spec:
             - Namespace
         subjects:
         - kind: Group
-          name: "red-sre-group"
+          name: "blue-sre-group"
     generate:
       apiVersion: cluster.open-cluster-management.io/v1beta1
       kind: Placement
-      metadata:
-        name: blueteam
-        namespace: {{request.object.metadata.name}}
-      spec:
-        predicates:
-        - requiredClusterSelector:
-            labelSelector:
-              matchLabels:
-                cluster.open-cluster-management.io/placement: blueplacement
+      name: blueteam
+      namespace: {{request.object.metadata.name}}
+      synchronize: true
+      data:
+        spec:
+          predicates:
+          - requiredClusterSelector:
+              labelSelector:
+                matchLabels:
+                  cluster.open-cluster-management.io/placement: blueplacement
           
 
