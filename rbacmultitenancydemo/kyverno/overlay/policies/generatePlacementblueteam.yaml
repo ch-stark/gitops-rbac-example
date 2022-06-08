@@ -28,11 +28,11 @@ spec:
       metadata:
         name: blueteam
         namespace: {{request.object.metadata.name}}
-      spec:
-        predicates:
-        - requiredClusterSelector:
-            labelSelector:
-              matchLabels:
-                cluster.open-cluster-management.io/placement: blueplacement
+        spec:
+          predicates:
+          - requiredClusterSelector:
+              labelSelector:
+                matchLabels:
+                  cluster.open-cluster-management.io/placement: blueplacement
           
 

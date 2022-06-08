@@ -24,16 +24,15 @@ spec:
           name: "red-sre-group"
     generate:
       apiVersion: cluster.open-cluster-management.io/v1beta1
-      kind: Placement
-      name: redteam
-      namespace: {{request.object.metadata.name}}
-      synchronize: true
-      data:
-        spec:
-          predicates:
-          - requiredClusterSelector:
-              labelSelector:
-                matchLabels:
-                  cluster.open-cluster-management.io/placement: redplacement
+      metadata:
+        kind: Placement
+        name: redteam
+        namespace: {{request.object.metadata.name}}
+          spec:
+            predicates:
+            - requiredClusterSelector:
+                labelSelector:
+                  matchLabels:
+                    cluster.open-cluster-management.io/placement: redplacement
           
 
