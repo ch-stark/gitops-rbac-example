@@ -22,7 +22,7 @@ spec:
     generate:
       kind: RoleBinding
       name: redteamargocdaccess
-      namespace: test999999
+      namespace: "{{request.object.metadata.name}}"
       synchronize: true
       data:
         roleRef:
