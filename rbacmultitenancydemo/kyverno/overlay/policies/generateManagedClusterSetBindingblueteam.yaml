@@ -25,10 +25,9 @@ spec:
     generate:
       apiVersion: cluster.open-cluster-management.io/v1beta1
       kind: ManagedClusterSetBinding
-      name: blueteam
-      namespace: "{{request.object.metadata.name}}"
-      synchronize: true
-      data:
+      metadata:
+        name: blueteam
+        namespace: "{{request.object.metadata.name}}"
         spec:
           clusterSet: blueteam
           
