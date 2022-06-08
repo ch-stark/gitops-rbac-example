@@ -13,7 +13,7 @@ metadata:
 spec:
   background: false
   rules:
-  - name: generate-clusterrolebinding-bluegroup
+  - name: managedclustersetbinding-blue-sre-group
     match:
       any:
       - resources:
