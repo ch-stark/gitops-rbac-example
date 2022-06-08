@@ -25,9 +25,9 @@ spec:
     generate:
       apiVersion: cluster.open-cluster-management.io/v1beta1
       kind: Placement
-      metadata:
-        name: redteam
-        namespace: {{request.object.metadata.name}}
+      name: redteam
+      namespace: {{request.object.metadata.name}}
+      data:
         spec:
           predicates:
           - requiredClusterSelector:

@@ -25,9 +25,10 @@ spec:
     generate:
       apiVersion: cluster.open-cluster-management.io/v1beta1
       kind: Placement
-      metadata:
-        name: blueteam
-        namespace: {{request.object.metadata.name}}
+      name: blueteam
+      namespace: "{{request.object.metadata.name}}"
+      synchronize: true
+      data:
         spec:
           predicates:
           - requiredClusterSelector:
