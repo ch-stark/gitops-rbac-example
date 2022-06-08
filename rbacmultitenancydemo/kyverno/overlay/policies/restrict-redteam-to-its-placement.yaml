@@ -15,7 +15,7 @@ spec:
       - kind: Group
         name: red-sre-group
     validate:
-      message: "For any `red-sre-group` member, creation of ArgoCD ApplicationSet must point to redclusterset"
+      message: "For any `red-sre-group` member, creation of ArgoCD ApplicationSet must point to red-placement"
       pattern:
         spec:
           predicates:
