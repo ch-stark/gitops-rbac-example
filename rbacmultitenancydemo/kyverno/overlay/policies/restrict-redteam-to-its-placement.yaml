@@ -18,8 +18,9 @@ spec:
       message: "For any `red-sre-group` member, creation of ArgoCD ApplicationSet must point to red-placement"
       pattern:
         spec:
-          predicates:
-            requiredClusterSelector:
-              labelSelector:
-                matchLabels:
-                  cluster.open-cluster-management.io/placement: red-placement
+          generators:
+            - clusterDecisionResource:
+                configMapRef: acm-placement
+                labelSelector:
+                  matchLabels:
+                    cluster.open-cluster-management.io/placement: red-placement
