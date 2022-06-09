@@ -1,7 +1,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: restrict-blueteam-to-its-appproject
+  name: restrict-blueteam-to-its-placement
 spec:
   validationFailureAction: enforce
   background: false
