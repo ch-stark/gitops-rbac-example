@@ -17,8 +17,8 @@ spec:
     validate:
       message: "For any `red-sre-group` member, creation of ArgoCD Application must be against the `redteam` namespace pattern"
       pattern:
-        spec:  
-      	  template:
-	          spec:
-	            destination:
-		            namespace: redteam*
+        spec:
+          template:
+            spec:
+              destination:
+                namespace: redteam*

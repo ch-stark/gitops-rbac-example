@@ -13,12 +13,12 @@ spec:
         - ApplicationSet  
       subjects:
       - kind: Group
-        name: red-sre-group
+        name: blue-sre-group
     validate:
       message: "For any `red-sre-group` member, creation of ArgoCD Application must be against the `blueteam` namespace pattern"
       pattern:
         spec:  
-      	  template:
-	          spec:
-	            destination:
-		            namespace: blueteam*
+          template:
+            spec:
+              destination:
+                namespace: blueteam*
