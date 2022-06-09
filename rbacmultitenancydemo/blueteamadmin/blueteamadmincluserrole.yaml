@@ -15,7 +15,7 @@ rules:
 - apiGroups:
   - cluster.open-cluster-management.io
   resourceNames:
-  - default
+  - blueteam
   resources:
   - managedclustersets/join
   verbs:
@@ -23,7 +23,7 @@ rules:
 - apiGroups:
   - cluster.open-cluster-management.io
   resourceNames:
-  - default
+  - blueteam
   resources:
   - managedclustersets/bind
   verbs:
