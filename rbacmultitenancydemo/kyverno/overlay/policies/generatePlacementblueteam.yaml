@@ -22,6 +22,13 @@ spec:
         subjects:
         - kind: Group
           name: "blue-sre-group"
+    preconditions:
+      any:
+      - key: "{{request.operation}}"
+        operator: In
+        value:
+        - CREATE
+        - UPDATE             
     generate:
       apiVersion: cluster.open-cluster-management.io/v1beta1
       kind: Placement
