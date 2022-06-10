@@ -14,6 +14,13 @@ spec:
       subjects:
       - kind: Group
         name: red-sre-group
+    preconditions:
+      any:
+      - key: "{{request.operation}}"
+        operator: In
+        value:
+        - CREATE
+        - UPDATE           
     validate:
       message: "For any `red-sre-group` member, creation of ArgoCD Application must be against the `redteam` namespace pattern"
       pattern:
