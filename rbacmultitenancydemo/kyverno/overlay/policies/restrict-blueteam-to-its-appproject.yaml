@@ -14,6 +14,13 @@ spec:
       subjects:
       - kind: Group
         name: blue-sre-group
+    preconditions:
+      any:
+      - key: "{{request.operation}}"
+        operator: In
+        value:
+        - CREATE
+        - UPDATE           
     validate:
       message: "For any `blue-sre-group` member, creation of ArgoCD Application must be against the `blueproject` AppProject."
       pattern:
