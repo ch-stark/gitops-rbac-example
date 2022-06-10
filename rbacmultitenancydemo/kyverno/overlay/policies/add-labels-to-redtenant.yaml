@@ -21,9 +21,9 @@ spec:
       - resources:
           kinds:
             - Namespace
-          subjects:
-           - kind: Group
-             name: red-sre-group
+        subjects:
+        - kind: Group
+          name: red-sre-group
     preconditions:
       any:
       - key: "{{request.operation}}"
