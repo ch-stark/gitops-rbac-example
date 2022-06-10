@@ -1,3 +1,20 @@
 to run demo execute 2 times with a 30 sec interval
 
 oc apply -f gitopsdemoall.yaml
+
+namespace/fulldemo unchanged
+namespace/openshift-gitops-operator unchanged
+namespace/test unchanged
+namespace/blueteam unchanged
+namespace/redteam unchanged
+namespace/kyverno unchanged
+namespace/kyverno-policies unchanged
+namespace/policies-appset unchanged
+namespace/openshift-gitops unchanged
+operatorgroup.operators.coreos.com/openshift-gitops-group unchanged
+subscription.operators.coreos.com/openshift-gitops-operator unchanged
+clusterrolebinding.rbac.authorization.k8s.io/cluster-admin-0 unchanged
+application.argoproj.io/fulldemo created
+appproject.argoproj.io/default created
+
+
