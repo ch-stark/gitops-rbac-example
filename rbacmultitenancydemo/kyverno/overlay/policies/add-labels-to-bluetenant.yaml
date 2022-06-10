@@ -24,7 +24,14 @@ spec:
             - Namespace
         subjects:
         - kind: Group
-          name: blue-sre-group              
+          name: blue-sre-group    
+    preconditions:
+      any:
+      - key: "{{request.operation}}"
+        operator: In
+        value:
+        - CREATE
+        - UPDATE             
     mutate:
       patchStrategicMerge:
         metadata:
