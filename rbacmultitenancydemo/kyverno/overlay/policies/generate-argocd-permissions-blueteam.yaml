@@ -28,7 +28,6 @@ spec:
         operator: In
         value:
         - CREATE
-        - UPDATE             
     generate:
       kind: RoleBinding
       name: argocdaccess-blueteam
