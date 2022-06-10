@@ -28,6 +28,13 @@ spec:
         subjects:
         - kind: Group
           name: "red-sre-group"
+    preconditions:
+      any:
+      - key: "{{request.operation}}"
+        operator: In
+        value:
+        - CREATE
+        - UPDATE        
     validate:
       message: The only names approved for your namespaces are the ones starting by redteam*
       foreach:
