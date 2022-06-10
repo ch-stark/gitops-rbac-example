@@ -30,7 +30,6 @@ spec:
         operator: In
         value:
         - CREATE
-        - UPDATE                 
     mutate:
       patchStrategicMerge:
         metadata:
