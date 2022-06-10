@@ -3,7 +3,7 @@ kind: ClusterPolicy
 metadata:
   name: add-labelsnamespace-blueteam
   annotations:
-    policies.kyverno.io/title: Add labels to redteam
+    policies.kyverno.io/title: Add labels to blueteam
     policies.kyverno.io/category: Multi-Tenancy
     policies.kyverno.io/subject: ClusterRoleBinding
     policies.kyverno.io/severity: medium
@@ -16,7 +16,7 @@ metadata:
 spec:
   background: true
   rules:
-  - name: add-labelsnamespace-bueteam
+  - name: add-labelsnamespace-blueteam
     match:
       any:
       - resources:
