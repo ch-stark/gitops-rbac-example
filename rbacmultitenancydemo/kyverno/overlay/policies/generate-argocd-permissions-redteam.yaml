@@ -12,12 +12,13 @@ spec:
   rules:
   - name: generate-clusterrolebinding-red
     match:
-      resources:
-        kinds:
-        - Namespace
-      subjects:
-      - kind: Group
-        name: "red-sre-group"
+      any:
+      - resources:
+          kinds:
+            - Namespace
+        subjects:
+        - kind: Group
+          name: "red-sre-group"
     preconditions:
       any:
       - key: "{{request.operation}}"
