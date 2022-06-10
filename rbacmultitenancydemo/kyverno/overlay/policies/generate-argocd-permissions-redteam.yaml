@@ -19,6 +19,13 @@ spec:
           subjects:
           - kind: Group
             name: "red-sre-group"
+    preconditions:
+      any:
+      - key: "{{request.operation}}"
+        operator: In
+        value:
+        - CREATE
+        - UPDATE               
     generate:
       kind: RoleBinding
       name: redteamargocdaccess
