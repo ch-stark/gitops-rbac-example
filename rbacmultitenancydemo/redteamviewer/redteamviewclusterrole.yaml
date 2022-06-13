@@ -109,7 +109,7 @@ metadata:
   name: red-view-rolebinding
 subjects:
   - kind: Group
-    name: red-view-group
+    name: red-viewer-group
 roleRef:
   kind: ClusterRole
   name: red-view-group
