@@ -7,11 +7,9 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  resourceExclusions: |
-    - apiGroups:
-      - open-cluster-management.io
-      kinds:
-      - PlacementRules
+  namespaceResourceBlacklist:
+    - group: 'open-cluster-management.io'
+      kind: PlacementRule
   destinations:
     - namespace: redteam-*
       server: '*'
