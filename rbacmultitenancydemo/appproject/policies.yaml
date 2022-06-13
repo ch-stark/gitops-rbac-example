@@ -8,7 +8,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   namespaceResourceBlacklist:
-    - group: 'open-cluster-management.io'
+    - group: 'apps.open-cluster-management.io'
       kind: PlacementRule
   sourceRepos:
   - '*'
