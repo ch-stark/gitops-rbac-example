@@ -11,12 +11,16 @@ rules:
   - managedclustersets
   verbs:
   - get
+  - list
+  - watch
 - apiGroups:
   - cluster.open-cluster-management.io
   resources:
   - managedclusters
   verbs:
-  - view
+  - get
+  - list
+  - watch
 - apiGroups:
   - register.open-cluster-management.io
   resources:
