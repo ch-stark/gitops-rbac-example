@@ -1,0 +1,17 @@
+resources:
+  application-applicationsets.yaml
+  application-appproject.yaml
+  application-argocds.yaml
+  application-blueadmin.yaml
+  application-blueview.yaml
+  application-gitopsclusters.yaml
+  application-gitopsoperator.yaml
+  application-kyverno-policies.yaml
+  application-kyverno.yaml
+  application-managedclustersetbindings.yaml
+  application-openshift-setup.yaml
+  application-placements.yaml
+  application-redadmin.yaml
+  application-redview.yaml
+  application-setup-clusters.yaml
+
