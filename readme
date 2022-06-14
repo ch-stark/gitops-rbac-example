@@ -17,7 +17,8 @@ clusterrolebinding.rbac.authorization.k8s.io/cluster-admin-0 unchanged
 application.argoproj.io/fulldemo created
 appproject.argoproj.io/default created
 
-
+Links:
+https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html-single/clusters/index#creating-a-managedclustersetbinding
 
 
 
