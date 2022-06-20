@@ -36,6 +36,8 @@ spec:
       synchronize: true
       data:
         spec:
+          clusterSets:
+          - blueteam
           predicates:
           - requiredClusterSelector:
               labelSelector:
