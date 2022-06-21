@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: deplloy
+    path: deploy
     repoURL: https://github.com/openshift/managed-upgrade-operator
     targetRevision: HEAD
   ignoreDifferences:
