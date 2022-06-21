@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     path: deploy
-    repoURL: https://github.com/openshift/managed-upgrade-operator
+    repoURL: https://github.com/ch-stark/managed-upgrade-operator
     targetRevision: HEAD
   ignoreDifferences:
   - kind: "Namespace"  
