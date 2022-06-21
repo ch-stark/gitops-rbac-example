@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: openshift-virtualization
-  namespace: openshift-cnv
+  namespace: openshift-gitops
 spec:
   destination:
     namespace: openshift-cnv
