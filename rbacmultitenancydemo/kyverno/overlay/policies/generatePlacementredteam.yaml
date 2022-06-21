@@ -36,10 +36,7 @@ spec:
       synchronize: true
       data:
         spec:
-          predicates:
-          - requiredClusterSelector:
-              labelSelector:
-                matchLabels:
-                  cluster.open-cluster-management.io/placement: redplacement
+          clusterSets:
+          - redteam
           
 
