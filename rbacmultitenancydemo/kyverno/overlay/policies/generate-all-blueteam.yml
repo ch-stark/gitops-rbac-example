@@ -32,17 +32,16 @@ spec:
     generate:
       apiVersion: apps.open-cluster-management.io/v1beta1
       kind: GitOpsCluster
-      metadata:
-        namespace: openshift-gitops
-        name: gitops-cluster
+      name: blueteam
+      namespace: "{{request.object.metadata.name}}"
       spec:
         argoServer:
           cluster: local-cluster
-          argoNamespace: openshift-gitops
+          argoNamespace: blueteam
         placementRef:
           kind: Placement
           apiVersion: cluster.open-cluster-management.io/v1alpha1
-          name: gitops-placement        
+          name: blueteam        
   - name: generate-managedclustersetbinding-blue-sre-group
     match:
       any:
