@@ -13,7 +13,7 @@ metadata:
 spec:
   background: false
   rules:
-  - name: generate-clusterrolebinding-blue-sre-group
+  - name: generate-gitops-cluster
     match:
       any:
       - resources:
@@ -28,20 +28,21 @@ spec:
         operator: In
         value:
         - CREATE
+        - UPDATE   
     generate:
-      kind: RoleBinding
-      name: argocdaccess-blueteam
-      namespace: "{{request.object.metadata.name}}"
-      synchronize: true
-      data:
-        roleRef:
-          apiGroup: rbac.authorization.k8s.io
-          kind: ClusterRole
-          name: admin
-        subjects:
-        - apiGroup: rbac.authorization.k8s.io
-          kind: Group
-          name: blue-sre-group
+      apiVersion: apps.open-cluster-management.io/v1beta1
+      kind: GitOpsCluster
+      metadata:
+        namespace: openshift-gitops
+        name: gitops-cluster
+      spec:
+        argoServer:
+          cluster: local-cluster
+          argoNamespace: openshift-gitops
+        placementRef:
+          kind: Placement
+          apiVersion: cluster.open-cluster-management.io/v1alpha1
+          name: gitops-placement        
   - name: generate-managedclustersetbinding-blue-sre-group
     match:
       any:
