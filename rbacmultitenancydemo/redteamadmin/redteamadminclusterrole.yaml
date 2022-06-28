@@ -79,20 +79,6 @@ rules:
   - limitranges
   verbs: 
   - create  
-- apiGroups:  
-  - argoproj.io 
-  resources: 
-  - applicationsets   
-  verbs: 
-  - create
-  - get
-  - update
-  - list 
-  - delete
-  - watch 
-  - patch  
-- apiGroups:
-  - rbac.authorization.k8s.io
   resources: 
   - clusterroles
   - clusterrolebindings
