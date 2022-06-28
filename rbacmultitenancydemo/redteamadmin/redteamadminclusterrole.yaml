@@ -82,7 +82,6 @@ rules:
 - apiGroups:  
   - argoproj.io 
   resources: 
-  - applications
   - applicationsets   
   verbs: 
   - create
