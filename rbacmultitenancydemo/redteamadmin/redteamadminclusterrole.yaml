@@ -112,7 +112,6 @@ rules:
   - policy.open-cluster-management.io
   resources:
   - placements
-  - placementrules
   - placementbindings
   verbs:
   - get
@@ -126,6 +125,7 @@ rules:
   - channels
   - subscriptions
   - gitopsclusters
+  - placementrules
   verbs:
   - get
   - list
