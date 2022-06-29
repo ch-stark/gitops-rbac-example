@@ -23,9 +23,9 @@ apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: ManagedClusterSetBinding
 metadata:
   namespace: policies-appset
-  name: all-openshift-clusters
+  name: default
 spec:
-  clusterSet: all-openshift-clusters
+  clusterSet: default
 
 ---
 
@@ -34,12 +34,11 @@ apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: ManagedClusterSetBinding
 metadata:
   namespace: policies
-  name: all-openshift-clusters
+  name: default
 spec:
-  clusterSet: all-openshift-clusters
+  clusterSet: default
 
 ---
-
 
 
 apiVersion: cluster.open-cluster-management.io/v1beta1
@@ -81,16 +80,26 @@ metadata:
 spec:
   clusterSet: blueteam
 
----
 
+---
 
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: ManagedClusterSetBinding
 metadata:
-  namespace: test
-  name: all-openshift-clusters
+  namespace: shared
+  name: blueteam
 spec:
-  clusterSet: all-openshift-clusters
+  clusterSet: blueteam
+  
+  ---
+
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: ManagedClusterSetBinding
+metadata:
+  namespace: shared
+  name: redteam
+spec:
+  clusterSet: redteam
 
 
 
