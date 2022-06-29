@@ -14,7 +14,6 @@ spec:
       subjects:
       - kind: Group
         name: blue-sre-group
-      subjects:
       - kind: Group
         name: red-sre-group
     validate:
@@ -24,5 +23,7 @@ spec:
           any:
           - key: "{{request.operation}}"
             operator: Equals
-            value: CREATE         
-
+            value: 
+            - CREATE
+            - UPDATE          
+ 
