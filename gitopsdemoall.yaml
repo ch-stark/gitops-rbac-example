@@ -4,6 +4,10 @@ kind: Namespace
 metadata:
   name: fulldemo
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: shared  
 ---
 apiVersion: v1
 kind: Namespace
