@@ -6,7 +6,7 @@ spec:
   validationFailureAction: enforce
   background: false
   rules:
-  - name: restrict-destination-allteam
+  - name: disallow-placementrules
     match:
       resources:
         kinds:
