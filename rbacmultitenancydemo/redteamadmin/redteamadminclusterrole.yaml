@@ -79,21 +79,6 @@ rules:
   - limitranges
   verbs: 
   - create  
-- apiGroups:  
-  - argoproj.io 
-  resources: 
-  - applications
-  - applicationsets   
-  verbs: 
-  - create
-  - get
-  - update
-  - list 
-  - delete
-  - watch 
-  - patch  
-- apiGroups:
-  - rbac.authorization.k8s.io
   resources: 
   - clusterroles
   - clusterrolebindings
@@ -106,6 +91,8 @@ rules:
   resources:
   - policies
   verbs:
+  - create
+  - update
   - get
   - list
   - watch
@@ -113,7 +100,6 @@ rules:
   - policy.open-cluster-management.io
   resources:
   - placements
-  - placementrules
   - placementbindings
   verbs:
   - get
@@ -127,6 +113,7 @@ rules:
   - channels
   - subscriptions
   - gitopsclusters
+  - placementrules
   verbs:
   - get
   - list
