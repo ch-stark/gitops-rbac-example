@@ -60,8 +60,6 @@ spec:
   clusterSet: blueteam
 
 ---
-
----
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: ManagedClusterSetBinding
 metadata:
@@ -91,7 +89,7 @@ metadata:
 spec:
   clusterSet: blueteam
   
-  ---
+---
 
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: ManagedClusterSetBinding
