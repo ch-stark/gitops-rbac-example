@@ -39,7 +39,15 @@ spec:
   clusterSet: default
 
 ---
-
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: ManagedClusterSetBinding
+metadata:
+  namespace: test
+  name: default
+spec:
+  clusterSet: default
+  
+---
 
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: ManagedClusterSetBinding
