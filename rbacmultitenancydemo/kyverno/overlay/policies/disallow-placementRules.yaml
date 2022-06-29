@@ -10,7 +10,7 @@ spec:
     match:
       resources:
         kinds:
-        - Placement
+        - PlacementRules
       subjects:
       - kind: Group
         name: blue-sre-group
