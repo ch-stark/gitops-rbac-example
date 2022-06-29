@@ -492,6 +492,8 @@ rules:
   - argoproj.io
   resources:
   - applications
+  - applicationsets
+  - applicationsets/status
   - applications/status
   verbs:
   - create
