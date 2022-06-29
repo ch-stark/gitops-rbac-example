@@ -91,6 +91,8 @@ rules:
   resources:
   - policies
   verbs:
+  - create
+  - update
   - get
   - list
   - watch
