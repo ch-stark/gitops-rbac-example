@@ -16,12 +16,5 @@ spec:
         name: red-sre-group
     validate:
       message: "Using Placement Rules not allowed"
-      deny:
-        conditions:
-          any:
-          - key: "{{request.operation}}"
-            operator: Equals
-            value: 
-            - CREATE
-            - UPDATE          
+      deny: {}          
  
