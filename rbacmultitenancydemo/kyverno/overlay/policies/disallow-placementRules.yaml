@@ -11,9 +11,6 @@ spec:
       resources:
         kinds:
         - apps.open-cluster-management.io/*/PlacementRules
-      subjects:
-      - kind: Group
-        name: red-sre-group
     validate:
       message: "Using Placement Rules not allowed"
       deny: {}          
