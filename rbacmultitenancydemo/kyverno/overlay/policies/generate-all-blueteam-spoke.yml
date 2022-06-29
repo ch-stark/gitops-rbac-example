@@ -2,7 +2,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: add-argocd-clusterrolebinding-blue
+  name: add-argocd-clusterrolebinding-blue-all
   annotations:
     policies.kyverno.io/title: Add ArgoCD Rolebinding
     policies.kyverno.io/category: Multi-Tenancy
