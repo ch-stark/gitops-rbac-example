@@ -10,7 +10,7 @@ spec:
     match:
       resources:
         kinds:
-        - apps.open-cluster-management.io/v1/PlacementRules
+        - apps.open-cluster-management.io/*/PlacementRules
       subjects:
       - kind: Group
         name: red-sre-group
