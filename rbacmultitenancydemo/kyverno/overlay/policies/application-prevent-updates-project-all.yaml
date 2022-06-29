@@ -1,7 +1,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: application-prevent-updates-project
+  name: application-prevent-updates-project-all
   annotations:
     policies.kyverno.io/title: Prevent Updates to Project
     policies.kyverno.io/category: Argo
