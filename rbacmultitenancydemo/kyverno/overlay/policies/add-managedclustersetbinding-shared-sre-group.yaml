@@ -9,6 +9,7 @@ metadata:
     policies.kyverno.io/subject: ClusterRoleBinding
     policies.kyverno.io/description: >-
       Note that binding a cluster set to a namespace means that granting access from that namespace to its member clusters. And the bind process requires “managedclustersets/bind” access in the hub cluster which is clarified below. This means you can deploy an ApplicationSet to that namespace and it will be deployed on all Clusters which match the label in the Placement
+      read more at https://open-cluster-management.io/concepts/managedclusterset/#bind-the-clusterset-to-a-workspace-namespace 
 spec:
   background: false
   rules:
