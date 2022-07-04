@@ -1,3 +1,8 @@
+* This Demo (WIP) is focussing on bootstrapping ArgoCD-Instances and setup two teams, blue and red with different groups (sre, viewer) you can only create ApplicationSets
+  Kyverno is used to control the restrictions.
+
+Goal will be to create a PolicySet for Kyverno-Multitenancy.
+
 to run demo execute 2 times with a 30 sec interval
 
 oc apply -f gitopsdemoall.yaml
