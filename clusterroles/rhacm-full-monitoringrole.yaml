@@ -1,77 +1,8 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@ch-stark 
-ch-stark
-/
-gitops-rbac-example
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-gitops-rbac-example/clusterroles/rhacm-cluster-admin.yaml
-@ch-stark
-ch-stark Update rhacm-cluster-admin.yaml
-Latest commit 8aad208 1 hour ago
- History
- 1 contributor
-606 lines (606 sloc)  8.85 KB
-
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: open-cluster-management:cluster-manager-admin
+  name: open-cluster-management:custom-full-monitoring
 rules:
-- apiGroups:
-  - metal3.io
-  resources:
-  - baremetalhosts
-  verbs:
-  - create
-  - get
-  - list
-  - watch
-  - update
-  - delete
-  - deletecollection
-  - patch
-- apiGroups:
-  - agent-install.openshift.io
-  resources:
-  - agents
-  - infraenvs
-  verbs:
-  - create
-  - get
-  - list
-  - watch
-  - update
-  - delete
-  - deletecollection
-  - patch
-- apiGroups:
-  - extensions.hive.openshift.io
-  resources:
-  - agentclusterinstalls
-  verbs:
-  - create
-  - get
-  - list
-  - watch
-  - update
-  - delete
-  - deletecollection
-  - patch
 - apiGroups:
   - cluster.open-cluster-management.io
   resources:
@@ -93,21 +24,15 @@ rules:
   - get
   - list
   - watch
-  - update
-  - patch
 - apiGroups:
   - cluster.open-cluster-management.io
   resources:
   - clustercurators
   verbs:
-  - create
   - get
   - list
   - watch
   - update
-  - delete
-  - deletecollection
-  - patch
 - apiGroups:
   - work.open-cluster-management.io
   resources:
