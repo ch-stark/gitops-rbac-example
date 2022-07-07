@@ -10,7 +10,7 @@ spec:
     match:
       resources:
         kinds:
-        - apps.open-cluster-management.io/*/PlacementRules
+        - apps.open-cluster-management.io/v1/PlacementRule
     validate:
       message: "Using Placement Rules not allowed"
       deny: {}          
