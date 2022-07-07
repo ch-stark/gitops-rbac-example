@@ -1,6 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  name: open-cluster-management:admin:redclusterset
 labels:
     cluster.open-cluster-management.io/clusterset: redteam
     cluster.open-cluster-management.io/role: admin
