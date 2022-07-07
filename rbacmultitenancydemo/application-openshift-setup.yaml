@@ -18,4 +18,9 @@ spec:
     - CreateNamespace=true
     automated:
       selfHeal: true
-      prune: true        
+      prune: true
+  ignoreDifferences:
+    - group: config.openshift.io
+      kind: OAuth
+      jqPathExpressions:
+        - '.spec.identityProviders[] | select(.name != "my_htpasswd_provider")'
