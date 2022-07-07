@@ -1,0 +1,515 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@ch-stark 
+ch-stark
+/
+gitops-rbac-example
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+gitops-rbac-example/clusterroles/rhacm-cluster-admin.yaml
+@ch-stark
+ch-stark Update rhacm-cluster-admin.yaml
+Latest commit 8aad208 1 hour ago
+ History
+ 1 contributor
+606 lines (606 sloc)  8.85 KB
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: open-cluster-management:cluster-manager-admin
+rules:
+- apiGroups:
+  - metal3.io
+  resources:
+  - baremetalhosts
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - agent-install.openshift.io
+  resources:
+  - agents
+  - infraenvs
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - extensions.hive.openshift.io
+  resources:
+  - agentclusterinstalls
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resources:
+  - managedclusters
+  - managedclusters/status
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resources:
+  - managedclustersets
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resources:
+  - clustercurators
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - work.open-cluster-management.io
+  resources:
+  - manifestworks
+  - manifestworks/status
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - action.open-cluster-management.io
+  resources:
+  - managedclusteractions
+  - managedclusteractions/status
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - view.open-cluster-management.io
+  resources:
+  - managedclusterviews
+  - managedclusterviews/status
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - internal.open-cluster-management.io
+  resources:
+  - managedclusterinfos
+  - managedclusterinfos/status
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - hive.openshift.io
+  resources:
+  - clusterdeployments
+  - clusterpools
+  - clusterclaims
+  - machinepools
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - config.openshift.io
+  resources:
+  - clusterversions
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - inventory.open-cluster-management.io
+  resources:
+  - baremetalassets
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - proxy.open-cluster-management.io
+  resources:
+  - clusterstatuses/log
+  verbs:
+  - get
+- apiGroups:
+  - addon.open-cluster-management.io
+  resources:
+  - managedclusteraddons
+  - managedclusteraddons/status
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - addon.open-cluster-management.io
+  resources:
+  - clustermanagementaddons
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - clusterview.open-cluster-management.io
+  resources:
+  - managedclusters
+  - managedclustersets
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resources:
+  - managedclustersetbindings
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resources:
+  - placements
+  - placements/status
+  - placementdecisions
+  - placementdecisions/status
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resources:
+  - addonplacementscores
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - imageregistry.open-cluster-management.io
+  resources:
+  - managedclusterimageregistries
+  - managedclusterimageregistries/status
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - proxy.open-cluster-management.io
+  resources:
+  - managedproxyconfigurations
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resources:
+  - managedclusters
+  - managedclusters/accept
+  - managedclusters/status
+  - clustercurators
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resources:
+  - managedclustersets
+  - managedclustersets/bind
+  - managedclustersets/join
+  - managedclustersets/status
+  - managedclustersetbindings
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - addon.open-cluster-management.io
+  resources:
+  - managedclusteraddons
+  - managedclusteraddons/status
+  - clustermanagementaddons
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - discovery.open-cluster-management.io
+  resources:
+  - discoveryconfigs
+  - discoveredclusters
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - discovery.open-cluster-management.io
+  resources:
+  - discoveryconfigs
+  - discoveredclusters
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - endpoints
+  - secrets
+  - serviceaccounts
+  - services
+  - pods
+  - pods/log
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - daemonsets
+  - deployments
+  - replicasets
+  - statefulsets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterroles
+  - clusterrolebindings
+  - roles
+  - rolebindings
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - authentication.open-cluster-management.io
+  resources:
+  - managedserviceaccounts
+  verbs:
+  - '*'
+- apiGroups:
+  - apps.open-cluster-management.io
+  resources:
+  - deployables
+  - deployables/status
+  - placementrules
+  - placementrules/status
+  - channels
+  - channels/status
+  - subscriptions
+  - subscriptions/status
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - app.k8s.io
+  resources:
+  - applications
+  - applications/status
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - applications
+  - appprojects
+  - applicationsets
+  - applicationsets/finalizers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - applicationsets/status
+  verbs:
+  - get
+- apiGroups:
+  - policy.open-cluster-management.io
+  resources:
+  - policies
+  - policies/status
+  - placementbindings
+  - policyautomations
+  - policysets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - wgpolicyk8s.io
+  resources:
+  - policyreports
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - observability.open-cluster-management.io
+  resources:
+  - multiclusterobservabilities
+  - multiclusterobservabilities/status
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+- apiGroups:
+  - search.open-cluster-management.io
+  resources:
+  - searchcustomizations
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+
