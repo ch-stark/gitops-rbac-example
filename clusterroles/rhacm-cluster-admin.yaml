@@ -493,16 +493,25 @@ rules:
   - argoproj.io
   resources:
   - applications
-  - applications/status
+  - appprojects
+  - applicationsets
+  - applicationsets/finalizers
   verbs:
   - create
+  - delete
   - get
   - list
-  - watch
-  - update
-  - delete
-  - deletecollection
   - patch
+  - update
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - applicationsets/status
+  verbs:
+  - get
+  - patch
+  - update
 - apiGroups:
   - policy.open-cluster-management.io
   resources:
