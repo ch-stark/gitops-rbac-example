@@ -1,0 +1,25 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: open-cluster-management:subscription-admin
+rules:
+- apiGroups:
+  - argoproj.io/v1alpha1
+  resources:
+  - applications
+  verbs:
+  - '*'
+- apiGroups:
+  - argoproj.i
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - secrets
+  - namespaces
+  verbs:
+  - '*'
