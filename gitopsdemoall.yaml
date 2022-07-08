@@ -73,7 +73,36 @@ spec:
     env:
       - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
         value: 'openshift-gitops, testroles, test, kyverno, kyverno-policies, policies, policiesappset'
-
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: openshift-gitops
+  namespace: openshift-gitops
+spec:
+  repo:
+    env:
+    - name: KUSTOMIZE_PLUGIN_HOME
+      value: /etc/kustomize/plugin
+    initContainers:
+    - args:
+      - cp /etc/kustomize/plugin/policy.open-cluster-management.io/v1/policygenerator/PolicyGenerator
+        /policy-generator/PolicyGenerator
+      command:
+      - sh
+      - -c
+      image: registry.redhat.io/rhacm2/multicluster-operators-subscription-rhel8:v2.5
+      name: policy-generator-install
+      volumeMounts:
+      - mountPath: /policy-generator
+        name: policy-generator
+    volumeMounts:
+    - mountPath: /etc/kustomize/plugin/policy.open-cluster-management.io/v1/policygenerator
+      name: policy-generator
+    volumes:
+    - emptyDir: {}
+      name: policy-generator
+  kustomizeBuildOptions: --enable-alpha-plugins
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
