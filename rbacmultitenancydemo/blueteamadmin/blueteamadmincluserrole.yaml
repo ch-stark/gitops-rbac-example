@@ -110,27 +110,33 @@ rules:
   - list
   - watch
 - apiGroups:
-  - policy.open-cluster-management.io
+  - policy.open-cluster-management.io 
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+  resources:
+  - policies
+  - placementbindings
+- apiGroups:
+  - cluster.open-cluster-management.io
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
   resources:
   - placements
-  - placementrules
-  - placementbindings
-  verbs:
-  - get
-  - list
-  - watch
-  - edit
-- apiGroups:
-  - apps.open-cluster-management.io
-  resources:
-  - applications
-  - channels
-  - subscriptions
-  - gitopsclusters
-  verbs:
-  - get
-  - list
-  - watch
+  - placements/status
+  - placementdecisions
+  - placementdecisions/status
 - apiGroups:
   - app.k8s.io
   resources:
