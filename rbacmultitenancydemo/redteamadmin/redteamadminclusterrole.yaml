@@ -86,26 +86,35 @@ rules:
   - get 
   - list 
   - watch
+ 
 - apiGroups:
-  - policy.open-cluster-management.io
-  resources:
-  - policies
+  - policy.open-cluster-management.io 
   verbs:
+  - get
+  - list
+  - watch
   - create
   - update
-  - get
-  - list
-  - watch
-- apiGroups:
-  - policy.open-cluster-management.io
+  - patch
+  - delete
   resources:
-  - placements
+  - policies
   - placementbindings
+- apiGroups:
+  - cluster.open-cluster-management.io
   verbs:
   - get
   - list
   - watch
-  - edit
+  - create
+  - update
+  - patch
+  - delete
+  resources:
+  - placements
+  - placements/status
+  - placementdecisions
+  - placementdecisions/status
 - apiGroups:
   - apps.open-cluster-management.io
   resources:
