@@ -1,8 +1,7 @@
 ## Configuration Options regarding Multi-Tenancy and RBAC when using GitopsOperator, ApplicationSets, and RHACM
 
 
-## Starting with ACM 2.5 ApplicationSets have been GA and are ready to use in RHACM.
-
+Starting with ACM 2.5 ApplicationSets have been GA and are ready to use in RHACM.
 Starting with GitopsOperator 1.6 ApplicationSets are also GA from an OpenShift Gitops-Operator point of view.
 This blog provides an overview of available configuration options and best practices for cluster and multicluster multi-tenancy.
 Sharing clusters saves costs and simplifies administration. However, sharing clusters also present challenges such as security, fairness, and managing noisy neighbors. 
@@ -11,6 +10,7 @@ In other cases, multiple instances of the same application may run in the same c
 
 If you check the following part from Kubernetes-Documentation on [Multi-Tenancy]((https://kubernetes.io/docs/concepts/security/multi-tenancy/) 
 this is already good info if you have a Single Cluster.  This blog will enhance this to a Multi-Cluster fleet.
+
 
 ## Organizational Needs
 
@@ -25,32 +25,31 @@ Customers strongly argue to give the teams more freedom simply because else a Cl
 
 When discussing a Multi-Tenancy approach let’s first discuss the following question which are mainly Organization considerations.:
 
-How many teams will work on the Clusters?  How independent are the teams, are teams maybe different external customers?
+* How many teams will work on the Clusters?  How independent are the teams, are teams maybe different external customers?
 
-What will be the different roles that a team has? E.g. Will governance be done by a Cluster-Fleet admin, or on a team level?
+* What will be the different roles that a team has? E.g. Will governance be done by a Cluster-Fleet admin, or on a team level?
 
-Who will be allowed to create Clusters? Only the Cluster-Admin or also Team-admins?
+* Who will be allowed to create Clusters? 
 
-Will the teams work completely independently, are there some shared resources like Dev-Clusters?
+* Only the Cluster-Admin or also Team-admins?
 
-Should a team work on their own Clusters or group of Clusters? Or should teams work on all clusters separated by namespaces?
+* Will the teams work completely independently, are there some shared resources like Dev-Clusters?
 
-How to configure if option 1?
-How to configure if option 2?
+* Should a team work on their own Clusters or group of Clusters? Or should teams work on all clusters separated by namespaces?
+  How to configure if option 1?
+  How to configure if option 2?
 
-Should teams work directly on Managed-Clusters or should they all do that 
-through the Hub-Cluster?  E.g. deployment is only allowed via Hub
+* Should teams work directly on Managed-Clusters or should they all do that through the Hub-Cluster?  E.g. deployment is only allowed via Hub
       
-Should Cluster-Admins be disallowed on ManagedClusters?
+* Should Cluster-Admins be disallowed on ManagedClusters?
       
-Who and what can be done on the Hub-Cluster by non Cluster-Admins. 
+* Who and what can be done on the Hub-Cluster by non Cluster-Admins. 
        
-Should there be namespaces that are shared between different Clusters? 
+* Should there be namespaces that are shared between different Clusters? 
       
-Who is allowed to create namespaces on the Hub/Managed-Clusters? 
+* Who is allowed to create namespaces on the Hub/Managed-Clusters? 
     
-Should Gitops be used  and how are the permissions in Git-handled?    
-
+* Should Gitops be used and how are the permissions in git-handled?    
 
 
 To go one step back we can identify three common patterns when handling Applications in MultiClusterEnvironments:
@@ -115,13 +114,14 @@ This team might have the following questions and tasks:
 How do I get a simplified understanding of my cluster health and the impact on my application availability?”
 “How do I automate provisioning and destroying of my clusters, workload placement based on capacity and policies, and the pushing of applications from dev to prod?
 
-Again this ClusterRole might be an example to start:
+Again this ClusterRole [https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/redteamadmin/redteamadminclusterrole.yaml] 
+might be an example to start:
 
-https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/redteamadmin/redteamadminclusterrole.yaml
 
 ### SecOps
 
 How do I ensure all my clusters are compliant with my defined policies?”
+
 “How do I set consistent security policies across diverse environments and ensure enforcement?”
 “How do I get alerted on any configuration drift and remediate it?”
 
@@ -270,6 +270,7 @@ Gitops-Cluster-Resources
 
 After that, you can see all Apps in ArgoCD and in ACM
 
+
 ACM view
 
 
@@ -278,16 +279,13 @@ Argo View
 
 
 
-
-
 View for SRE/Viewer when no Cluster has been created. The ApplicationSet is visible, but not deployed to any cluster.
 
 
-
-
 Validating RBAC/Kyverno Rules from the UI
-Try to create a Subscription
 
+
+Try to create a Subscription
 
 
 
@@ -296,18 +294,15 @@ This will be prevented because the ClusterRole has not the necessary permissions
 
 Kyverno Multitenancy-PolicySet
 
+
 Kyverno-Checks
 
 
-Check 1:  Wrong namespace when creating ApplicationSets:
+Check 1:  Wrong namespace when creating ApplicationSets
 
 
 
-
-
-Create Cluster with wrong naming
-
-
+Create Cluster with from namespace-name
 
 
 
@@ -331,23 +326,24 @@ Screenshots:
 
 
  
-,
- 
-,
+
 
  
-Tests cli
+* Tests cli
  
-Create NS with wrong pattern
- oc create ns blueteam
+  * Create NS with wrong pattern
+ `oc create ns blueteam`
+`
 Error from server: admission webhook "validate.kyverno.svc-fail" denied the request: 
 resource Namespace//blueteam was blocked due to the following policies
 team-validate-red-ns-schema:
   namespace-name: 'validation failure: The only names approved for your namespaces
 are the ones starting by redteam*'
- 
-Create NS and validate that mutation has been added
- ,
+`
+
+* Create NS and validate that mutation has been added
+
+```
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -366,9 +362,11 @@ spec:
   - kubernetes
 status:
   phase: Active
- 
+```
+
 Check generated ManagedClusterSetBinding and the generated Placement
- 
+
+``` 
 apiVersion: v1
 items:
 - apiVersion: cluster.open-cluster-management.io/v1beta1
@@ -388,8 +386,9 @@ items:
     namespace: redteamtest
   spec:
     clusterSet: redteam
- 
- 
+``` 
+
+```
 apiVersion: v1
 items:
 - apiVersion: cluster.open-cluster-management.io/v1beta1
@@ -410,10 +409,10 @@ items:
   spec:
     clusterSets:
     - redteam
- 
+``` 
  
  
 ## Closing words,
  
  
-
+This blog wanted to show some configuration options.  Keep it simple is the recommended practise to start with.
