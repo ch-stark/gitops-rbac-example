@@ -8,7 +8,7 @@ Sharing clusters saves costs and simplifies administration. However, sharing clu
 Clusters can be shared in many ways. In some cases, different applications may run in the same cluster. 
 In other cases, multiple instances of the same application may run in the same cluster, one for each end-user.
 
-If you check the following part from Kubernetes-Documentation on [Multi-Tenancy]((https://kubernetes.io/docs/concepts/security/multi-tenancy/) 
+If you check the following part from Kubernetes-Documentation on [Multi-Tenancy](https://kubernetes.io/docs/concepts/security/multi-tenancy/) 
 this is already good info if you have a Single Cluster.  This blog will enhance this to a Multi-Cluster fleet.
 
 
@@ -29,9 +29,7 @@ When discussing a Multi-Tenancy approach let’s first discuss the following que
 
 * What will be the different roles that a team has? E.g. Will governance be done by a Cluster-Fleet admin, or on a team level?
 
-* Who will be allowed to create Clusters? 
-
-* Only the Cluster-Admin or also Team-admins?
+* Who will be allowed to create Clusters? Only the Cluster-Admin or also Team-admins?
 
 * Will the teams work completely independently, are there some shared resources like Dev-Clusters?
 
@@ -39,17 +37,19 @@ When discussing a Multi-Tenancy approach let’s first discuss the following que
   How to configure if option 1?
   How to configure if option 2?
 
-* Should teams work directly on Managed-Clusters or should they all do that through the Hub-Cluster?  E.g. deployment is only allowed via Hub
+* Should teams work directly on Managed-Clusters or should they all do that through the Hub-Cluster?  
       
 * Should Cluster-Admins be disallowed on ManagedClusters?
       
-* Who and what can be done on the Hub-Cluster by non Cluster-Admins. 
+* Who and what can be done on the Hub-Cluster by non Cluster-Admins?
        
 * Should there be namespaces that are shared between different Clusters? 
       
 * Who is allowed to create namespaces on the Hub/Managed-Clusters? 
     
-* Should Gitops be used and how are the permissions in git-handled?    
+* Should Gitops be used and how are the permissions in git-handled? 
+
+* Should certain resources be excluded in git?   
 
 
 To go one step back we can identify three common patterns when handling Applications in MultiClusterEnvironments:
@@ -63,7 +63,7 @@ Some Customers deploy team scoped instances that manage the teams’ namespaces 
 
 ### Pattern 2:  Separate Teams so that each team only has access to Clusters of its ClusterSets
 
-You basically just focus, that a Cluster-Admin of ClusterSet 1  in no way can access any resources on ClusterSet2
+You basically just ensure that a Cluster-Admin of ClusterSet 1  has in no way can access on resources on ClusterSet2.
 
 ### Pattern 3:  Use a mix of 1 to 2. 
 
@@ -73,12 +73,7 @@ The blog tries to answer some questions by showing the different configuration o
 While we will provide some guidelines and recommendations we also explain how the setup could be changed.
 
 
-## Self-Service
-
-Beyond that we do have long-term plans to allow a request/approve flow for select operators in the cluster, where a tenant can request the installation of an operator and a cluster admin can approve it. We can even think of a list of pre-approved operators that get installed once the first tenant requests it. As more tenants request it they just get provisioned additional permissions to use the already installed operator and as a result the operator also gets the appropriate permissions in that tenants namespace. That would make it more self-service while preserving a robust operating model. This capability is still further out, but I think it will help foster an operational approach to cluster extensions in our customers.
-
-
-### RHACM Personas
+## RHACM Personas
 
 It is recommended - when working with RHACM -  to develop a blueprint regarding the different Roles which are working with ACM.  At the following we would like to give some guidelines knowing that especially in smaller teams those roles might be implemented by a smaller number of real persons.
 
@@ -98,15 +93,12 @@ https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-clu
 
 This team might have the following questions and tasks:
 
-How can I manage the lifecycle of multiple clusters regardless of where they reside using a single control plane?“
-“How can I quickly get to the root cause of failed components?”
-“How do I monitor usage across multiple clouds?”
+How can I manage the lifecycle of multiple clusters regardless of where they reside using a single control plane?
+How can I quickly get to the root cause of failed components?
+How do I monitor usage across multiple clouds?
 How do I automate provisioning and deprovisioning of my clusters?
 
 You might decide if IT-Operations has the permissions to create Clusters only in Certain-Clustersets as you see here:
-
-https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/redteamadmin/redteamadminclusterrole.yaml
-
 
 ## SRE/DevOps
 
@@ -117,14 +109,12 @@ How do I get a simplified understanding of my cluster health and the impact on m
 Again this ClusterRole [https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/redteamadmin/redteamadminclusterrole.yaml] 
 might be an example to start:
 
-
 ### SecOps
 
 How do I ensure all my clusters are compliant with my defined policies?”
 
 “How do I set consistent security policies across diverse environments and ensure enforcement?”
 “How do I get alerted on any configuration drift and remediate it?”
-
 
 So SecOps might need to see all Policies, you might decide if SecOps can generate Policies for all Clusters or only for Clusters in certain ClusterSets.
 
@@ -133,19 +123,19 @@ Now as we introduced the possible teams - and before technically implementing th
 
 ## RHACM Concepts for MultiCluster-Multitenancy
 
-In the following we are quickly describing some concepts and CR’s  of ACM which are relevant for the later implementation.
+In the following we are quickly describing some ACM concepts and objects which are relevant for the later implementation.
 
 ### ClusterSets 
 
-Adds Clusters to certain groups.  By default, the local cluster is part of default ClusterSet. One Cluster currently can only be part of a single ClusterSet. A Cluster must be part of a ClusterSet so that you can deploy to.
+This concept - which is also used within Submariner - adds Clusters to certain groups.  By default, the local cluster is part of the default ClusterSet. One Cluster currently can only be part of a single ClusterSet. A Cluster must be part of a ClusterSet so that you can deploy to. We will explain this later.
 
 ### ManagedClusterSetBinding:  
 
-Binds a namespace to a ClusterSet.  You can also bind a namespace to several ClusterSets by creating a binding for each ClusterSet
+A  ManagedClusterSetBinding binds a namespace to a ClusterSet. You can also bind a namespace to several ClusterSets by creating a binding for each ClusterSet
 
 ### Placement 
 
-Placement looks for Managed-ClusterSet-Binding in a namespace.
+A Placement looks for ManagedClusterSetBinding in a namespace.
 
 You can either just use a label and it will deploy on all Clusters which are bound to the namespace and which match the condition.
 Or you can assign a ClusterSet to the Placement to ensure the Apps/Policies are only 
@@ -156,16 +146,18 @@ Or you can assign a ClusterSet to the Placement to ensure the Apps/Policies are 
 
 ### Rephrasing questions including ACM/OpenCluster-Management Concepts
 
-After we have described the basic concepts now let’s rephrase some of the initial questions:
+After we have described the basic concepts now let’s rephrase some of the initial questions using RHACM terminology:
 
 * Should every Team or Customer get its own ClusterSet?  
 * How to guarantee that Team 1 can not get any information about Clusters and Applications that Team 2 is hosting in its ClusterSet? 
-* Should ACM delegate anything GitOps related to OpenShift GitOps and just be the single pane of glass for it given that Argo CD will always be partitioned into multiple instances?
+* Should ACM delegate anything GitOps related to OpenShift GitOps and just be the single pane of glass for it given that Argo CD will always be
+  partitioned into multiple instances?
 * Can a Team Administrator create ACM-Policies which gives him basically Cluster-Admin rights? 
 * If yes, should he only be able to use only the new PlacementAPI to ensure it is only deployed to a certain ClusterSet?
 * Should we disallow a Team Administrator to not create PlacementRules?
 * How to ensure that this works both from Git, UI and Cli?
-* Should a user be able to create a Placement that must point to a ClusterSets or can the Placement select Clusters from different ClusterSets and you select Clusters by labels?  
+* Should a user be able to create a Placement that must point to a ClusterSets or can the Placement select Clusters from different ClusterSets and you
+  select Clusters by labels?  
 
 
 ### Relevant ClusterRoles for MultiClusterManagement
@@ -175,39 +167,42 @@ That fall under:
 - apiGroups:
   - cluster.open-cluster-management.io
 
+Th
 
 ## Including Kyverno
 
 Kyverno is a PolicyEngine which can be integrated with ACM via PolicyGenerator.
-Please see existing examples:
+Please see existing examples and blogs:
 
 https://kyverno.io/policies/
 https://github.com/stolostron/policy-collection/tree/main/stable/CM-Configuration-Management
 https://cloud.redhat.com/blog/generating-governance-policies-using-kustomize-and-gitops
 
+During this blog Kyverno is used to enforce RBAC.
+
 
 ### ACM Policies and Kyverno
 
 Getting one more step towards integration we are deciding to create the following Policies which can be reviewed in this repository:
+
 https://github.com/ch-stark/gitops-rbac-example/tree/main/rbacmultitenancydemo/kyverno/overlay/policies
 
-
 * Based on this Policies  we are generating three PolicySets
-
-* ACM-Policies
-* Kyverno-Multitenancy-Hub-Side
-* Kyverno-Multitenancy-Client-Side
+  * ACM-Policies
+  * Kyverno-Multitenancy-Hub-Side
+  * Kyverno-Multitenancy-Client-Side
 
 
 ### Policies for the Hub-Side
 
-* Every team gets a namespace on the hub where it can deploy Applications or ApplicationSets, it must not deploy in other namespace
-* Only Cluster-Admin can create namespaces on the Hub
-* Every team/customer has a ClusterSet
-* Every team has a ClusterSet-Admin
-* This ClusterSet admin can deploy Clusters only in its ClusterSet
-* An ApplicationSet admin can only deploy Apps to its ClusterSet
-* We don’t allow any ClusterAdmin on Managed-Clusters.
+* Every team gets a namespace on the hub where it can deploy Applications or ApplicationSets, the Policy controls that it must not deploy in other
+  namespaces
+* Team Admins can only create new namespaces when they deploy new Clusters. 
+* A policy controls that only Cluster-Admins can create namespaces on the Hub.
+* A policy controls that every team/customer has a ClusterSet.
+* A policy controls that this ClusterSet admin can deploy Clusters only in its ClusterSet.
+* A policy controls that an ApplicationSet admin can only deploy Apps to its ClusterSet.
+* A policy controls that we don’t allow any ClusterAdmin on Managed-Clusters.
 
 
 ### Policies for Managed-Clusters
@@ -226,15 +221,15 @@ https://github.com/ch-stark/gitops-rbac-example/tree/main/rbacmultitenancydemo/k
 We use Kyverno to better ensure the Rules are working
 We use PolicyGenerator to deploy Kyverno policies to the Hub or to the ManagedClusters, for now, we do not create ConfigurationPolicies
 
-###
+### Integrating PolicyGenerator and ArgoCD
 
-We integrate PolicyGenerator with ArgoCD
 
-When you generate a ACM-Policy from a Kyverno-Policy it often does not work as you need to escape
-Some modifications on Kyverno-Policies might be necessary
+
 
 ### Disable Templating
 
+When you generate a ACM-Policy from a Kyverno-Policy it often does not work as you need to escape some expressions which might be processes by RHACM's
+powerful templating langguage.
 When using Kyverno as input for PolicyGenerator you can set the following property on a ACM policy to disable templating
 
 'policy.open-cluster-management.io/disable-templates'
@@ -248,13 +243,11 @@ In the following wee have two teams:
 
 * TeamRed (has a TeamAdmin who can create Clusters. Has a AppDeployer and a Viewer)
 * TeamBlue ((has a TeamAdmin who cannot create Clusters but can deploy Applications and a Viewer)
-
-
 * We expect that you have a ACM 2.5 Cluster.
 * Run on the Hub
-* git clone https://github.com/ch-stark/gitops-rbac-example
-* execute 
-cmd="oc apply -f gitopsdemoall.yaml"; for i in $(seq 2); do $cmd "count: $i"; sleep 30;done
+  * git clone https://github.com/ch-stark/gitops-rbac-example
+  * execute 
+    cmd="oc apply -f gitopsdemoall.yaml"; for i in $(seq 2); do $cmd "count: $i"; sleep 30;done
 
 We need to grand the initial ArgoCD extended permission this is why we decided to assign open-cluster-management:cluster-manager-admin
 
@@ -270,36 +263,27 @@ Gitops-Cluster-Resources
 
 After that, you can see all Apps in ArgoCD and in ACM
 
-
 ACM view
-
-
 
 Argo View
 
-
-
 View for SRE/Viewer when no Cluster has been created. The ApplicationSet is visible, but not deployed to any cluster.
 
-
 Validating RBAC/Kyverno Rules from the UI
-
 
 Try to create a Subscription
 
 
-
 This will be prevented because the ClusterRole has not the necessary permissions.
-
 
 Kyverno Multitenancy-PolicySet
 
-
 Kyverno-Checks
+
+Let's take a look how the checks we generated with Kyverno do look like:
 
 
 Check 1:  Wrong namespace when creating ApplicationSets
-
 
 
 Create Cluster with from namespace-name
