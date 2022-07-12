@@ -10,7 +10,7 @@ spec:
       any:
       - resources:
           kinds:
-          - Policies
+          - policy.open-cluster-management.io/v1/Policies
     mutate:
       patchStrategicMerge:
         metadata:
