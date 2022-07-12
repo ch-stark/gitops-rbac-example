@@ -167,7 +167,10 @@ That fall under:
 - apiGroups:
   - cluster.open-cluster-management.io
 
-Th
+You can see the https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml role here.
+For our usecase it is not enough as we need to also grant extra Permissions as we use Kyverno-Generate functionality which will be 
+explained later
+
 
 ## Including Kyverno
 
@@ -178,7 +181,7 @@ https://kyverno.io/policies/
 https://github.com/stolostron/policy-collection/tree/main/stable/CM-Configuration-Management
 https://cloud.redhat.com/blog/generating-governance-policies-using-kustomize-and-gitops
 
-During this blog Kyverno is used to enforce RBAC.
+During this blog Kyverno is used to support enforcing Access-Control.
 
 
 ### ACM Policies and Kyverno
@@ -291,15 +294,33 @@ Try to create a Subscription
 This will be prevented because the ClusterRole has not the necessary permissions.
 
 
-Kyverno Multitenancy-PolicySet
-
 
 ** Kyverno-Checks
 
 ![Disallowplacementrules](images/disallowplacementrules.png)
 
 
+In the following check we have 3 violations:
+* namespace does not match pattern
+* AppProject does not match pattern
+* Placement is not the Placement which has to be used.
+
+
+
+![3 checks are failing](images/3checkspng.png)
+
  
+
+Kyverno validation while creating a Cluster
+
+
+![create Cluster with wrong name](images/createClusterwrongname.png)
+
+
+Certainly we also need to ensure that what we do from the UI also works from the command line.
+Here you see some checks:
+
+
 * Tests cli
  
   * Create NS with wrong pattern
@@ -335,7 +356,7 @@ status:
   phase: Active
 ```
 
-Check generated ManagedClusterSetBinding and the generated Placement
+Check generated ManagedClusterSetBinding and the generated Placement after a namespace has been created
 
 ``` 
 apiVersion: v1
