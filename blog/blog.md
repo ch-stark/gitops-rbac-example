@@ -258,58 +258,45 @@ Demo-Users/Groups  (red and blueteams, one sre and one viewer per team)
 ClusterSets (redteam and blueteam, members of redsre become ClusterSet-Admin)
 RedTeam-Admin,BlueTeam-Admin (can generate namespaces on the Hub and deploy Clusters and ApplicationSets)
 
-Gitops-Cluster-Resources
-
 
 After that, you can see all Apps in ArgoCD and in ACM
 
+
 ACM view
+
+![ACM view](images/viewargoinacm.png)
+
 
 Argo View
 
+![Argo View](images/argoview.png)
+
+
+SRE-View on his ApplicationSet
+![ApplicationSets](images/appset_sreview.png)
+
+
 View for SRE/Viewer when no Cluster has been created. The ApplicationSet is visible, but not deployed to any cluster.
 
-Validating RBAC/Kyverno Rules from the UI
+
+## Validating RBAC/Kyverno Rules from the UI
+
 
 Try to create a Subscription
 
 
+![Subscription not allowed](images/subscriptionnotallowed.png)
+
+
 This will be prevented because the ClusterRole has not the necessary permissions.
+
 
 Kyverno Multitenancy-PolicySet
 
-Kyverno-Checks
 
-Let's take a look how the checks we generated with Kyverno do look like:
+** Kyverno-Checks
 
-
-Check 1:  Wrong namespace when creating ApplicationSets
-
-
-Create Cluster with from namespace-name
-
-
-
-Check 2: Wrong AppProject
-
-
-
-
-Check 3:  Wrong Placement
-
-
-
-
-Check 4 Disallow PlacementRules
-
-
-
-
-
-Screenshots:
-
-
- 
+![Disallowplacementrules](images/disallowplacementrules.png)
 
 
  
