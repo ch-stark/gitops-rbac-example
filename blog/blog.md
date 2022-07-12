@@ -1,29 +1,30 @@
 ## Configuration Options regarding Multi-Tenancy and RBAC when using GitopsOperator, ApplicationSets, and RHACM
 
 
-Starting with ACM 2.5 ApplicationSets have been GA and are ready to use in RHACM.
+Starting with RHACM 2.5 ApplicationSets have become GA and are ready to use in production.
 Starting with GitopsOperator 1.6 ApplicationSets are also GA from an OpenShift Gitops-Operator point of view.
-This blog provides an overview of available configuration options and best practices for cluster and multicluster multi-tenancy.
+This blog provides an overview of available configuration options and best practices for Cluster- and Multicluster Multi-Tenancy.
 Sharing clusters saves costs and simplifies administration. However, sharing clusters also present challenges such as security, fairness, and managing noisy neighbors. 
 Clusters can be shared in many ways. In some cases, different applications may run in the same cluster. 
 In other cases, multiple instances of the same application may run in the same cluster, one for each end-user.
 
 If you check the following part from Kubernetes-Documentation on [Multi-Tenancy](https://kubernetes.io/docs/concepts/security/multi-tenancy/) 
-this is already good info if you have a Single Cluster.  This blog will enhance this to a Multi-Cluster fleet.
+this is already good info if you have a Single Cluster. This blog will enhance this to a Multi-Cluster fleet. Later we will also introduce Kyverno
+which gives us some aid to ensure that Tenants are separated from each other.
 
 
 ## Organizational Needs
 
 
 There are all sorts of different models that customers use driven by their organizational needs. Historically OpenShift has been using a shared cluster model much more commonly than is seen in kubernetes since we had RBAC way before k8s did and provide more features around security to make this work. Many customers operate shared clusters, typically the OOTB recommendation is to start with three clusters (lab, non-prod and prod) with applications teams having their own dev/test/tools namespaces on non-prod and pre-prod/prod namespaces on the prod cluster.
-Having said that in reality it varies a lot,  it's largely driven by the organizational structure but other factors come into play. You are more likely to see dedicated team clusters in the public cloud than on-prem, in on-prem it’s more rare to see dedicated team clusters. A huge amount of  customers have shared clusters everywhere, clusters are expensive in terms of infra (control plane and infra nodes) and it doesn't make sense to have a cluster to only support a couple of applications.
+Having said that in reality it varies a lot, it's largely driven by the organizational structure but other factors come into play. You are more likely to see dedicated team clusters in the public cloud than on-prem, in on-prem it’s more rare to see dedicated team clusters. A huge amount of customers have shared clusters everywhere, clusters might be expensive in terms of infra (control plane and infra nodes) and it doesn't make sense to have a cluster to only support a couple of applications.
 
 There might be teams that deploy team scoped instances that manage the teams’ namespaces across multiple clusters since they want teams to have a single pane of glass. 
 Other organizations might be way more siloed in terms of non-prod and prod and prefer separate GitOps instances for each.
 
-Customers strongly argue to give the teams more freedom simply because else a Cluster-Administrator might be overwhelmed by all different kinds of requests.
+Some customers strongly argue to give the teams more freedom simply because else a Cluster-Administrator might be overwhelmed by all different kinds of requests.
 
-When discussing a Multi-Tenancy approach let’s first discuss the following question which are mainly Organization considerations.:
+When discussing a MultiCluster Multi-Tenancy approach let’s first discuss the following question which are mainly Organization considerations.:
 
 * How many teams will work on the Clusters?  How independent are the teams, are teams maybe different external customers?
 
@@ -63,7 +64,7 @@ Some Customers deploy team scoped instances that manage the teams’ namespaces 
 
 ### Pattern 2:  Separate Teams so that each team only has access to Clusters of its ClusterSets
 
-You basically just ensure that a Cluster-Admin of ClusterSet 1  has in no way can access on resources on ClusterSet2.
+You basically just ensure that a Cluster-Admin of ClusterSet 1  has in no way can access on resources on ClusterSet 2.
 
 ### Pattern 3:  Use a mix of 1 to 2. 
 
@@ -129,11 +130,11 @@ In the following we are quickly describing some ACM concepts and objects which a
 
 This concept - which is also used within Submariner - adds Clusters to certain groups.  By default, the local cluster is part of the default ClusterSet. One Cluster currently can only be part of a single ClusterSet. A Cluster must be part of a ClusterSet so that you can deploy to. We will explain this later.
 
-### ManagedClusterSetBinding:  
+### ManagedClusterSetBindings  
 
 A  ManagedClusterSetBinding binds a namespace to a ClusterSet. You can also bind a namespace to several ClusterSets by creating a binding for each ClusterSet
 
-### Placement 
+### Placements
 
 A Placement looks for ManagedClusterSetBinding in a namespace.
 
@@ -215,7 +216,7 @@ https://github.com/ch-stark/gitops-rbac-example/tree/main/rbacmultitenancydemo/k
 * When you create a new namespace we expect that all resources are generated (roles, limitranges) 
 * A team admin can generate ApplicatonSets in its namespace or in the shared namespace. On the Hub, the shared namespace is called SharedHub
   On the managed cluster it has the pattern shared*
-* A team admin can generate namespaces (either via destination-namespace, or the namespaces in the objects only in Clusters of its ClusterSet
+* A team admin can generate namespaces (either via destination-namespace, or the namespaces in the objects only in Clusters of its ClusterSet)
 * A team admin can generate an ArgoCD Application on the Hub to deploy Policies. But Policies can only have Placements and Placement must be the correct ClusterSet.
 
 
@@ -226,33 +227,42 @@ We use PolicyGenerator to deploy Kyverno policies to the Hub or to the ManagedCl
 
 ### Integrating PolicyGenerator and ArgoCD
 
-
-
+We follow the approach to mount the PolicyGenerator-Tool into ArgoCD (https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/argocds/policies-argocd.yaml#L6). This approach is explained in more detail in this [blog](https://cloud.redhat.com/blog/generating-governance-policies-using-kustomize-and-gitops)
 
 ### Disable Templating
 
 When you generate a ACM-Policy from a Kyverno-Policy it often does not work as you need to escape some expressions which might be processes by RHACM's
 powerful templating langguage.
-When using Kyverno as input for PolicyGenerator you can set the following property on a ACM policy to disable templating
+When using Kyverno as input for PolicyGenerator you can set the following property on a ACM policy to disable templating:
 
 'policy.open-cluster-management.io/disable-templates'
 
 else you might need to change the original ClusterPolicies as there might be some templating.
 
+In our example we solve this with PolicyGenerator-Configuration:
+
+```
+kustomize.yaml
+
+generators:
+  - policyGenerator.yaml
+commonAnnotations:
+  policy.open-cluster-management.io/disable-templates: true
+```
 
 ## Run the Example
 
 In the following wee have two teams:    
 
 * TeamRed (has a TeamAdmin who can create Clusters. Has a AppDeployer and a Viewer)
-* TeamBlue ((has a TeamAdmin who cannot create Clusters but can deploy Applications and a Viewer)
+* TeamBlue (has a TeamAdmin who cannot create Clusters but can deploy Applications and a Viewer)
 * We expect that you have a ACM 2.5 Cluster.
 * Run on the Hub
   * git clone https://github.com/ch-stark/gitops-rbac-example
   * execute 
-    cmd="oc apply -f gitopsdemoall.yaml"; for i in $(seq 2); do $cmd "count: $i"; sleep 30;done
+    `cmd="oc apply -f gitopsdemoall.yaml"; for i in $(seq 2); do $cmd "count: $i"; sleep 30;done`
 
-We need to grand the initial ArgoCD extended permission this is why we decided to assign open-cluster-management:cluster-manager-admin
+We need to grand the initial ArgoCD extended permission this is why we decided to assign `open-cluster-management:cluster-manager-admin`
 
 
 It follows `Apps of Apps pattern` and it will set up the following for you:
@@ -294,7 +304,7 @@ Try to create a Subscription
 This will be prevented because the ClusterRole has not the necessary permissions.
 
 
-Tryo to sync a Policy from Git which uses a PlacementRule
+Try to sync a Policy from Git which uses a PlacementRule
 
 ![Disallowplacementrules from Git](images/argocddisallowplacementrule.png)
 
@@ -440,7 +450,7 @@ items:
 ``` 
  
  
-## Closing words,
+## Closing words
  
  
 This blog wanted to show some configuration options.  Keep it simple is the recommended practise to start with.
