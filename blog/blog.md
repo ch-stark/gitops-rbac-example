@@ -306,6 +306,36 @@ Tryo to sync a Policy from Git which uses a PlacementRule
 ![Disallowplacementrules](images/disallowplacementrules.png)
 
 
+```
+status:
+  conditions:
+    - lastTransitionTime: '2022-07-12T11:10:29Z'
+      message: >-
+        Failed sync attempt to f5b757d3dd49d42bb66500f3401b51e0cab804f6: one or
+        more objects failed to apply, reason: admission webhook
+        "validate.kyverno.svc-fail" denied the request: 
+
+
+        resource
+        PlacementRule/policy-generator-blog/placement-policy-generator-blog-app
+        was blocked due to the following policies
+
+
+        disallow-placementrules:
+          disallow-placementrules: Using Placement Rules not allowed (retried 5 times).
+      type: SyncError
+  health:
+    status: Healthy
+  operationState:
+    finishedAt: '2022-07-12T11:10:29Z'
+    message: >-
+      one or more objects failed to apply, reason: admission webhook
+      "validate.kyverno.svc-fail" denied the request: 
+```
+
+ 
+
+
 In the following check we have 3 violations:
 * namespace does not match pattern
 * AppProject does not match pattern
@@ -313,7 +343,7 @@ In the following check we have 3 violations:
 
 
 
-![3 checks are failing](images/3checkspng.png)
+![3 checks are failing](images/3validationfailures.png)
 
  
 
