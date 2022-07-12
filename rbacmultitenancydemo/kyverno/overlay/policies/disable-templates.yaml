@@ -11,6 +11,9 @@ spec:
       - resources:
           kinds:
           - policy.open-cluster-management.io/v1/Policy
+          selector:
+            matchLabels:
+              type: kyverno        
     mutate:
       patchStrategicMerge:
         metadata:
