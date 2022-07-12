@@ -294,6 +294,12 @@ Try to create a Subscription
 This will be prevented because the ClusterRole has not the necessary permissions.
 
 
+Tryo to sync a Policy from Git which uses a PlacementRule
+
+![Disallowplacementrules from Git](images/argocddisallowplacementrule.png)
+
+
+
 
 ** Kyverno-Checks
 
