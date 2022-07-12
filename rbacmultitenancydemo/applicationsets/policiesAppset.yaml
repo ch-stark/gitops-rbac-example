@@ -17,9 +17,9 @@ spec:
     spec:
       project: policies-project
       source:
-        repoURL: https://github.com/ch-stark/etcd-backup-policy
+        repoURL: https://github.com/ch-stark/grc-policy-generator-blog
         targetRevision: main
-        path: policy
+        path: openshift-gitops
       destination:
         namespace: policy
         server: "{{server}}"
