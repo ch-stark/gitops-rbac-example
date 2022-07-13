@@ -101,7 +101,7 @@ How do I automate provisioning and deprovisioning of my clusters?
 
 You might decide if IT-Operations has the permissions to create Clusters only in Certain-Clustersets as you see here:
 
-## SRE/DevOps
+### SRE/DevOps
 
 This team might have the following questions and tasks:
 How do I get a simplified understanding of my cluster health and the impact on my application availability?”
@@ -481,3 +481,4 @@ items:
  
  
 This blog wanted to show some configuration options.  Keep it simple is the recommended practise to start with.
+In the future Hypershift will give us some concepts to make Multitenancy easier.
