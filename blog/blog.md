@@ -101,7 +101,7 @@ How do I automate provisioning and deprovisioning of my clusters?
 
 You might decide if IT-Operations has the permissions to create Clusters only in Certain-Clustersets as you see here:
 
-## SRE/DevOps
+### SRE/DevOps
 
 This team might have the following questions and tasks:
 How do I get a simplified understanding of my cluster health and the impact on my application availability?”
@@ -169,8 +169,7 @@ That fall under:
   - cluster.open-cluster-management.io
 
 You can see the https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml role here.
-For our usecase it is not enough as we need to also grant extra Permissions as we use Kyverno-Generate functionality which will be 
-explained later
+For our usecase it is not enough as we need to also grant extra Permissions as we use Kyverno-Generate functionality which will be explained later.
 
 
 ## Including Kyverno
