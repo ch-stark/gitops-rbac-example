@@ -9,14 +9,14 @@ Clusters can be shared in many ways. In some cases, different applications may r
 In other cases, multiple instances of the same application may run in the same cluster, one for each end-user.
 
 If you check the following part from Kubernetes-Documentation on [Multi-Tenancy](https://kubernetes.io/docs/concepts/security/multi-tenancy/) 
-this is already good info if you have a Single Cluster. This blog will enhance this to a Multi-Cluster fleet. Later we will also introduce Kyverno
+this is already good info if you have a Single Cluster. This blog will enhance this to a Multi-Cluster fleet. Later in this blog we will also introduce Kyverno
 which gives us some aid to ensure that Tenants are separated from each other.
 
 
 ## Organizational Needs
 
 
-There are all sorts of different models that customers use driven by their organizational needs. Historically OpenShift has been using a shared cluster model much more commonly than is seen in kubernetes since we had RBAC way before k8s did and provide more features around security to make this work. Many customers operate shared clusters, typically the OOTB recommendation is to start with three clusters (lab, non-prod and prod) with applications teams having their own dev/test/tools namespaces on non-prod and pre-prod/prod namespaces on the prod cluster.
+There are all sorts of different models that customers use and which are driven by their organizational needs. Historically OpenShift has been using a shared cluster model much more commonly than is seen in kubernetes since we had RBAC way before k8s did and provide more features around security to make this work. Many customers operate shared clusters, typically the OOTB recommendation is to start with three clusters (lab, non-prod and prod) with applications teams having their own dev/test/tools namespaces on non-prod and pre-prod/prod namespaces on the prod cluster.
 Having said that in reality it varies a lot, it's largely driven by the organizational structure but other factors come into play. You are more likely to see dedicated team clusters in the public cloud than on-prem, in on-prem it’s more rare to see dedicated team clusters. A huge amount of customers have shared clusters everywhere, clusters might be expensive in terms of infra (control plane and infra nodes) and it doesn't make sense to have a cluster to only support a couple of applications.
 
 There might be teams that deploy team scoped instances that manage the teams’ namespaces across multiple clusters since they want teams to have a single pane of glass. 
@@ -223,7 +223,7 @@ https://github.com/ch-stark/gitops-rbac-example/tree/main/rbacmultitenancydemo/k
 ### Using PolicyGenerator and Kyverno
 
 We use Kyverno to better ensure the Rules are working
-We use PolicyGenerator to deploy Kyverno policies to the Hub or to the ManagedClusters, for now, we do not create ConfigurationPolicies
+We use PolicyGenerator to deploy Kyverno policies to the Hub or to the ManagedClusters.
 
 ### Integrating PolicyGenerator and ArgoCD
 
@@ -250,6 +250,32 @@ generators:
 commonAnnotations:
   policy.open-cluster-management.io/disable-templates: true
 ```
+
+### Using PolicyGenerator with Placement
+
+PolicyGenerator by default uses PlacementRules.
+
+But it is easy to change, in the below example we set a Placement-Object which will be generated when running the example.
+
+```
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: kyverno
+policyDefaults:
+  namespace: policies-appset
+  remediationAction: enforce
+  severity: medium
+  placement:
+    placementPath: placement.yaml
+policies:
+  - name: policy-generator-blog-kyverno
+    manifests:
+      - path: kyverno
+```
+
+
+
 
 ## Run the Example
 
