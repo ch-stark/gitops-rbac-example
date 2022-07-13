@@ -9,7 +9,7 @@ Clusters can be shared in many ways. In some cases, different applications may r
 In other cases, multiple instances of the same application may run in the same cluster, one for each end-user.
 
 If you check the following part from Kubernetes-Documentation on [Multi-Tenancy](https://kubernetes.io/docs/concepts/security/multi-tenancy/) 
-this is already good info if you have a Single Cluster. This blog will enhance this to a Multi-Cluster fleet. Later in this blog we will also introduce Kyverno
+this is already good info if you have a Single Cluster. This blog will enhance this to a Multi-Cluster fleet. Later in this blog we will also introduce **Kyverno**
 which gives us some aid to ensure that Tenants are separated from each other.
 
 
@@ -141,7 +141,7 @@ A Placement looks for ManagedClusterSetBinding in a namespace.
 You can either just use a label and it will deploy on all Clusters which are bound to the namespace and which match the condition.
 Or you can assign a ClusterSet to the Placement to ensure the Apps/Policies are only 
 
-*! Please note that in  ACM 2.5 every Cluster can only be part of a ClusterSet, this might change in future versions
+Please note that in  ACM 2.5 every Cluster can only be part of a ClusterSet, this might change in future versions
 
 
 
@@ -215,7 +215,7 @@ https://github.com/ch-stark/gitops-rbac-example/tree/main/rbacmultitenancydemo/k
 * Those namespaces can also be created by deploying applicationsets.
 * When you create a new namespace we expect that all resources are generated (roles, limitranges) 
 * A team admin can generate ApplicatonSets in its namespace or in the shared namespace. On the Hub, the shared namespace is called SharedHub
-  On the managed cluster it has the pattern shared*
+  On the managed cluster it has the pattern shared
 * A team admin can generate namespaces (either via destination-namespace, or the namespaces in the objects only in Clusters of its ClusterSet)
 * A team admin can generate an ArgoCD Application on the Hub to deploy Policies. But Policies can only have Placements and Placement must be the correct ClusterSet.
 
@@ -475,7 +475,57 @@ items:
     clusterSets:
     - redteam
 ``` 
- 
+
+### Using Kyverno to bind a Namespace to several ClusterSets
+
+
+This could be easily be achieved using an Kyverno Policy like this:
+
+```
+  - name: managedclustersetbinding-red-sre-group
+    match:
+      any:
+      - resources:
+          kinds:
+            - Namespace
+        subjects:
+        - kind: Group
+          name: "red-sre-group"
+        - kind: Group
+          name: "blue-sre-group"          
+    preconditions:
+      any:
+      - key: "{{request.operation}}"
+        operator: In
+        value:
+        - CREATE
+        - UPDATE  
+      - key: "{{request.object.metadata.name}}"
+        operator: In
+        value: shared*           
+    generate:
+      apiVersion: cluster.open-cluster-management.io/v1beta1
+      kind: ManagedClusterSetBinding
+      name: redteam
+      namespace: "{{request.object.metadata.name}}"
+      synchronize: true
+      data:
+        spec:
+          clusterSet: redteam
+
+      apiVersion: cluster.open-cluster-management.io/v1beta1
+      kind: ManagedClusterSetBinding
+      name: blueteam
+      namespace: "{{request.object.metadata.name}}"
+      synchronize: true
+      data:
+        spec:
+          clusterSet: blueteam     
+```
+
+
+
+
  
 ## Closing words
  
