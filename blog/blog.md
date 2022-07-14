@@ -552,4 +552,4 @@ to ensure that those resources cannot be modified anymore by blocking any update
 This blog wanted to show some configuration options that ensure Mulitenancy both on UI, cli and gitops-level.
 Keep it simple is the recommended practise to start with, e.g. using only Admin and Viewer role but there might be usecases
 where you might more finegrained confguration. 
-In the future Hypershift will give us some concepts to make Multitenancy easier as you can read in this [blog](https://cloud.redhat.com/blog/hosted-control-planes-is-here-as-tech-preview)
+In the future Hypershift/Hosted control planes will give us some concepts to make Multitenancy easier as you can read in this [blog](https://cloud.redhat.com/blog/hosted-control-planes-is-here-as-tech-preview)
