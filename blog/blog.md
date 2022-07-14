@@ -88,9 +88,8 @@ E.g. a Role is allowed to place Resources into some path/branch within a Git-rep
 This RHACM-Cluster-Admin has all rights to do whatever you can configure in ACM.
 It is similar to a Cluster-Admin with some  restrictions
 
-You can see the ClusterRole granting RHACM Cluster-Admin rights:
+You can see the [ClusterRole](https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml) granting RHACM Cluster-Admin rights:
 
-https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml
 
 ### IT Operations
 
@@ -109,7 +108,7 @@ This team might have the following questions and tasks:
 How do I get a simplified understanding of my cluster health and the impact on my application availability?”
 “How do I automate provisioning and destroying of my clusters, workload placement based on capacity and policies, and the pushing of applications from dev to prod?
 
-Again this ClusterRole [https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/redteamadmin/redteamadminclusterrole.yaml] 
+Again this [ClusterRole](https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/redteamadmin/redteamadminclusterrole.yaml)
 might be an example to start:
 
 ### SecOps
@@ -176,9 +175,8 @@ That fall under:
 - apiGroups:
   - cluster.open-cluster-management.io
 
-You can see the https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml role here.
-For our usecase it is not enough as we need to also grant extra Permissions as we use Kyverno-Generate functionality which will be 
-explained later
+You can see the 'open-cluster-management:cluster-manager-admin' role [here](https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml).
+For our usecase it is not enough as we need to also grant extra Permissions as we use Kyverno-Generate functionality which will be explained later.
 
 
 ## Including Kyverno
