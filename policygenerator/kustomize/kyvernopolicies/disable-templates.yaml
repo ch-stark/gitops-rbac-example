@@ -1,0 +1,21 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disable-templates
+  annotations:
+spec:
+  rules:
+  - name: "disable-templates"
+    match:
+      any:
+      - resources:
+          kinds:
+          - policy.open-cluster-management.io/v1/Policy
+          selector:
+            matchLabels:
+              type: kyverno        
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          annotations:
+            +(policy.open-cluster-management.io/disable-templates): true

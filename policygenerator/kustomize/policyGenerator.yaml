@@ -1,14 +1,222 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PolicyGenerator
 metadata:
-  name: policy-generator-blog
+  name: policy-kyverno
+placementBindingDefaults:
+  name: binding-generic
 policyDefaults:
+  categories:
+    - CM Configuration Management
+  controls: 
+    - CM-2 Baseline Configuration
   namespace: policies-appset
   remediationAction: enforce
   severity: medium
-  placement:
-    placementPath: placement.yaml
+  policySets:
+    - kyverno-multitenancy
+  standards:
+    - generic
+  placementPath:  
+    - placement.yaml
 policies:
-  - name: policy-generator-blog-app
-    manifests:
-      - path: app-policy
+- name: add-labels-to-bluetenant
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/add-labels-to-bluetenant.yaml
+- name: add-labels-to-redtenant
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/add-labels-to-redtenant.yaml
+- name: add-managedclustersetbinding-shared-sre-group
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/add-managedclustersetbinding-shared-sre-group.yaml
+- name: application-prevent-updates-project-all
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/application-prevent-updates-project-all.yaml
+- name: application-prevent-updates-project-all
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/application-prevent-updates-project-all.yaml
+- name: disable-templates
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/disable-templates.yaml
+- name: disallow-placementRules
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/disallow-placementRules.yaml
+- name: generate-all-blueteam-spoke
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/generate-all-blueteam-spoke.yml
+- name: generate-all-redteam-spoke
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/generate-all-redteam-spoke.yml
+- name: generate-argocd-permissions-blueteam-spoke
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/generate-argocd-permissions-blueteam-spoke.yaml
+- name: generateManagedClusterSetBindingblueteam-hub
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/generateManagedClusterSetBindingblueteam-hub.yaml
+- name: generateManagedClusterSetBindingredteam-hub
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/generateManagedClusterSetBindingredteam-hub.yaml
+- name: generatePlacementredteam-hub
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/generatePlacementredteam-hub.yaml
+- name: generatePlacementblueteam-hub
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/generatePlacementblueteam-hub.yaml
+- name: preventupdates-appproject-all
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/preventupdates-appproject-all.yaml
+- name: restrict-blueteam-to-its-appproject-all
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/restrict-blueteam-to-its-appproject-all.yaml
+- name: restrict-redteam-to-its-appproject-all
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/restrict-redteam-to-its-appproject-all.yaml
+- name: restrict-redteam-to-its-placement-hub
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/restrict-redteam-to-its-placement-hub.yaml
+- name: restrict-blueteam-to-its-placement-hub
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/restrict-blueteam-to-its-placement-hub.yaml
+- name: validate-ns-bluesre-spoke
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/validate-ns-bluesre-spoke.yaml
+- name: validate-ns-redsre-spoke
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/validate-ns-redsre-spoke.yaml
+- name: validateplacementblueteam-hub
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/validateplacementblueteam-hub.yml
+- name: validateplacementredteam-hub
+  categories:
+    - setup
+  controls: 
+    - setup
+  disabled: false
+  manifests:
+    - path: kyverno/validateplacementredteam-hub.yml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
