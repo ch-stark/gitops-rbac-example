@@ -1,0 +1,14 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-generator-blog
+policyDefaults:
+  namespace: policies-appset
+  remediationAction: enforce
+  severity: medium
+  placement:
+    placementPath: placement.yaml
+policies:
+  - name: policy-generator-blog-app
+    manifests:
+      - path: app-policy

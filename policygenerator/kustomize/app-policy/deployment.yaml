@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demodeploy
+  namespace: policies-appset
+  labels:
+    app: policy-generator-blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: policy-generator-blog
+  template:
+    metadata:
+      labels:
+        app: policy-generator-blog
+    spec:
+      containers:
+      - name: policy-generator-blog
+        ports:
+        - containerPort: 8080
+        image: quay.io/centos7/httpd-24-centos7:2.4

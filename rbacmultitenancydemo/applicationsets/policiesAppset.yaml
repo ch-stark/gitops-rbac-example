@@ -17,9 +17,9 @@ spec:
     spec:
       project: policies-project
       source:
-        repoURL: https://github.com/ch-stark/grc-policy-generator-blog
+        repoURL: https://github.com/ch-stark/gitops-rbac-example
         targetRevision: main
-        path: openshift-gitops
+        path: policygenerator/openshift-gitops
       destination:
         namespace: policy
         server: "{{server}}"
