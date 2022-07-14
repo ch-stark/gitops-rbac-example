@@ -66,7 +66,7 @@ Some Customers deploy team scoped instances that manage the teams’ namespaces 
 
 You basically just ensure that a Cluster-Admin of ClusterSet 1  has in no way can access on resources on ClusterSet 2.
 
-### Pattern 3:  Use a mix of 1 to 2. 
+### Pattern 3:  Use a mix of 1 to 2
 
 Customers want to separate Clusters but some namespaces should still be shared. Some namespaces might be global.
 
@@ -80,6 +80,8 @@ It is recommended - when working with RHACM -  to develop a blueprint regarding 
 
 It needs to be mentioned that even if you have defined the Personas it needs to be clarified that the implemented Cluster-Roles can certainly differ a lot so we will at the end only have some suggestions.
 
+Also note that you might not implement some roles using ClusterRoles/RoleBindings but you might set those permissions directly at Git-level.
+E.g. a Role is allowed to place Resources into some path/branch within a Git-repositore.
 
 ### RHACM-Cluster-Admin
 
@@ -112,6 +114,8 @@ might be an example to start:
 
 ### SecOps
 
+This role might have to deal with the following questions.
+
 How do I ensure all my clusters are compliant with my defined policies?”
 
 “How do I set consistent security policies across diverse environments and ensure enforcement?”
@@ -142,6 +146,10 @@ You can either just use a label and it will deploy on all Clusters which are bou
 Or you can assign a ClusterSet to the Placement to ensure the Apps/Policies are only 
 
 Please note that in  ACM 2.5 every Cluster can only be part of a ClusterSet, this might change in future versions
+
+ApplicationSets use Generators to distribute the resources which are getting created.  In ACM we have added a PlacementGenerator which is assigning a Placement
+to an ApplicationSet.  It should also be mentioned that in order to run ApplicationSets GitopsCluster-Resources are used.  Read more about that in the following [blog]
+(https://cloud.redhat.com/blog/red-hat-advanced-cluster-management-with-openshift-gitops).
 
 
 
@@ -261,20 +269,24 @@ But it is easy to change, in the below example we set a Placement-Object which w
 apiVersion: policy.open-cluster-management.io/v1
 kind: PolicyGenerator
 metadata:
-  name: kyverno
+  name: policy-kyverno
+placementBindingDefaults:
+  name: binding-generic
 policyDefaults:
+  categories:
+    - CM Configuration Management
+  controls: 
+    - CM-2 Baseline Configuration
   namespace: policies-appset
   remediationAction: enforce
   severity: medium
-  placement:
-    placementPath: placement.yaml
-policies:
-  - name: policy-generator-blog-kyverno
-    manifests:
-      - path: kyverno
+  policySets:
+    - kyverno-multitenancy
+  standards:
+    - generic
+  placementPath:  
+    - placement.yaml
 ```
-
-
 
 
 ## Run the Example
@@ -337,7 +349,6 @@ Try to sync a Policy from Git which uses a PlacementRule
 
 
 
-
 ** Kyverno-Checks
 
 ![Disallowplacementrules](images/disallowplacementrules.png)
@@ -351,13 +362,9 @@ status:
         Failed sync attempt to f5b757d3dd49d42bb66500f3401b51e0cab804f6: one or
         more objects failed to apply, reason: admission webhook
         "validate.kyverno.svc-fail" denied the request: 
-
-
         resource
         PlacementRule/policy-generator-blog/placement-policy-generator-blog-app
         was blocked due to the following policies
-
-
         disallow-placementrules:
           disallow-placementrules: Using Placement Rules not allowed (retried 5 times).
       type: SyncError
@@ -370,8 +377,6 @@ status:
       "validate.kyverno.svc-fail" denied the request: 
 ```
 
- 
-
 
 In the following check we have 3 violations:
 * namespace does not match pattern
@@ -379,11 +384,9 @@ In the following check we have 3 violations:
 * Placement is not the Placement which has to be used.
 
 
-
 ![3 checks are failing](images/3validationfailures.png)
 
  
-
 Kyverno validation while creating a Cluster
 
 
@@ -452,7 +455,6 @@ items:
   spec:
     clusterSet: redteam
 ``` 
-
 ```
 apiVersion: v1
 items:
@@ -523,12 +525,14 @@ This could be easily be achieved using an Kyverno Policy like this:
           clusterSet: blueteam     
 ```
 
-
-
+When generating resources one could use a Policy like: https://kyverno.io/policies/other/add_labels/add_labels/
+to ensure that those resources cannot be modified anymore by blocking any updates based on the labels.
 
  
 ## Closing words
  
  
-This blog wanted to show some configuration options.  Keep it simple is the recommended practise to start with.
-In the future Hypershift will give us some concepts to make Multitenancy easier.
+This blog wanted to show some configuration options that ensure Mulitenancy both on UI, cli and gitops-level.
+Keep it simple is the recommended practise to start with, e.g. using only Admin and Viewer role but there might be usecases
+where you might more finegrained confguration. 
+In the future Hypershift will give us some concepts to make Multitenancy easier as you can read in this [blog](https://cloud.redhat.com/blog/hosted-control-planes-is-here-as-tech-preview)
