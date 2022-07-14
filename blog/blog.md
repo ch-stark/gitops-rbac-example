@@ -242,7 +242,7 @@ When you generate a ACM-Policy from a Kyverno-Policy it often does not work by d
 powerful templating langguage.
 Therefor When using Kyverno as input for PolicyGenerator you can set the following property on a ACM policy to disable templating:
 
-'policy.open-cluster-management.io/disable-templates'
+`policy.open-cluster-management.io/disable-templates`
 
 You can achieve this again via Kyverno-Policy or via kustomize.yaml
 
