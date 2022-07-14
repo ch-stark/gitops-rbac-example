@@ -147,9 +147,7 @@ Or you can assign a ClusterSet to the Placement to ensure the Apps/Policies are 
 Please note that in  ACM 2.5 every Cluster can only be part of a ClusterSet, this might change in future versions
 
 ApplicationSets use Generators to distribute the resources which are getting created.  In ACM we have added a PlacementGenerator which is assigning a Placement
-to an ApplicationSet.  It should also be mentioned that in order to run ApplicationSets GitopsCluster-Resources are used.  Read more about that in the following [blog]
-(https://cloud.redhat.com/blog/red-hat-advanced-cluster-management-with-openshift-gitops).
-
+to an ApplicationSet.  It should also be mentioned that in order to run ApplicationSets GitopsCluster-Resources are used.  Read more about that in the following [blog](https://cloud.redhat.com/blog/red-hat-advanced-cluster-management-with-openshift-gitops).
 
 
 ### Rephrasing questions including ACM/OpenCluster-Management Concepts
