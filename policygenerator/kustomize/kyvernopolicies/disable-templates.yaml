@@ -3,6 +3,11 @@ kind: ClusterPolicy
 metadata:
   name: disable-templates
   annotations:
+    policies.kyverno.io/title: disable-templates
+    policies.kyverno.io/category: Multi-Tenancy
+    policies.kyverno.io/subject: disable-templates
+    policies.kyverno.io/description: >-
+      Disabling ACM-templating feature
 spec:
   rules:
   - name: "disable-templates"

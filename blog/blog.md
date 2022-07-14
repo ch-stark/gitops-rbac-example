@@ -238,9 +238,11 @@ This approach is explained in more detail in this [blog](https://cloud.redhat.co
 
 ### Disable Templating
 
+ACM-templating is a powerful feature to make Policies more dynamic. Read [here](https://cloud.redhat.com/blog/applying-policy-based-governance-at-scale-using-templates)
+to get an overview about this feature.
 When you generate a ACM-Policy from a Kyverno-Policy it often does not work by default as you need to escape some expressions which might be processes by RHACM's
-powerful templating langguage.
-Therefor When using Kyverno as input for PolicyGenerator you can set the following property on a ACM policy to disable templating:
+templating langguage.
+Therefore when using Kyverno as input for PolicyGenerator you can set the following property on a ACM policy to disable templating:
 
 `policy.open-cluster-management.io/disable-templates`
 
@@ -253,6 +255,27 @@ generators:
   - policyGenerator.yaml
 commonAnnotations:
   policy.open-cluster-management.io/disable-templates: true
+```
+
+or you can use a Kyverno-Policy using `Mutation` to achieve the same:
+
+```
+spec:
+  rules:
+  - name: "disable-templates"
+    match:
+      any:
+      - resources:
+          kinds:
+          - policy.open-cluster-management.io/v1/Policy
+          selector:
+            matchLabels:
+              type: kyverno        
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          annotations:
+            +(policy.open-cluster-management.io/disable-templates): true
 ```
 
 ### Using PolicyGenerator with Placement
