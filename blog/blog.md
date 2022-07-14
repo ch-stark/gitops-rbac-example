@@ -182,9 +182,9 @@ For our usecase it is not enough as we need to also grant extra Permissions as w
 Kyverno is a PolicyEngine which can be integrated with ACM via PolicyGenerator.
 Please see existing examples and blogs:
 
-https://kyverno.io/policies/
-https://github.com/stolostron/policy-collection/tree/main/stable/CM-Configuration-Management
-https://cloud.redhat.com/blog/generating-governance-policies-using-kustomize-and-gitops
+* https://kyverno.io/policies/
+* https://github.com/stolostron/policy-collection/tree/main/stable/CM-Configuration-Management
+* https://cloud.redhat.com/blog/generating-governance-policies-using-kustomize-and-gitops
 
 During this blog Kyverno is used to support enforcing Access-Control.
 
