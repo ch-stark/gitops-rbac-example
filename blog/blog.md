@@ -542,8 +542,9 @@ This could be easily be achieved using an Kyverno Policy like this:
           clusterSet: blueteam     
 ```
 
-When generating resources one could use a Policy like: https://kyverno.io/policies/other/add_labels/add_labels/
-to ensure that those resources cannot be modified anymore by blocking any updates based on the labels.
+When generating resources one could use a Policy [like](https://kyverno.io/policies/other/add_labels/add_labels/)
+to ensure that those resources cannot be modified anymore by blocking any updates based on the labels. See an example
+[here](https://kyverno.io/policies/psa/deny-privileged-profile/deny-privileged-profile/).
 
  
 ## Closing words
