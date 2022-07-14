@@ -193,9 +193,7 @@ During this blog Kyverno is used to support enforcing Access-Control.
 
 ### ACM Policies and Kyverno
 
-Getting one more step towards integration we are deciding to create the following Policies which can be reviewed in this repository:
-
-https://github.com/ch-stark/gitops-rbac-example/tree/main/rbacmultitenancydemo/kyverno/overlay/policies
+Getting one more step towards integration we are deciding to create the following Policies which can be reviewed in this [repository](https://github.com/ch-stark/gitops-rbac-example/tree/main/rbacmultitenancydemo/kyverno/overlay/policies):
 
 * Based on this Policies  we are generating three PolicySets
   * ACM-Policies
@@ -234,9 +232,9 @@ We use PolicyGenerator to deploy Kyverno policies to the Hub or to the ManagedCl
 ### Integrating PolicyGenerator and ArgoCD
 
 This Integration uses initContainers to add the  Policy Generator tool to thr ArgoCD-Repo server. See more information here: 
-Custom tooling supported by Operator - https://github.com/argoproj-labs/argocd-operator/blob/master/docs/usage/customization.mdThi
-See an example here (https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/argocds/policies-argocd.yaml#L6).
-This approach is explained in more detail in this [blog](https://cloud.redhat.com/blog/generating-governance-policies-using-kustomize-and-gitops)
+[Custom tooling supported by Operator](https://github.com/argoproj-labs/argocd-operator/blob/master/docs/usage/customization.md).
+See an example of the implemented [here](https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/argocds/policies-argocd.yaml#L6).
+This approach is explained in more detail in this [blog](https://cloud.redhat.com/blog/generating-governance-policies-using-kustomize-and-gitops).
 
 ### Disable Templating
 
