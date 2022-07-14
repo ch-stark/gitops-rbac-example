@@ -329,7 +329,7 @@ SRE-View on his ApplicationSet
 View for SRE/Viewer when no Cluster has been created. The ApplicationSet is visible, but not deployed to any cluster.
 
 
-## Validating RBAC/Kyverno Rules from the UI
+### Validating RBAC/Kyverno Rules from the UI
 
 
 Try to create a Subscription
