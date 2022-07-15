@@ -1,6 +1,5 @@
 ## Configuration Options regarding Multi-Tenancy and RBAC when using GitopsOperator, ApplicationSets, and RHACM
 
-
 Starting with RHACM 2.5 ApplicationSets have become GA and are ready to use in production.
 Starting with GitopsOperator 1.6 ApplicationSets are also GA from an OpenShift Gitops-Operator point of view.
 This blog provides an overview of available configuration options and best practices for Cluster- and Multicluster Multi-Tenancy.
@@ -14,7 +13,6 @@ which gives us some aid to ensure that Tenants are separated from each other.
 
 
 ## Organizational Needs
-
 
 There are all sorts of different models that customers use and which are driven by their organizational needs. Historically OpenShift has been using a shared cluster model much more commonly than is seen in kubernetes since we had RBAC way before k8s did and provide more features around security to make this work. Many customers operate shared clusters, typically the OOTB recommendation is to start with three clusters (lab, non-prod and prod) with applications teams having their own dev/test/tools namespaces on non-prod and pre-prod/prod namespaces on the prod cluster.
 Having said that in reality it varies a lot, it's largely driven by the organizational structure but other factors come into play. You are more likely to see dedicated team clusters in the public cloud than on-prem, in on-prem it’s more rare to see dedicated team clusters. A huge amount of customers have shared clusters everywhere, clusters might be expensive in terms of infra (control plane and infra nodes) and it doesn't make sense to have a cluster to only support a couple of applications.
@@ -81,14 +79,14 @@ It is recommended - when working with RHACM -  to develop a blueprint regarding 
 It needs to be mentioned that even if you have defined the Personas it needs to be clarified that the implemented Cluster-Roles can certainly differ a lot so we will at the end only have some suggestions.
 
 Also note that you might not implement some roles using ClusterRoles/RoleBindings but you might set those permissions directly at Git-level.
-E.g. a Role is allowed to place Resources into some path/branch within a Git-repositore.
+E.g. a Role is allowed to place Resources into some path/branch within a Git-repository.
 
 ### RHACM-Cluster-Admin
 
 This RHACM-Cluster-Admin has all rights to do whatever you can configure in ACM.
 It is similar to a Cluster-Admin with some  restrictions
 
-You can see the [ClusterRole](https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml) granting RHACM Cluster-Admin rights:
+You can see the [ClusterRole](https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml) granting RHACM Cluster-Admin rights.
 
 
 ### IT Operations
@@ -225,13 +223,14 @@ Getting one more step towards integration we are deciding to create the followin
 ### Using PolicyGenerator and Kyverno
 
 We use Kyverno to better ensure the Rules are working
-We use PolicyGenerator to deploy Kyverno policies to the Hub or to the ManagedClusters.
+We use PolicyGenerator to deploy Kyverno as RHACM policies to the Hub or to the ManagedClusters.
 
 ### Integrating PolicyGenerator and ArgoCD
 
+Goal of this is that you can dyanically generate ACM-Policies from resources and configuration files which are stored and synced by ArgoCD
 This Integration uses initContainers to add the  Policy Generator tool to thr ArgoCD-Repo server. See more information here: 
 [Custom tooling supported by Operator](https://github.com/argoproj-labs/argocd-operator/blob/master/docs/usage/customization.md).
-See an example of the implemented [here](https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/argocds/policies-argocd.yaml#L6).
+See an example of the implementation [here](https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/argocds/policies-argocd.yaml#L6).
 This approach is explained in more detail in this [blog](https://cloud.redhat.com/blog/generating-governance-policies-using-kustomize-and-gitops).
 
 ### Disable Templating
@@ -278,9 +277,9 @@ spec:
 
 ### Using PolicyGenerator with Placement
 
-PolicyGenerator by default uses PlacementRules.
+PolicyGenerator by default uses PlacementRules for deploying Policies on selected Clusters.
 
-But it is easy to change, in the below example we set a Placement-Object which will be generated when running the example.
+But it is easy to change, in the below example we set the placementPath which will generate or use the Placement when running the example.
 
 ```
 apiVersion: policy.open-cluster-management.io/v1
@@ -312,23 +311,24 @@ In the following wee have two teams:
 
 * TeamRed (has a TeamAdmin who can create Clusters. Has a AppDeployer and a Viewer)
 * TeamBlue (has a TeamAdmin who cannot create Clusters but can deploy Applications and a Viewer)
-* We expect that you have a ACM 2.5 Cluster.
+
+* We assume that you have a ACM 2.5 Cluster installed.
 * Run on the Hub
   * git clone https://github.com/ch-stark/gitops-rbac-example
-  * execute 
-    `cmd="oc apply -f gitopsdemoall.yaml"; for i in $(seq 2); do $cmd "count: $i"; sleep 30;done`
+  * oc apply -f gitopsdemoall.yaml
 
-We need to grand the initial ArgoCD extended permission this is why we decided to assign `open-cluster-management:cluster-manager-admin`
+We need to grant the initial ArgoCD extended permission this is why we decided to assign `open-cluster-management:cluster-manager-admin`
+but please note that this is not enough for installing Kyverno and especially not enough when you want to use Kyverno-Generate which can basically
+create any resource you need and therefore needs extended permissions. 
 
+The example follows `Apps of Apps pattern` and it will set up the following for you:
 
-It follows `Apps of Apps pattern` and it will set up the following for you:
+* Demo-Users/Groups  (red and blueteams, one sre and one viewer per team)
+* ClusterSets (redteam and blueteam, members of redsre become ClusterSet-Admin)
+and all the relevant RHACM resources we have discussed before.
+* A list of ApplicationSets for the different teams and different Placements, not that you can also deploy an ApplicationSet only on the Hub.
 
-Demo-Users/Groups  (red and blueteams, one sre and one viewer per team)
-ClusterSets (redteam and blueteam, members of redsre become ClusterSet-Admin)
-RedTeam-Admin,BlueTeam-Admin (can generate namespaces on the Hub and deploy Clusters and ApplicationSets)
-
-
-After that, you can see all Apps in ArgoCD and in ACM
+After that, you can see all Apps in ArgoCD and in ACM-console.
 
 
 ACM view
@@ -342,6 +342,7 @@ Argo View
 
 
 SRE-View on his ApplicationSet
+
 ![ApplicationSets](images/appset_sreview.png)
 
 
@@ -350,8 +351,10 @@ View for SRE/Viewer when no Cluster has been created. The ApplicationSet is visi
 
 ### Validating RBAC/Kyverno Rules from the UI
 
+Now let's look at some validation scenarios:
 
-Try to create a Subscription
+
+* Try to create a Subscription
 
 
 ![Subscription not allowed](images/subscriptionnotallowed.png)
@@ -359,17 +362,45 @@ Try to create a Subscription
 
 This will be prevented because the ClusterRole has not the necessary permissions.
 
-
 Try to sync a Policy from Git which uses a PlacementRule
 
 ![Disallowplacementrules from Git](images/argocddisallowplacementrule.png)
 
+It has been disabled also on the AppProject level in ArgoCD:
 
+```
+spec:
+  namespaceResourceBlacklist:
+    - group: 'open-cluster-management.io'
+      kind: PlacementRule
+  destinations:
+    - namespace: blueteam-*
+      server: '*'
+```
 
 ** Kyverno-Checks
 
-![Disallowplacementrules](images/disallowplacementrules.png)
+Let's check how Kyverno is preventing this and how easy it is to achieve:
 
+```
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-placementrules
+spec:
+  validationFailureAction: enforce
+  background: false
+  rules:
+  - name: disallow-placementrules
+    match:
+      resources:
+        kinds:
+        - apps.open-cluster-management.io/v1/PlacementRule
+    validate:
+      message: "Using Placement Rules not allowed"
+      deny: {}    
+```
+![Disallowplacementrules](images/disallowplacementrules.png)
 
 ```
 status:
@@ -394,7 +425,6 @@ status:
       "validate.kyverno.svc-fail" denied the request: 
 ```
 
-
 In the following check we have 3 violations:
 * namespace does not match pattern
 * AppProject does not match pattern
@@ -417,14 +447,16 @@ Here you see some checks:
 * Tests cli
  
   * Create NS with wrong pattern
+
  `oc create ns blueteam`
-`
+
+```
 Error from server: admission webhook "validate.kyverno.svc-fail" denied the request: 
 resource Namespace//blueteam was blocked due to the following policies
 team-validate-red-ns-schema:
   namespace-name: 'validation failure: The only names approved for your namespaces
 are the ones starting by redteam*'
-`
+```
 
 * Create NS and validate that mutation has been added
 
@@ -498,7 +530,7 @@ items:
 ### Using Kyverno to bind a Namespace to several ClusterSets
 
 
-This could be easily be achieved using an Kyverno Policy like this:
+This could be easily be achieved using an Kyverno-Generate Policy like this:
 
 ```
   - name: managedclustersetbinding-red-sre-group
@@ -532,6 +564,8 @@ This could be easily be achieved using an Kyverno Policy like this:
         spec:
           clusterSet: redteam
 
+      ....
+
       apiVersion: cluster.open-cluster-management.io/v1beta1
       kind: ManagedClusterSetBinding
       name: blueteam
@@ -542,7 +576,7 @@ This could be easily be achieved using an Kyverno Policy like this:
           clusterSet: blueteam     
 ```
 
-When generating resources one could use a Policy [like](https://kyverno.io/policies/other/add_labels/add_labels/)
+When generating resources as shown before one could use a Mutation-Policy [like](https://kyverno.io/policies/other/add_labels/add_labels/)
 to ensure that those resources cannot be modified anymore by blocking any updates based on the labels. See an example
 [here](https://kyverno.io/policies/psa/deny-privileged-profile/deny-privileged-profile/).
 
@@ -552,5 +586,5 @@ to ensure that those resources cannot be modified anymore by blocking any update
  
 This blog wanted to show some configuration options that ensure Mulitenancy both on UI, cli and gitops-level.
 Keep it simple is the recommended practise to start with, e.g. using only Admin and Viewer role but there might be usecases
-where you might more finegrained confguration. 
-In the future Hypershift/Hosted control planes will give us some concepts to make Multitenancy easier as you can read in this [blog](https://cloud.redhat.com/blog/hosted-control-planes-is-here-as-tech-preview)
+where you want more finegrained confguration and this is what the blog wanted to show. 
+In the future Hypershift/Hosted control planes will give us some concepts to make Multitenancy easier as you can read in this [blog](https://cloud.redhat.com/blog/hosted-control-planes-is-here-as-tech-preview).
