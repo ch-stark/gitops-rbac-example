@@ -177,7 +177,8 @@ For our usecase it is not enough as we need to also grant extra Permissions as w
 
 ## Including Kyverno
 
-Kyverno is a PolicyEngine which can be integrated with ACM via PolicyGenerator.
+Kyverno is a poweful PolicyEngine which can be integrated nicely with RHACM using PolicyGenerator.
+
 Please see existing examples and blogs:
 
 * https://kyverno.io/policies/
@@ -281,6 +282,8 @@ PolicyGenerator by default uses PlacementRules for deploying Policies on selecte
 
 But it is easy to change, in the below example we set the placementPath which will generate or use the Placement when running the example.
 
+In the below example you also see that a PolicySet will be generated with the purpose 'kyverno-multitenancy'
+
 ```
 apiVersion: policy.open-cluster-management.io/v1
 kind: PolicyGenerator
@@ -307,12 +310,13 @@ policyDefaults:
 
 ## Run the Example
 
-In the following wee have two teams:    
+In the following we have two teams:    
 
 * TeamRed (has a TeamAdmin who can create Clusters. Has a AppDeployer and a Viewer)
 * TeamBlue (has a TeamAdmin who cannot create Clusters but can deploy Applications and a Viewer)
 
 * We assume that you have a ACM 2.5 Cluster installed.
+
 * Run on the Hub
   * git clone https://github.com/ch-stark/gitops-rbac-example
   * oc apply -f gitopsdemoall.yaml
@@ -587,4 +591,6 @@ to ensure that those resources cannot be modified anymore by blocking any update
 This blog wanted to show some configuration options that ensure Mulitenancy both on UI, cli and gitops-level.
 Keep it simple is the recommended practise to start with, e.g. using only Admin and Viewer role but there might be usecases
 where you want more finegrained confguration and this is what the blog wanted to show. 
+We would be happy to discuss the presented concepts and work together in any potential improvements.
+
 In the future Hypershift/Hosted control planes will give us some concepts to make Multitenancy easier as you can read in this [blog](https://cloud.redhat.com/blog/hosted-control-planes-is-here-as-tech-preview).
