@@ -177,13 +177,17 @@ For our usecase it is not enough as we need to also grant extra Permissions as w
 
 ## Including Kyverno
 
-Kyverno is a poweful PolicyEngine which can be integrated nicely with RHACM using PolicyGenerator.
+Kyverno (https://kyverno.io) is a policy engine for Kubernetes that enables platform administrators to manage tenant (i.e. namespace consumers) activities via policy. This provides a number of benefits to ensure that tenants deploy their solutions following best practices (probes, requests/limits, etc). 
+
+Kyverno policies can be set to enforcing or auditing on a per policy basis. When set to enforcing Kyverno will prevent the tenant from creating or mutating an object via a webhook. When set to auditing Kyverno will simply report the policy violation but will not prevent the tenant from continuing with their work.
 
 Please see existing examples and blogs:
 
 * https://kyverno.io/policies/
 * https://github.com/stolostron/policy-collection/tree/main/stable/CM-Configuration-Management
 * https://cloud.redhat.com/blog/generating-governance-policies-using-kustomize-and-gitops
+
+Kyverno can be integrated nicely with RHACM using PolicyGenerator deploying the generated RHACM-policies on the fleet of Clusters.
 
 During this blog Kyverno is used to support enforcing Access-Control.
 
