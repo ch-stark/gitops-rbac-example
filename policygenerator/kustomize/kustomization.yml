@@ -1,4 +1,2 @@
 generators:
   - policyGenerator.yaml
-commonAnnotations:
-  policy.open-cluster-management.io/disable-templates: true
