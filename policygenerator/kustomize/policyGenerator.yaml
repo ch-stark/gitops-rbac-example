@@ -3,7 +3,7 @@ kind: PolicyGenerator
 metadata:
   name: policy-kyverno
 placementBindingDefaults:
-  name: binding-generic
+  name: kyverno-multitenancy
 policyDefaults:
   categories:
     - CM Configuration Management
