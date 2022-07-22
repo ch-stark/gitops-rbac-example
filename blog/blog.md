@@ -248,15 +248,11 @@ Therefore when using Kyverno as input for PolicyGenerator you can set the follow
 
 `policy.open-cluster-management.io/disable-templates`
 
-You can achieve this again via Kyverno-Policy or via kustomize.yaml
+You can achieve this by setting in a PolicyGenerator-file:
 
 ```
-kustomize.yaml
-
-generators:
-  - policyGenerator.yaml
-commonAnnotations:
-  policy.open-cluster-management.io/disable-templates: true
+policyDefaults:
+  configurationPolicyAnnotations: {"policy.open-cluster-management.io/disable-templates": "true"}
 ```
 
 or you can use a Kyverno-Policy using `Mutation` to achieve the same:
