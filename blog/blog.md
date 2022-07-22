@@ -276,6 +276,7 @@ spec:
             +(policy.open-cluster-management.io/disable-templates): true
 ```
 
+
 ### Using PolicyGenerator with Placement
 
 PolicyGenerator by default uses PlacementRules for deploying Policies on selected Clusters.
