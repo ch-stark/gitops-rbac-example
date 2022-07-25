@@ -63,10 +63,12 @@ Some Customers deploy team scoped instances that manage the teams’ namespaces 
 ### Pattern 2:  Separate Teams so that each team only has access to Clusters of its ClusterSets
 
 You basically just ensure that a Cluster-Admin of ClusterSet 1  has in no way can access on resources on ClusterSet 2.
+If you follow this approach it needs to be considered that compared to some years ago it has been significantly easier and cheaper to create Kubernetes-Clusters and they are designed to be more lightweigt. See here for example [Single-Node-OpenShift](https://docs.openshift.com/container-platform/4.9/installing/installing_sno/install-sno-installing-sno.html)
 
-### Pattern 3:  Use a mix of 1 to 2
+### Pattern 3:  Use a mix of 1 to 2: Shared Resources.
 
-Customers want to separate Clusters but some namespaces should still be shared. Some namespaces might be global.
+Customers want to separate Clusters but some namespaces should still be shared between Clusters. Some namespaces might be even global to all Clusters in a fleet.
+
 
 The blog tries to answer some questions by showing the different configuration options.
 While we will provide some guidelines and recommendations we also explain how the setup could be changed.
