@@ -46,7 +46,7 @@ When discussing a Multi-Cluster Multi-Tenancy approach let’s first discuss the
       
 * Who is allowed to create namespaces on the Hub/Managed-Clusters? 
     
-* Should Gitops be used and how are the permissions in git-handled? 
+* Should Gitops be used and how are the permissions handled at Git-level? 
 
 * Should certain resources be excluded in git?   
 
@@ -149,8 +149,7 @@ Please note that in  ACM 2.5 every Cluster can only be part of a ClusterSet, thi
 
 ## RHACM and ApplicationSets
 
-ApplicationSets use Generators to distribute the resources which are getting created.  In ACM we have added a PlacementGenerator which is assigning a Placement
-to an ApplicationSet.  It should also be mentioned that in order to run ApplicationSets GitopsCluster-Resources are used.  Read more about that in the following [blog](https://cloud.redhat.com/blog/red-hat-advanced-cluster-management-with-openshift-gitops).
+ApplicationSets use Generators to distribute the resources which are getting created.  In RHACM we have added a [PlacementDecisionGenerator](https://argocd-applicationset.readthedocs.io/en/stable/Generators-Cluster-Decision-Resource/) which is assigning a Placement to an ApplicationSet.  It should also be mentioned that in order to run ApplicationSets GitopsCluster-Resources are used.  Read more about that in the following [blog](https://cloud.redhat.com/blog/red-hat-advanced-cluster-management-with-openshift-gitops).
 
 
 ### Rephrasing questions including ACM/OpenCluster-Management Concepts
