@@ -12,6 +12,16 @@ this is already good info if you have a Single Cluster. This blog will enhance t
 which gives us some aid to ensure that Tenants are separated from each other.
 
 
+From a high level this blog is structured with the following content:
+
+* Orginizational and Infrastructural aspects of Multi-Cluster-Multitenancy
+* Patterns and Personas
+* RHACM conceps and ApplicationSet integration
+* Kyverno Integration
+* Validation Examples
+
+
+
 ## Organizational Needs
 
 There are all sorts of different models that customers use and which are driven by their organizational needs. Historically OpenShift has been using a shared cluster model much more commonly than is seen in kubernetes since we had RBAC way before k8s did and provide more features around security to make this work. Many customers operate shared clusters, typically the OOTB recommendation is to start with three clusters (lab, non-prod and prod) with applications teams having their own dev/test/tools namespaces on non-prod and pre-prod/prod namespaces on the prod cluster.
