@@ -22,7 +22,7 @@ Other organizations might be way more siloed in terms of non-prod and prod and p
 
 Some customers strongly argue to give the teams more freedom simply because else a Cluster-Administrator might be overwhelmed by all different kinds of requests.
 
-When discussing a MultiCluster Multi-Tenancy approach let’s first discuss the following question which are mainly Organization considerations.:
+When discussing a Multi-Cluster Multi-Tenancy approach let’s first discuss the following question which are mainly Organization considerations.:
 
 * How many teams will work on the Clusters?  How independent are the teams, are teams maybe different external customers?
 
@@ -145,6 +145,9 @@ You can either just use a label and it will deploy on all Clusters which are bou
 Or you can assign a ClusterSet to the Placement to ensure the Apps/Policies are only 
 
 Please note that in  ACM 2.5 every Cluster can only be part of a ClusterSet, this might change in future versions
+
+
+## RHACM and ApplicationSets
 
 ApplicationSets use Generators to distribute the resources which are getting created.  In ACM we have added a PlacementGenerator which is assigning a Placement
 to an ApplicationSet.  It should also be mentioned that in order to run ApplicationSets GitopsCluster-Resources are used.  Read more about that in the following [blog](https://cloud.redhat.com/blog/red-hat-advanced-cluster-management-with-openshift-gitops).
