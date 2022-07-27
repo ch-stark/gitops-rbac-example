@@ -1,14 +1,21 @@
 ## Configuration Options regarding Multi-Tenancy and RBAC when using GitopsOperator, ApplicationSets, and RHACM
 
-Starting with RHACM 2.5 ApplicationSets have become GA and are ready to use in production.
+Starting with RedHatAdvanced-Cluster-Management (RHACM 2.5) ApplicationSets have become GA and are ready to use in production.
 Starting with GitopsOperator 1.6 ApplicationSets are also GA from an OpenShift Gitops-Operator point of view.
+
+This blog will not give some introduction into RHACM, but it is important to remember that we have a Hub-Spoke architecture
+where one Hub-Cluster can manage a significant amount of Managed-Clusters.
+
 This blog provides an overview of available configuration options and best practices for Cluster- and Multicluster Multi-Tenancy.
-Sharing clusters saves costs and simplifies administration. However, sharing clusters also present challenges such as security, fairness, and managing noisy neighbors. 
+
+Sharing clusters saves costs and simplifies administration. However, sharing clusters also present challenges such as security, fairness, and managing `noisy neighbors`. 
 Clusters can be shared in many ways. In some cases, different applications may run in the same cluster. 
 In other cases, multiple instances of the same application may run in the same cluster, one for each end-user.
 
 If you check the following part from Kubernetes-Documentation on [Multi-Tenancy](https://kubernetes.io/docs/concepts/security/multi-tenancy/) 
-this is already good info if you have a Single Cluster. This blog will enhance this to a Multi-Cluster fleet. Later in this blog we will also introduce **Kyverno**
+this is already good info regarding Multi-Tenancy if you have a Single Cluster. 
+
+This blog will enhance this to a Multi-Cluster fleet. Later in this blog we will also introduce **Kyverno**
 which gives us some aid to ensure that Tenants are separated from each other.
 
 
@@ -21,22 +28,49 @@ From a high level this blog is structured with the following content:
 * Demo-Repository and Validation Examples
 
 
-
 ## Organizational Needs
 
-There are all sorts of different models that customers use and which are driven by their organizational needs. Historically OpenShift has been using a shared cluster model much more commonly than is seen in kubernetes since we had RBAC way before k8s did and provide more features around security to make this work. Many customers operate shared clusters, typically the OOTB recommendation is to start with three clusters (lab, non-prod and prod) with applications teams having their own dev/test/tools namespaces on non-prod and pre-prod/prod namespaces on the prod cluster.
+There are all sorts of different models that customers use and which are driven by their organizational needs. Historically OpenShift has been using a shared cluster model much more commonly than is seen in kubernetes since RBAC and features around security have always been present. Many customers operate shared clusters, typically the out-of-the-box recommendation is to start with three clusters (lab, non-prod and prod) with applications teams having their own dev/test/tools namespaces on non-prod and pre-prod/prod namespaces on the prod cluster.
 Having said that in reality it varies a lot, it's largely driven by the organizational structure but other factors come into play. You are more likely to see dedicated team clusters in the public cloud than on-prem, in on-prem it’s more rare to see dedicated team clusters. A huge amount of customers have shared clusters everywhere, clusters might be expensive in terms of infra (control plane and infra nodes) and it doesn't make sense to have a cluster to only support a couple of applications.
 
 There might be teams that deploy team scoped instances that manage the teams’ namespaces across multiple clusters since they want teams to have a single pane of glass. 
 Other organizations might be way more siloed in terms of non-prod and prod and prefer separate GitOps instances for each.
-
 Some customers strongly argue to give the teams more freedom simply because else a Cluster-Administrator might be overwhelmed by all different kinds of requests.
+
+## Reasons for Having Several Clusters
+
+* DEV/Stage/Prod
+
+This is often the out of the box setup
+
+* Different Vendors
+
+There might be different preferences and even regulatory reasons that not only one vendor will be used
+
+* Different Teams.
+
+We come to this topic in more detail.
+
+* Cloud/OnPremise
+
+  there might be on-premise clusters and clusters in the cloud which should be connected and at least be looked at
+  from a single point of glass 
+
+* Different Security levels
+
+  there might be different Security-Levels with Clusters where one Cluster need to be compliant agains strict standards
+  while another cluster is just for developing purposes.
+
+* Edge-Scenarios
+
+  there we might have Several (small) 1000 Kubernetes-Clusters.  Clusters need to be quickly created and destroyed.
+
 
 When discussing a Multi-Cluster Multi-Tenancy approach let’s first discuss the following question which are mainly Organization considerations.:
 
 * How many teams will work on the Clusters?  How independent are the teams, are teams maybe different external customers?
 
-* What will be the different roles that a team has? E.g. Will governance be done by a Cluster-Fleet admin, or on a team level?
+* What will be the different roles that a team has? *E.g. Will governance be done by a Cluster-Fleet admin, or on a team level?
 
 * Who will be allowed to create Clusters? Only the Cluster-Admin or also Team-admins?
 
@@ -150,9 +184,7 @@ A  ManagedClusterSetBinding binds a namespace to a ClusterSet. You can also bind
 ### Placements
 
 A Placement looks for ManagedClusterSetBinding in a namespace.
-
-You can either just use a label and it will deploy on all Clusters which are bound to the namespace and which match the condition.
-Or you can assign a ClusterSet to the Placement to ensure the Apps/Policies are only 
+You can either just use a label and it will deploy on all Clusters which are bound to the namespace and which match the condition.Or you can assign a ClusterSet to the Placement to ensure the Apps/Policies are only 
 
 Please note that in  ACM 2.5 every Cluster can only be part of a ClusterSet, this might change in future versions
 
@@ -211,7 +243,7 @@ During this blog Kyverno is used to support enforcing Access-Control.
 Getting one more step towards integration we are deciding to create the following Policies which can be reviewed in this [repository](https://github.com/ch-stark/gitops-rbac-example/tree/main/rbacmultitenancydemo/kyverno/overlay/policies):
 
 * Based on this Policies  we are generating three PolicySets
-  * ACM-Policies
+  * ACM-Policies. [Here](https://github.com/stolostron/policy-collection/tree/main/community/AC-Access-Control) you find some examples to setup RBAC consistently on your fleet of Clusters 
   * Kyverno-Multitenancy-Hub-Side
   * Kyverno-Multitenancy-Client-Side
 
