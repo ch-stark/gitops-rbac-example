@@ -185,7 +185,7 @@ That fall under:
 - apiGroups:
   - cluster.open-cluster-management.io
 
-You can see the 'open-cluster-management:cluster-manager-admin' role [here](https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml).
+You can see the `open-cluster-management:cluster-manager-admin` role [here](https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml).
 For our usecase it is not enough as we need to also grant extra Permissions as we use Kyverno-Generate functionality which will be explained later.
 
 
