@@ -66,6 +66,11 @@ We come to this topic in more detail.
   there we might have Several (small) 1000 Kubernetes-Clusters.  Clusters need to be quickly created and destroyed.
 
 
+There are many reasons for having several Kubernetes Clusters who have not been present to that extend in the past:
+
+* Easier Cluster-LifecycleManagement (easier to create, destroy, migrate, upgrade, hibernate, generally lower costs)
+
+
 When discussing a Multi-Cluster Multi-Tenancy approach let’s first discuss the following question which are mainly Organization considerations.:
 
 * How many teams will work on the Clusters?  How independent are the teams, are teams maybe different external customers?
