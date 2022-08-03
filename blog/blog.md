@@ -303,7 +303,7 @@ You can achieve this by setting in a PolicyGenerator-file:
 
 ```
 policyDefaults:
-  configurationPolicyAnnotations: {"policy.open-cluster-management.io/disable-templates": "true"}
+  policyAnnotations: {"policy.open-cluster-management.io/disable-templates": "true"}
 ```
 
 or you can use a Kyverno-Policy using `Mutation` to achieve the same:
