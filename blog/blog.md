@@ -294,7 +294,7 @@ This approach is explained in more detail in this [blog](https://cloud.redhat.co
 ACM-templating is a powerful feature to make Policies more dynamic. Read [here](https://cloud.redhat.com/blog/applying-policy-based-governance-at-scale-using-templates)
 to get an overview about this feature.
 When you generate a ACM-Policy from a Kyverno-Policy it often does not work by default as you need to escape some expressions which might be processes by RHACM's
-templating langguage.
+templating language.
 Therefore when using Kyverno as input for PolicyGenerator you can set the following property on a ACM policy to disable templating:
 
 `policy.open-cluster-management.io/disable-templates`
@@ -367,7 +367,7 @@ In the following we have two teams:
 * TeamRed (has a TeamAdmin who can create Clusters. Has a AppDeployer and a Viewer)
 * TeamBlue (has a TeamAdmin who cannot create Clusters but can deploy Applications and a Viewer)
 
-* We assume that you have a ACM 2.5 Cluster installed.
+* We assume that you have a RHACM 2.5 Cluster installed.
 
 * Run on the Hub
   * git clone https://github.com/ch-stark/gitops-rbac-example
@@ -643,6 +643,6 @@ to ensure that those resources cannot be modified anymore by blocking any update
 This blog wanted to show some configuration options that ensure Mulitenancy both on UI, cli and gitops-level.
 Keep it simple is the recommended practise to start with, e.g. using only Admin and Viewer role but there might be usecases
 where you want more finegrained confguration and this is what the blog wanted to show. 
-We would be happy to discuss the presented concepts and work together in any potential improvements.
+We would be happy to discuss the presented concepts and work together on any potential improvements.
 
 In the future Hypershift/Hosted control planes will give us some concepts to make Multitenancy easier as you can read in this [blog](https://cloud.redhat.com/blog/hosted-control-planes-is-here-as-tech-preview).
