@@ -308,9 +308,10 @@ policyDefaults:
 
 Another option you can use this:
 https://github.com/stolostron/policy-generator-plugin/blob/main/docs/policygenerator-reference.yaml#L46
-  # When the policy references a Kyverno policy manifest, this determines if an additional
-  # configuration policy should be generated in order to receive policy violations in Open Cluster
-  # Management when the Kyverno policy has been violated. This defaults to true.
+- When the policy references a Kyverno policy manifest, this determines if an additional
+- configuration policy should be generated in order to receive policy violations in Open Cluster
+- Management when the Kyverno policy has been violated. This defaults to true.
+
 ```
 policyDefaults:
   informKyvernoPolicies: true
