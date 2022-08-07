@@ -306,28 +306,6 @@ policyDefaults:
   policyAnnotations: {"policy.open-cluster-management.io/disable-templates": "true"}
 ```
 
-or you can use a Kyverno-Policy using `Mutation` to achieve the same:
-
-```
-spec:
-  rules:
-  - name: "disable-templates"
-    match:
-      any:
-      - resources:
-          kinds:
-          - policy.open-cluster-management.io/v1/Policy
-          selector:
-            matchLabels:
-              type: kyverno        
-    mutate:
-      patchStrategicMerge:
-        metadata:
-          annotations:
-            +(policy.open-cluster-management.io/disable-templates): true
-```
-
-
 ### Using PolicyGenerator with Placement
 
 PolicyGenerator by default uses PlacementRules for deploying Policies on selected Clusters.
@@ -434,7 +412,7 @@ spec:
       server: '*'
 ```
 
-** Kyverno-Checks
+**Kyverno-Checks
 
 Let's check how Kyverno is preventing this and how easy it is to achieve:
 
