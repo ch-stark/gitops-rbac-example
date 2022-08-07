@@ -25,7 +25,7 @@ From a high level this blog is structured with the following content:
 * Patterns and Personas
 * RHACM-Multitenancy concepts and ApplicationSet integration
 * Kyverno Integration
-* Demo-Repository and Validation Examples
+* Demo-Repository and validation examples
 
 
 ## Organizational Needs
@@ -470,9 +470,9 @@ status:
 ```
 
 In the following check we have 3 violations:
-* namespace does not match pattern
-* AppProject does not match pattern
-* Placement is not the Placement which has to be used.
+* `namespace` does not match pattern
+* `AppProject` does not match pattern
+* `Placement` is not the Placement which has to be used.
 
 
 ![3 checks are failing](images/3validationfailures.png)
