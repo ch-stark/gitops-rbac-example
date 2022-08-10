@@ -180,7 +180,7 @@ In the following we are quickly describing some ACM concepts and objects which a
 
 ### ClusterSets 
 
-This concept - which is also used within Submariner - adds Clusters to certain groups.  By default, the local cluster is part of the default ClusterSet. One Cluster currently can only be part of a single ClusterSet. A Cluster must be part of a ClusterSet so that you can deploy to. We will explain this later.
+This concept - which is also used within Submariner - adds Clusters to certain groups.  By default, the local cluster is part of the default ClusterSet. One Cluster currently can only be part of a single ClusterSet. A Cluster must be part of a ClusterSet so that you can deploy to. [Here](https://open-cluster-management.io/concepts/managedclusterset/) you find some more description about this Cluster-Scoped-Object
 
 ### ManagedClusterSetBindings  
 
