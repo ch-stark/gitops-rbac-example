@@ -303,7 +303,7 @@ You can achieve this by setting in a PolicyGenerator-file:
 
 ```
 policyDefaults:
-  policyAnnotations: {"policy.open-cluster-management.io/disable-templates": "true"}
+  configurationPolicyAnnotations: {"policy.open-cluster-management.io/disable-templates": "true"}
 ```
 
 Another option you can use this:
