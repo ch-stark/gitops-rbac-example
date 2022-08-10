@@ -184,7 +184,7 @@ This concept - which is also used within Submariner - adds Clusters to certain g
 
 ### ManagedClusterSetBindings  
 
-A  ManagedClusterSetBinding binds a namespace to a ClusterSet. You can also bind a namespace to several ClusterSets by creating a binding for each ClusterSet
+A  ManagedClusterSetBinding binds a namespace to a ClusterSet. You can also bind a namespace to several ClusterSets by creating a binding for each ClusterSet. Check [here](https://open-cluster-management.io/concepts/managedclusterset/#binding-a-clusterset-to-a-namespace) if you like to read more about the `binding-process`. 
 
 ### Placements
 
