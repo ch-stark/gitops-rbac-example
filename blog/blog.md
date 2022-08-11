@@ -188,6 +188,27 @@ A  ManagedClusterSetBinding binds a namespace to a ClusterSet. You can also bind
 
 ### Placements
 
+The concept of Placement is documented [here](https://open-cluster-management.io/concepts/placement/)
+
+With the below Placement you can place e.g. an Application to a Cluster, which has the Highest Memory Available.
+
+```
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: placement1
+  namespace: default
+spec:
+  numberOfClusters: 1
+  prioritizerPolicy:
+    mode: Exact
+    configurations:
+      - scoreCoordinate:
+          builtIn: ResourceAllocatableMemory
+```
+
+
+
 A Placement looks for ManagedClusterSetBinding in a namespace.
 You can either just use a label and it will deploy on all Clusters which are bound to the namespace and which match the condition.Or you can assign a ClusterSet to the Placement to ensure the Apps/Policies are only 
 
