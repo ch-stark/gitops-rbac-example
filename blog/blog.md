@@ -444,7 +444,7 @@ spec:
       server: '*'
 ```
 
-**Kyverno-Checks
+**Kyverno-Checks**
 
 Let's check how Kyverno is preventing this and how easy it is to achieve:
 
