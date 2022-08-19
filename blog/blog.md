@@ -2,6 +2,7 @@
 
 Starting with RedHatAdvanced-Cluster-Management (RHACM 2.5) ApplicationSets have become GA and are ready to use in production.
 Starting with GitopsOperator 1.6 ApplicationSets are also GA from an OpenShift Gitops-Operator point of view.
+You can read more on how ApplicationSets work with RHACM in the [documentation](https://github.com/stolostron/rhacm-docs/blob/522214c632ff238a223f42221a530fa4c8838216/applications/app_model.adoc)
 
 This blog will not give some introduction into RHACM, but it is important to remember that we have a Hub-Spoke architecture
 where one Hub-Cluster can manage a significant amount of Managed-Clusters.
