@@ -105,7 +105,7 @@ To go one step back we can identify three common patterns when handling Applicat
 
 ## Patterns:
 
-### Pattern 1:  Have Multi-Tenancy on ClusterLevel and use the same Configuration of a Single-Cluster for the whole fleet of Clusters.
+### Pattern 1:  Have Multi-Tenancy on ClusterLevel and use the same Configuration of a Single-Cluster for the whole fleet of Clusters
 
 This means a Hub and Spoke model where all the Hub does is push out team-scoped GitOps instances for the teams to use along with any other cluster-scoped resources they require (operators for example). Teams will have namespace admin access to those instances and to the clusters/namespaces, those instances manage. What visibility those team-scoped instances have (i.e. multiple namespaces on a single cluster, multiple namespaces across multiple clusters) is highly dependent on the type of organization and its structure. 
 Some Customers deploy team scoped instances that manage the teams’ namespaces across multiple clusters since they want teams to have a single pane of glass. Other orgs might be way more siloed in terms of non-prod and prod and prefer separate GitOps instances for each.
@@ -115,7 +115,7 @@ Some Customers deploy team scoped instances that manage the teams’ namespaces 
 You basically just ensure that a Cluster-Admin of ClusterSet 1  has in no way can access on resources on ClusterSet 2.
 If you follow this approach it needs to be considered that compared to some years ago it has been significantly easier and cheaper to create Kubernetes-Clusters and they are designed to be more lightweigt. See here for example [Single-Node-OpenShift](https://docs.openshift.com/container-platform/4.9/installing/installing_sno/install-sno-installing-sno.html)
 
-### Pattern 3:  Use a mix of 1 to 2: Shared Resources.
+### Pattern 3:  Use a mix of 1 to 2: Shared Resources
 
 Customers want to separate Clusters but some namespaces should still be shared between Clusters. Some namespaces might be even global to all Clusters in a fleet.
 
@@ -336,7 +336,6 @@ https://github.com/stolostron/policy-generator-plugin/blob/main/docs/policygener
 policyDefaults:
   informKyvernoPolicies: true
 ```
-
 
 ### Using PolicyGenerator with Placement
 
