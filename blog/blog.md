@@ -24,6 +24,7 @@ From a high level this blog is structured with the following content:
 
 * Orginizational and Infrastructural aspects of Multi-Cluster-Multitenancy
 * Patterns and Personas
+* ApplicationSets
 * RHACM-Multitenancy concepts and ApplicationSet integration
 * Kyverno Integration
 * Demo-Repository and validation examples
