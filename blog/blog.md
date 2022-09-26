@@ -7,7 +7,7 @@ You can read more on how ApplicationSets work with RHACM in the [documentation](
 This blog will not give some introduction into RHACM, but it is important to remember that we have a Hub-Spoke architecture
 where one Hub-Cluster can manage a significant amount of Managed-Clusters.
 
-This blog provides an overview of available configuration options and best practices for Cluster- and Multicluster Multi-Tenancy.
+This blog provides an overview of available configuration options, ideas around and best practices for Cluster- and Multicluster Multi-Tenancy.
 
 Sharing clusters saves costs and simplifies administration. However, sharing clusters also present challenges such as security, fairness, and managing `noisy neighbors`. 
 Clusters can be shared in many ways. In some cases, different applications may run in the same cluster. 
