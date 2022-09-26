@@ -31,7 +31,7 @@ From a high level this blog is structured with the following content:
 
 ## Organizational Needs
 
-There are all sorts of different models that customers use and which are driven by their organizational needs. Historically OpenShift has been using a shared cluster model much more commonly than is seen in kubernetes since RBAC and features around security have always been present. Many customers operate shared clusters, typically the out-of-the-box recommendation is to start with three clusters (lab, non-prod and prod) with applications teams having their own dev/test/tools namespaces on non-prod and pre-prod/prod namespaces on the prod cluster.
+There are all sorts of different models that customers use and which are driven by their organizational needs. Historically OpenShift has been using a shared cluster model much more commonly than is has been seen in default Kubernetes since RBAC and features around Security have always been build-in. Many customers operate shared clusters, typically the out-of-the-box recommendation is to start with three clusters (lab, non-prod and prod) with applications teams having their own dev/test/tools namespaces on non-prod and pre-prod/prod namespaces on the prod cluster.
 Having said that in reality it varies a lot, it's largely driven by the organizational structure but other factors come into play. You are more likely to see dedicated team clusters in the public cloud than on-prem, in on-prem it’s more rare to see dedicated team clusters. A huge amount of customers have shared clusters everywhere, clusters might be expensive in terms of infra (control plane and infra nodes) and it doesn't make sense to have a cluster to only support a couple of applications.
 
 There might be teams that deploy team scoped instances that manage the teams’ namespaces across multiple clusters since they want teams to have a single pane of glass. 
@@ -112,13 +112,12 @@ Some Customers deploy team scoped instances that manage the teams’ namespaces 
 
 ### Pattern 2:  Separate Teams so that each team only has access to Clusters of its ClusterSets
 
-You basically just ensure that a Cluster-Admin of ClusterSet 1  has in no way can access on resources on ClusterSet 2.
+You basically just ensure that a Cluster-Admin of ClusterSet '1'  has in no way can access on resources on ClusterSet '2'.
 If you follow this approach it needs to be considered that compared to some years ago it has been significantly easier and cheaper to create Kubernetes-Clusters and they are designed to be more lightweigt. See here for example [Single-Node-OpenShift](https://docs.openshift.com/container-platform/4.9/installing/installing_sno/install-sno-installing-sno.html)
 
 ### Pattern 3:  Use a mix of 1 to 2: Shared Resources
 
 Customers want to separate Clusters but some namespaces should still be shared between Clusters. Some namespaces might be even global to all Clusters in a fleet.
-
 
 The blog tries to answer some questions by showing the different configuration options.
 While we will provide some guidelines and recommendations we also explain how the setup could be changed.
@@ -126,7 +125,7 @@ While we will provide some guidelines and recommendations we also explain how th
 
 ## RHACM Personas
 
-It is recommended - when working with RHACM -  to develop a blueprint regarding the different Roles which are working with ACM.  At the following we would like to give some guidelines knowing that especially in smaller teams those roles might be implemented by a smaller number of real persons.
+It is recommended - when working with RHACM -  to develop a blueprint regarding the different Roles which are working with RHACM. At the following we would like to give some guidelines knowing that especially in smaller teams those roles might be implemented by a smaller number of real persons.
 
 It needs to be mentioned that even if you have defined the Personas it needs to be clarified that the implemented Cluster-Roles can certainly differ a lot so we will at the end only have some suggestions.
 
@@ -135,7 +134,7 @@ E.g. a Role is allowed to place Resources into some path/branch within a Git-rep
 
 ### RHACM-Cluster-Admin
 
-This RHACM-Cluster-Admin has all rights to do whatever you can configure in ACM.
+This RHACM-Cluster-Admin has all rights to do whatever you can configure in RHACM.
 It is similar to a Cluster-Admin with some  restrictions
 
 You can see the [ClusterRole](https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml) granting RHACM Cluster-Admin rights.
@@ -290,10 +289,9 @@ Getting one more step towards integration we are deciding to create the followin
 ### Policies for Managed-Clusters
 
 * Team admins can generate namespaces on Managed-Clusters but they need to follow certain patterns
-* Those namespaces can also be created by deploying applicationsets.
+* Those namespaces can also be created by deploying Applicationsets.
 * When you create a new namespace we expect that all resources are generated (roles, limitranges) 
-* A team admin can generate ApplicatonSets in its namespace or in the shared namespace. On the Hub, the shared namespace is called SharedHub
-  On the managed cluster it has the pattern shared
+* A team admin can generate ApplicationSets in its namespace or in the shared namespace. On the Hub, the shared namespace is called SharedHub
 * A team admin can generate namespaces (either via destination-namespace, or the namespaces in the objects only in Clusters of its ClusterSet)
 * A team admin can generate an ArgoCD Application on the Hub to deploy Policies. But Policies can only have Placements and Placement must be the correct ClusterSet.
 
@@ -306,6 +304,7 @@ We use PolicyGenerator to deploy Kyverno as RHACM policies to the Hub or to the 
 ### Integrating PolicyGenerator and ArgoCD
 
 Goal of this is that you can dyanically generate ACM-Policies from resources and configuration files which are stored and synced by ArgoCD
+
 This Integration uses initContainers to add the  Policy Generator tool to thr ArgoCD-Repo server. See more information here: 
 [Custom tooling supported by Operator](https://github.com/argoproj-labs/argocd-operator/blob/master/docs/usage/customization.md).
 See an example of the implementation [here](https://github.com/ch-stark/gitops-rbac-example/blob/main/rbacmultitenancydemo/argocds/policies-argocd.yaml#L6).
@@ -313,11 +312,11 @@ This approach is explained in more detail in this [blog](https://cloud.redhat.co
 
 ### Disable Templating
 
-ACM-templating is a powerful feature to make Policies more dynamic. Read [here](https://cloud.redhat.com/blog/applying-policy-based-governance-at-scale-using-templates)
-to get an overview about this feature.
-When you generate a ACM-Policy from a Kyverno-Policy it often does not work by default as you need to escape some expressions which might be processes by RHACM's
-templating language.
-Therefore when using Kyverno as input for PolicyGenerator you can set the following property on a ACM policy to disable templating:
+ACM-templating is a powerful feature to make Policies more dynamic. Read [here](https://cloud.redhat.com/blog/applying-policy-based-governance-at-scale-using-templates) to get an overview about this feature.
+
+When you generate a RHACM-Policy from a Kyverno-Policy it often does not work by default as you need to escape some expressions which might be processes by RHACM's templating language.
+
+Therefore when using Kyverno as input for PolicyGenerator you can set the following property on a RHACM policy to disable templating:
 
 `policy.open-cluster-management.io/disable-templates`
 
@@ -382,7 +381,7 @@ In the following we have two teams:
   * git clone https://github.com/ch-stark/gitops-rbac-example
   * oc apply -f gitopsdemoall.yaml
 
-We need to grant the initial ArgoCD extended permission this is why we decided to assign `open-cluster-management:cluster-manager-admin`
+We need to grand the initial ArgoCD extended permission this is why we decided to assign `open-cluster-management:cluster-manager-admin`
 but please note that this is not enough for installing Kyverno and especially not enough when you want to use Kyverno-Generate which can basically
 create any resource you need and therefore needs extended permissions. 
 
@@ -393,10 +392,10 @@ The example follows `Apps of Apps pattern` and it will set up the following for 
 and all the relevant RHACM resources we have discussed before.
 * A list of ApplicationSets for the different teams and different Placements, not that you can also deploy an ApplicationSet only on the Hub.
 
-After that, you can see all Apps in ArgoCD and in ACM-console.
+After that, you can see all Apps in ArgoCD and in RHACM-console.
 
 
-ACM view
+RHACM view
 
 ![ACM view](images/viewargoinacm.png)
 
