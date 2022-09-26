@@ -275,6 +275,8 @@ Getting one more step towards integration we are deciding to create the followin
   * Kyverno-Multitenancy-Hub-Side
   * Kyverno-Multitenancy-Client-Side
 
+You find the Kyverno-PolicySets also in our [policy-collection-repository](https://github.com/stolostron/policy-collection/tree/main/policygenerator/policy-sets/community/kyverno)
+
 
 ### Policies for the Hub-Side
 
