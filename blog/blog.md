@@ -127,7 +127,8 @@ While we will provide some guidelines and recommendations we also explain how th
 
 It is recommended - when working with RHACM -  to develop a blueprint regarding the different Roles which are working with RHACM. At the following we would like to give some guidelines knowing that especially in smaller teams those roles might be implemented by a smaller number of real persons.
 
-It needs to be mentioned that even if you have defined the Personas it needs to be clarified that the implemented Cluster-Roles can certainly differ a lot so we will at the end only have some suggestions.
+It needs to be mentioned that even if you have defined the Personas it needs to be clarified that the implemented Cluster-Roles can certainly differ a lot so we will - at the end - only have some suggestions.
+The following page provides an excellent more detailled [overview](https://www.ibm.com/docs/en/cloud-paks/cp-management/2.3.x?topic=started-personas-use-cases) of the different Personas which are theoretically possible.
 
 Also note that you might not implement some roles using ClusterRoles/RoleBindings but you might set those permissions directly at Git-level.
 E.g. a Role is allowed to place Resources into some path/branch within a Git-repository.
@@ -135,7 +136,7 @@ E.g. a Role is allowed to place Resources into some path/branch within a Git-rep
 ### RHACM-Cluster-Admin
 
 This RHACM-Cluster-Admin has all rights to do whatever you can configure in RHACM.
-It is similar to a Cluster-Admin with some  restrictions
+It is similar to a Cluster-Admin with some  restrictions.
 
 You can see the [ClusterRole](https://github.com/ch-stark/gitops-rbac-example/blob/main/clusterroles/rhacm-cluster-admin.yaml) granting RHACM Cluster-Admin rights.
 
@@ -232,8 +233,8 @@ After we have described the basic concepts now let’s rephrase some of the init
 * If yes, should he only be able to use only the new PlacementAPI to ensure it is only deployed to a certain ClusterSet?
 * Should we disallow a Team Administrator to not create PlacementRules?
 * How to ensure that this works both from Git, UI and Cli?
-* Should a user be able to create a Placement that must point to a ClusterSets or can the Placement select Clusters from different ClusterSets and you
-  select Clusters by labels?  
+* Should a user be able to create a Placement that must point to a ClusterSets or can the Placement select Clusters from  
+  different ClusterSets and you select Clusters by labels?  
 
 
 ### Relevant ClusterRoles for MultiClusterManagement
@@ -298,12 +299,11 @@ Getting one more step towards integration we are deciding to create the followin
 
 ### Using PolicyGenerator and Kyverno
 
-We use Kyverno to better ensure the Rules are working
 We use PolicyGenerator to deploy Kyverno as RHACM policies to the Hub or to the ManagedClusters.
 
 ### Integrating PolicyGenerator and ArgoCD
 
-Goal of this is that you can dyanically generate ACM-Policies from resources and configuration files which are stored and synced by ArgoCD
+Goal of this is that you can dyanically generate ACM-Policies from resources and configuration files which are stored in Git and synced by ArgoCD
 
 This Integration uses initContainers to add the  Policy Generator tool to thr ArgoCD-Repo server. See more information here: 
 [Custom tooling supported by Operator](https://github.com/argoproj-labs/argocd-operator/blob/master/docs/usage/customization.md).
