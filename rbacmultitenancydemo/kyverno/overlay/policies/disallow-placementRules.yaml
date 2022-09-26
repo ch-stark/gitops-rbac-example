@@ -8,9 +8,10 @@ spec:
   rules:
   - name: disallow-placementrules
     match:
-      resources:
-        kinds:
-        - apps.open-cluster-management.io/v1/PlacementRule
+      any:
+        resources:
+          kinds:
+          - apps.open-cluster-management.io/v1/PlacementRule
     validate:
       message: "Using Placement Rules not allowed"
       deny: {}          
