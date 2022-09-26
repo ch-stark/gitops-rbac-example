@@ -107,7 +107,7 @@ To go one step back we can identify three common patterns when handling Applicat
 
 ### Pattern 1:  Have Multi-Tenancy on ClusterLevel and use the same Configuration of a Single-Cluster for the whole fleet of Clusters
 
-This means a Hub and Spoke model where all the Hub does is push out team-scoped GitOps instances for the teams to use along with any other cluster-scoped resources they require (operators for example). Teams will have namespace admin access to those instances and to the clusters/namespaces, those instances manage. What visibility those team-scoped instances have (i.e. multiple namespaces on a single cluster, multiple namespaces across multiple clusters) is highly dependent on the type of organization and its structure. 
+This means a Hub and Spoke model where all what the Hub does is push out team-scoped GitOps instances for the teams to use along with any other cluster-scoped resources they require (operators for example). Teams will have namespace admin access to those instances and to the clusters/namespaces. What visibility those team-scoped instances have (i.e. multiple namespaces on a single cluster, multiple namespaces across multiple clusters) is highly dependent on the type of organization and its structure. 
 Some Customers deploy team scoped instances that manage the teams’ namespaces across multiple clusters since they want teams to have a single pane of glass. Other orgs might be way more siloed in terms of non-prod and prod and prefer separate GitOps instances for each.
 
 ### Pattern 2:  Separate Teams so that each team only has access to Clusters of its ClusterSets
@@ -120,7 +120,7 @@ If you follow this approach it needs to be considered that compared to some year
 Customers want to separate Clusters but some namespaces should still be shared between Clusters. Some namespaces might be even global to all Clusters in a fleet.
 
 The blog tries to answer some questions by showing the different configuration options.
-While we will provide some guidelines and recommendations we also explain how the setup could be changed.
+While we will provide some guidelines and recommendations we also explain how the setup could be customoized.
 
 
 ## RHACM Personas
@@ -212,12 +212,12 @@ spec:
 A Placement looks for ManagedClusterSetBinding in a namespace.
 You can either just use a label and it will deploy on all Clusters which are bound to the namespace and which match the condition.Or you can assign a ClusterSet to the Placement to ensure the Apps/Policies are only 
 
-Please note that in  ACM 2.5 every Cluster can only be part of a ClusterSet, this might change in future versions
+Please note that in  ACM 2.5 every Cluster can only be part of a ClusterSet, in ACM 2.6 we introduce the concept of a [Global-ClusterSet](https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.6/html-single/multicluster_engine/index#managedclustersets_global)
 
 
 ## RHACM and ApplicationSets
 
-ApplicationSets use Generators to distribute the resources which are getting created.  In RHACM we have added a [PlacementDecisionGenerator](https://argocd-applicationset.readthedocs.io/en/stable/Generators-Cluster-Decision-Resource/) which is assigning a Placement to an ApplicationSet.  It should also be mentioned that in order to run ApplicationSets GitopsCluster-Resources are used.  Read more about that in the following [blog](https://cloud.redhat.com/blog/red-hat-advanced-cluster-management-with-openshift-gitops).
+ApplicationSets are using Generators to distribute the resources which are getting created.  In RHACM we have added a [PlacementDecisionGenerator](https://argocd-applicationset.readthedocs.io/en/stable/Generators-Cluster-Decision-Resource/) which is assigning a Placement to an ApplicationSet.  It should also be mentioned that in order to run ApplicationSets GitopsCluster-Resources are used.  Read more about that in the following [blog](https://cloud.redhat.com/blog/red-hat-advanced-cluster-management-with-openshift-gitops).
 
 
 ### Rephrasing questions including ACM/OpenCluster-Management Concepts
