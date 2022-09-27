@@ -220,6 +220,14 @@ You can either just use a label and it will deploy on all Clusters which are bou
 
 Please note that in  ACM 2.5 every Cluster can only be part of a ClusterSet, in ACM 2.6 we introduce the concept of a [Global-ClusterSet](https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.6/html-single/multicluster_engine/index#managedclustersets_global)
 
+One of the reasons we did is to have a quick out of the box setup preventing the four steps
+- Create a clusterset 
+- Add clusters to clusterset
+- Create ManagedClusterSetbinding to a namespace
+- Create a Placement in this namespace
+
+One the other hand special attention needs to be given to that namespace.
+
 
 ## RHACM and ApplicationSets
 
