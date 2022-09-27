@@ -22,7 +22,7 @@ which gives us some aid to ensure that Tenants are separated from each other.
 
 From a high level this blog is structured with the following content:
 
-* Orginizational and Infrastructural aspects of Multi-Cluster-Multitenancy
+* Organizational and Infrastructural aspects of Multi-Cluster-Multitenancy
 * Patterns and Personas
 * ApplicationSets
 * RHACM-Multitenancy concepts and ApplicationSet integration
