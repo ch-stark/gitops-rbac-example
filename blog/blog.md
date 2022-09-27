@@ -334,15 +334,6 @@ policyDefaults:
   configurationPolicyAnnotations: {"policy.open-cluster-management.io/disable-templates": "true"}
 ```
 
-Another option you can use this:
-https://github.com/stolostron/policy-generator-plugin/blob/main/docs/policygenerator-reference.yaml#L46
--  When setting it to `false` you basically just deploy ClusterPolicies to different Clusters.
-
-```
-policyDefaults:
-  informKyvernoPolicies: true
-```
-
 ### Using PolicyGenerator with Placement
 
 PolicyGenerator by default uses PlacementRules for deploying Policies on selected Clusters.
