@@ -67,6 +67,10 @@ We come to this topic in more detail.
 
   there we might have Several (small) 1000 Kubernetes-Clusters.  Clusters need to be quickly created and destroyed.
 
+* Nodes located in different regions
+
+  While you can technically have a cluster with several nodes located in different regions, this is generally regarded as  
+  something you should avoid due to the extra latency.
 
 There are many reasons for having several Kubernetes Clusters who have not been present to that extend in the past:
 
