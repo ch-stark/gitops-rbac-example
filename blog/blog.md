@@ -194,13 +194,17 @@ A  ManagedClusterSetBinding binds a namespace to a ClusterSet. You can also bind
 
 **NOTE**: It needs to be highlighted that starting with RHACM there is a namespace called `open-cluster-management-global-set` and a ManagedClusterSetBinding called `global` to bind the global `ManagedClusterSet` to the open-cluster-management-global-set namespace. You can read [here](https://github.com/stolostron/rhacm-docs/blob/e6035e6be313e50e1dcfcb0e2877cb3fe26a52f0/multicluster_engine/cluster_lifecycle/managedclustersets_intro.adoc#global-managedclusterset)
 
-Goal of this change it to ease the process and providing an easy startup.
+One of the reasons we did is to have a quick out of the box setup preventing the four steps
+- Create a clusterset 
+- Add clusters to clusterset
+- Create ManagedClusterSetbinding to a namespace
+- Create a Placement in this namespace
 
+One the other hand special attention needs to be given to that `open-cluster-management-global-set` namespace.
 
 ### Placements
 
 The concept of Placement is documented [here](https://open-cluster-management.io/concepts/placement/)
-
 With the below Placement you can place e.g. an Application to a Cluster, which has the Highest Memory Available.
 
 ```
@@ -218,20 +222,8 @@ spec:
           builtIn: ResourceAllocatableMemory
 ```
 
-
-
-A Placement looks for ManagedClusterSetBinding in a namespace.
+A Placement looks for `ManagedClusterSetBinding` in a namespace.
 You can either just use a label and it will deploy on all Clusters which are bound to the namespace and which match the condition.Or you can assign a ClusterSet to the Placement to ensure the Apps/Policies are only 
-
-Please note that in  ACM 2.5 every Cluster can only be part of a ClusterSet, in ACM 2.6 we introduce the concept of a [Global-ClusterSet](https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.6/html-single/multicluster_engine/index#managedclustersets_global)
-
-One of the reasons we did is to have a quick out of the box setup preventing the four steps
-- Create a clusterset 
-- Add clusters to clusterset
-- Create ManagedClusterSetbinding to a namespace
-- Create a Placement in this namespace
-
-One the other hand special attention needs to be given to that namespace.
 
 
 ## RHACM and ApplicationSets
