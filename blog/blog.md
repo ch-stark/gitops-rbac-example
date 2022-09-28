@@ -192,8 +192,9 @@ This concept - which is also used within Submariner - adds Clusters to certain g
 
 A  ManagedClusterSetBinding binds a namespace to a ClusterSet. You can also bind a namespace to several ClusterSets by creating a binding for each ClusterSet. Check [here](https://open-cluster-management.io/concepts/managedclusterset/#binding-a-clusterset-to-a-namespace) if you like to read more about the `binding-process`. 
 
-It needs to be highlighted that starting with RHACM there is a namespace called `open-cluster-management-global-set` and
-a ManagedClusterSetBinding called `global` to bind the global `ManagedClusterSet` to the open-cluster-management-global-set namespace. You can read [here](https://github.com/stolostron/rhacm-docs/blob/e6035e6be313e50e1dcfcb0e2877cb3fe26a52f0/multicluster_engine/cluster_lifecycle/managedclustersets_intro.adoc#global-managedclusterset)
+**NOTE**: It needs to be highlighted that starting with RHACM there is a namespace called `open-cluster-management-global-set` and a ManagedClusterSetBinding called `global` to bind the global `ManagedClusterSet` to the open-cluster-management-global-set namespace. You can read [here](https://github.com/stolostron/rhacm-docs/blob/e6035e6be313e50e1dcfcb0e2877cb3fe26a52f0/multicluster_engine/cluster_lifecycle/managedclustersets_intro.adoc#global-managedclusterset)
+
+Goal of this change it to ease the process and providing an easy startup.
 
 
 ### Placements
