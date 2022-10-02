@@ -196,6 +196,11 @@ https://github.com/ch-stark/gitops-rbac-example/tree/main/rbacmultitenancydemo/k
   * Kyverno-Multitenancy-Client-Side
 
 
+### ACM-Policies
+
+Let's take this simple [example](https://github.com/stolostron/policy-collection/blob/main/stable/AC-Access-Control/policy-rolebinding.yaml) where you could configure roles,clusterroles, role- and clusterolebindings for a Managed-Cluster
+
+
 ### Policies for the Hub-Side
 
 * Every team gets a namespace on the hub where it can deploy Applications or ApplicationSets, the Policy controls that it must not deploy in other
