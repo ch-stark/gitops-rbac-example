@@ -198,7 +198,8 @@ https://github.com/ch-stark/gitops-rbac-example/tree/main/rbacmultitenancydemo/k
 
 ### ACM-Policies
 
-Let's take this simple [example](https://github.com/stolostron/policy-collection/blob/main/stable/AC-Access-Control/policy-rolebinding.yaml) where you could configure roles,clusterroles, role- and clusterolebindings for a Managed-Cluster
+Let's take those simple [examples](https://github.com/stolostron/policy-collection/blob/main/stable/AC-Access-Control/policy-rolebinding.yaml) where you could configure roles,clusterroles, role- and clusterolebindings for a Managed-Cluster.
+https://github.com/stolostron/policy-collection/blob/main/community/AC-Access-Control/policy-configure-clusterlevel-rbac.yaml
 
 
 ### Policies for the Hub-Side
