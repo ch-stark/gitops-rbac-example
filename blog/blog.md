@@ -373,6 +373,13 @@ policyDefaults:
 
 ## Run the Example
 
+The following example uses the Apps-Of-Apps pattern.
+We have a root-Application which needs to be setup manually.
+It points to a folder where all after Argocd-Applications are stored.
+Those Applications point to the folders where you store the necessary artifacts
+like Policies or ApplicationSets together with their placements.
+
+
 In the following we have two teams:    
 
 * TeamRed (has a TeamAdmin who can create Clusters. Has a AppDeployer and a Viewer)
