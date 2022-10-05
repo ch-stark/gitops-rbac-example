@@ -373,8 +373,8 @@ policyDefaults:
 
 ## Run the Example
 
-The following example uses the Apps-Of-Apps pattern. We have a root-Application which needs to be setup manually.
-It points to a folder where all other Argocd-Applications are stored.
+The following example uses the `Apps-Of-Apps` pattern. We have a root-Application which needs to be setup manually.
+It points to a folder where all other `Argo CD-Applications` are stored.
 Those Applications point to the folders where you store the necessary artifacts
 like Policies or ApplicationSets together with their Placements. 
 
@@ -390,7 +390,7 @@ In the following we have two teams:
   * git clone https://github.com/ch-stark/gitops-rbac-example
   * oc apply -f gitopsdemoall.yaml
 
-We need to grand the initial ArgoCD extended permission this is why we decided to assign `open-cluster-management:cluster-manager-admin`
+We need to grand the initial `Argo CD` extended permission this is why we decided to assign `open-cluster-management:cluster-manager-admin`
 but please note that this is not enough for installing Kyverno and especially not enough when you want to use Kyverno-Generate which can basically
 create any resource you need and therefore needs extended permissions. 
 
